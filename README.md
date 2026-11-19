@@ -66,6 +66,16 @@ La password dell'area riservata apre anche l'area visibile. Senza password impos
 
 Su un server i dati (impostazioni, mondi creati, chiave di firma delle sessioni) stanno nella cartella indicata da `DATA_DIR`: su Railway va montato un volume.
 
+## Area cliente
+
+Da **Importa dati**, lasciando attiva l'opzione «Crea anche l'area cliente», si ottiene un link del tipo `/r/codice` da inviare al cliente, protetto da un **codice di accesso** dedicato. Il cliente vede solo il proprio progetto, in tre sezioni:
+
+- **📊 Risultati**: indice complessivo, «in breve» con emoji, domanda per domanda con semaforo 🟢🟡🔴 e quote d'accordo, confronto tra gruppi, mappa a colori;
+- **👥 Personas di opinione**: schede con cosa apprezza, cosa preoccupa, cosa chiede e come raggiungere ogni gruppo, con dialogo;
+- **🚀 Impact simulation**: si sceglie il tipo di comunicazione (annuncio, e-mail, post, incontro, notizia, proposta), si scrive il testo e si vede la reazione di ogni persona, con obiezioni, consigli e la classifica delle prove fatte.
+
+Le aree cliente si gestiscono dall'area riservata (apri, nuovo codice, elimina).
+
 ## Collegamento a LimeSurvey
 
 Dall'area riservata si inseriscono indirizzo, utente e password di LimeSurvey (oppure le variabili `LIMESURVEY_URL`, `LIMESURVEY_USER`, `LIMESURVEY_PASSWORD`). Su LimeSurvey va attivata l'interfaccia RemoteControl: **Configurazione → Impostazioni globali → Interfacce → Interfaccia RPC = JSON-RPC**.

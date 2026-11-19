@@ -96,4 +96,18 @@ $("#carica").onchange = async (e) => {
   e.target.value = "";
 };
 $("#esci").onclick = async () => { await fetch("/api/logout", { method: "POST" }); location.href = "/login?area=admin"; };
+async function caricaReport() {
+  const l = await api("/api/report");
+  $("#report").innerHTML = l.length ? l.map((r) => `<tr><td><b>${esc(r.titolo)}</b><br><small class="muted">/r/${esc(r.id)}</small></td><td>${esc(r.cliente || "")}</td><td>${r.risposte}</td><td>${esc(r.creato)}</td>
+    <td class="az"><a href="/r/${esc(r.id)}" target="_blank" title="Apri"><button><i class="ti ti-external-link"></i></button></a> <button data-cod="${esc(r.id)}" title="Nuovo codice"><i class="ti ti-key"></i></button> <button data-rdel="${esc(r.id)}" title="Elimina"><i class="ti ti-trash"></i></button></td></tr>`).join("") : `<tr><td colspan="5" class="muted">Nessuna area cliente.</td></tr>`;
+  document.querySelectorAll("[data-cod]").forEach((b) => (b.onclick = async () => {
+    const c = prompt("Nuovo codice di accesso per il cliente (almeno 6 caratteri):"); if (!c) return;
+    try { await api(`/api/admin/report/${b.dataset.cod}/codice`, "POST", { codice: c }); esito("r", true, "Codice aggiornato"); } catch (e) { esito("r", false, e.message.includes("at least") ? "Il codice deve avere almeno 6 caratteri." : e.message); }
+  }));
+  document.querySelectorAll("[data-rdel]").forEach((b) => (b.onclick = async () => {
+    if (!confirm("Eliminare l'area cliente? Il link smetterà di funzionare.")) return;
+    try { await api(`/api/admin/report/${b.dataset.rdel}`, "DELETE"); esito("r", true, "Area cliente eliminata"); caricaReport(); } catch (e) { esito("r", false, e.message); }
+  }));
+}
 carica().catch((e) => esito("m", false, e.message));
+caricaReport().catch((e) => esito("r", false, e.message));

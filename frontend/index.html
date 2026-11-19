@@ -197,11 +197,18 @@
       </div>
       <div class="lab">Domande che misurano il clima o la soddisfazione</div>
       <div class="chips" id="imp-clima"></div>
-      <button id="imp-go" class="big"><i class="ti ti-wand"></i> Crea le personas</button>
+      <label class="sw" style="margin-top:12px"><input type="checkbox" id="imp-report" checked> Crea anche l'<b>area cliente</b>: report con grafici, personas e impact simulation</label>
+      <div class="opts col" id="imp-report-cfg">
+        <label>Nome del cliente <input id="imp-cliente" placeholder="Autostrade Alto Adriatico"></label>
+        <label>Codice di accesso per il cliente <small class="muted">(almeno 6 caratteri)</small> <input id="imp-codice" autocomplete="new-password"></label>
+      </div>
+      <button id="imp-go" class="big"><i class="ti ti-wand"></i> Crea</button>
+      <div id="imp-link"></div>
     </div>
     <p class="hint" id="imp-info"></p>
     <p class="err" id="imp-err"></p>
   </div>
+  <div class="card mt"><h3><i class="ti ti-presentation-analytics"></i> Aree cliente create</h3><div id="report-lista"><p class="muted">Nessuna area cliente ancora.</p></div></div>
 </section>
 </main>
 </div>

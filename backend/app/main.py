@@ -1,6 +1,7 @@
 """SPECCHIO · API, accesso protetto e server dell'interfaccia."""
 from __future__ import annotations
 
+import re
 import time
 from pathlib import Path
 
@@ -10,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import limesurvey, llm, settings
+from . import report as rep
 from .analyzer import analizza
 from .chat import rispondi
 from .engine import Richiesta, simula
@@ -19,6 +21,7 @@ from .world import (carica_mondo, elenco_mondi, elimina_mondo_utente, origine, s
 
 FRONTEND = Path(__file__).resolve().parents[2] / "frontend"
 COOKIE = "specchio_sessione"
+COOKIE_CLIENTE = "specchio_cliente"
 
 app = FastAPI(title="SPECCHIO · simulatore di personas di opinione", version="0.2.0")
 
@@ -36,9 +39,17 @@ def ruolo_richiesta(request: Request) -> str | None:
 @app.middleware("http")
 async def protezione(request: Request, call_next):
     path = request.url.path
-    if path in LIBERI or path.startswith("/static/vendor/"):
+    if path in LIBERI or path.startswith("/static/vendor/") or path.startswith("/static/cliente") \
+            or re.fullmatch(r"/r/[A-Za-z0-9]{6,20}", path) or re.fullmatch(r"/api/r/[A-Za-z0-9]{6,20}/login", path):
         return await call_next(request)
     ruolo = ruolo_richiesta(request)
+    m_cli = re.fullmatch(r"/api/r/([A-Za-z0-9]{6,20})(/.*)?", path)
+    if m_cli and ruolo is None:
+        # area cliente: basta la sessione del cliente per quel report
+        if settings.leggi_sessione(request.cookies.get(COOKIE_CLIENTE)) == "cliente:" + m_cli.group(1):
+            request.state.ruolo = "cliente"
+            return await call_next(request)
+        return JSONResponse({"detail": "Codice di accesso richiesto"}, status_code=401)
     serve_admin = path.startswith("/admin") or path.startswith("/api/admin") or path.startswith("/static/admin")
     if ruolo is None or (serve_admin and ruolo != "admin"):
         if path.startswith("/api/"):
@@ -406,6 +417,163 @@ def ls_importa(body: LsImportaIn, request: Request):
     return {"id": m["id"], "personas": len(m["personas"])}
 
 
+# ---------------------------------------------------------------- report e area cliente
+class ReportIn(BaseModel):
+    fonte: str = "ls"  # ls | file
+    sid: str | None = None
+    csv: str | None = None
+    titolo: str = Field(min_length=2, max_length=120)
+    cliente: str = ""
+    colonna_gruppo: str
+    colonne_clima: list[str] = []
+    colonna_fiducia: str | None = None
+    modello_id: str = "aaa-interno"
+    codice: str = Field(min_length=6, max_length=100)
+
+
+@app.post("/api/report")
+def crea_report(body: ReportIn, request: Request):
+    etichette, opzioni = {}, {}
+    if body.fonte == "ls":
+        if not body.sid:
+            raise HTTPException(400, "Scegli il sondaggio")
+        csv_testo, etichette = _ls(limesurvey.scarica, body.sid)
+        a = anteprima(csv_testo)
+        candidate = [c for c in a["categoriche"] if c not in a["numeriche"]]
+        opzioni = limesurvey.opzioni_multiple(body.sid, list(dict.fromkeys([body.colonna_gruppo] + candidate)))
+    else:
+        if not body.csv:
+            raise HTTPException(400, "Carica il file CSV")
+        csv_testo = body.csv
+    modello = _mondo_visibile(body.modello_id, request)
+    csv_mondo = rinomina_valori(csv_testo, body.colonna_gruppo, opzioni.get(body.colonna_gruppo, {}))
+    mondo_nuovo = crea_mondo(csv_mondo, body.titolo, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, modello)
+    if not mondo_nuovo["personas"]:
+        raise HTTPException(400, "Nessun gruppo ha almeno 10 risposte: non è possibile creare personas rispettando l'anonimato")
+    r = rep.genera(csv_testo, body.titolo, body.cliente, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, etichette, opzioni)
+    _arricchisci_personas(mondo_nuovo, r)
+    mondo_nuovo["fonte"] = {"tipo": body.fonte, "sid": body.sid, "titolo": body.titolo, "importato": time.strftime("%Y-%m-%d %H:%M")}
+    salva_mondo_utente(mondo_nuovo)
+    r["mondo_id"] = mondo_nuovo["id"]
+    r = rep.salva(r, body.codice)
+    settings.conta("importazioni")
+    return {"id": r["id"], "link": f"/r/{r['id']}", "mondo_id": mondo_nuovo["id"], "personas": len(mondo_nuovo["personas"])}
+
+
+def _arricchisci_personas(mondo: dict, r: dict) -> None:
+    """Ogni persona riceve i punti di forza e le criticità del proprio gruppo, dal report."""
+    for p in mondo["personas"]:
+        g = p["nome"]
+        voci = [(d["breve"], d["per_gruppo"][g]) for d in r["domande"] if g in d["per_gruppo"]]
+        if not voci:
+            continue
+        voci.sort(key=lambda x: x[1])
+        p["criticita"] = [f"{t} ({round(v)}/100)" for t, v in voci[:3] if v < 60] or p.get("criticita", [])
+        p["aspettative"] = [f"più attenzione a: {t}" for t, v in voci[:2]]
+        p["punti_forza"] = [f"{t} ({round(v)}/100)" for t, v in voci[::-1][:2] if v >= 60]
+
+
+@app.get("/api/report")
+def lista_report():
+    return rep.elenco()
+
+
+@app.delete("/api/admin/report/{rid}")
+def admin_elimina_report(rid: str):
+    if not rep.elimina(rid):
+        raise HTTPException(404, "Report non trovato")
+    return {"ok": True}
+
+
+class CodiceIn(BaseModel):
+    codice: str = Field(min_length=6, max_length=100)
+
+
+@app.post("/api/admin/report/{rid}/codice")
+def admin_codice_report(rid: str, body: CodiceIn):
+    r = rep.carica(rid)
+    if not r:
+        raise HTTPException(404, "Report non trovato")
+    rep.salva(r, body.codice)
+    return {"ok": True}
+
+
+@app.post("/api/r/{rid}/login")
+def cliente_login(rid: str, body: CodiceIn, request: Request):
+    ip = request.client.host if request.client else "?"
+    ora = time.time()
+    recenti = [t for t in _tentativi.get("r" + ip, []) if ora - t < 300]
+    if len(recenti) >= 8:
+        raise HTTPException(429, "Troppi tentativi: riprova tra qualche minuto")
+    if not rep.verifica_codice(rid, body.codice):
+        _tentativi["r" + ip] = recenti + [ora]
+        raise HTTPException(401, "Codice non corretto")
+    risposta = JSONResponse({"ok": True})
+    https = request.headers.get("x-forwarded-proto", request.url.scheme) == "https"
+    risposta.set_cookie(COOKIE_CLIENTE, settings.crea_sessione("cliente:" + rid, 24 * 7), httponly=True, samesite="lax", secure=https, max_age=7 * 24 * 3600)
+    return risposta
+
+
+def _report_e_mondo(rid: str) -> tuple[dict, dict]:
+    r = rep.carica(rid)
+    if not r:
+        raise HTTPException(404, "Report non trovato")
+    try:
+        return r, carica_mondo(r["mondo_id"])
+    except KeyError:
+        raise HTTPException(404, "Le personas di questo report non sono più disponibili")
+
+
+@app.get("/api/r/{rid}")
+def cliente_report(rid: str):
+    r, m = _report_e_mondo(rid)
+    return {"report": rep.pubblico(r), "mondo": m, "modello_linguistico": llm.disponibile()}
+
+
+class ClienteSimulaIn(BaseModel):
+    messaggio: str = Field(min_length=3, max_length=4000)
+    canale: str
+
+
+@app.post("/api/r/{rid}/simula")
+def cliente_simula(rid: str, body: ClienteSimulaIn):
+    _, m = _report_e_mondo(rid)
+    if body.canale not in {c["id"] for c in m["canali"]}:
+        raise HTTPException(400, "Canale non valido")
+    s = settings.carica()["simulazione"]
+    settings.conta("simulazioni")
+    return simula(Richiesta(mondo=m, messaggio=body.messaggio, canale=body.canale, round=s["round"], esecuzioni=s["esecuzioni"], usa_llm=True))
+
+
+class ClienteChatIn(BaseModel):
+    persona_id: str
+    domanda: str = Field(min_length=1, max_length=2000)
+    storia: list[dict] = []
+    contesto_messaggio: str | None = None
+
+
+@app.post("/api/r/{rid}/chat")
+def cliente_chat(rid: str, body: ClienteChatIn):
+    _, m = _report_e_mondo(rid)
+    if body.persona_id not in {p["id"] for p in m["personas"]}:
+        raise HTTPException(404, "Persona non trovata")
+    settings.conta("dialoghi")
+    return rispondi(m, body.persona_id, body.storia, body.domanda, body.contesto_messaggio, True)
+
+
+@app.post("/api/r/{rid}/analizza")
+def cliente_analizza(rid: str, body: dict):
+    _report_e_mondo(rid)
+    return analizza(str(body.get("messaggio", ""))[:4000]).to_dict()
+
+
+@app.post("/api/r/{rid}/esci")
+def cliente_esci(rid: str):
+    r = JSONResponse({"ok": True})
+    r.delete_cookie(COOKIE_CLIENTE)
+    return r
+
+
 # ---------------------------------------------------------------- pagine
 if FRONTEND.exists():
     app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
@@ -417,6 +585,10 @@ if FRONTEND.exists():
     @app.get("/login")
     def login_page():
         return FileResponse(FRONTEND / "login.html")
+
+    @app.get("/r/{rid}")
+    def cliente_page(rid: str):
+        return FileResponse(FRONTEND / "cliente.html")
 
     @app.get("/admin")
     def admin_page():

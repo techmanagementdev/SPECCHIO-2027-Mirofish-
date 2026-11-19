@@ -193,3 +193,19 @@ def opzioni(sid: str, colonna: str, transport=None) -> dict[str, str]:
             return cl.opzioni(re.sub(r"\D", "", sid), colonna)
     except Exception:
         return {}
+
+
+def opzioni_multiple(sid: str, colonne: list[str], transport=None) -> dict[str, dict[str, str]]:
+    out = {}
+    try:
+        with _client(transport) as cl:
+            for c in colonne[:40]:
+                try:
+                    o = cl.opzioni(re.sub(r"\D", "", sid), c)
+                    if o:
+                        out[c] = o
+                except Exception:
+                    continue
+    except Exception:
+        pass
+    return out

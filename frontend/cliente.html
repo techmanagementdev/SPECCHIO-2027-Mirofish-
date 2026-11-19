@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risultati e personas di opinione</title>
+<link rel="stylesheet" href="/static/cliente.css">
+</head>
+<body>
+<div id="accesso" class="accesso" hidden>
+  <form id="f-accesso" class="box">
+    <div class="big-emoji">🔐</div>
+    <h1>Area riservata al cliente</h1>
+    <p>Inserisci il codice di accesso che ti abbiamo inviato.</p>
+    <input type="password" id="codice" placeholder="Codice di accesso" autocomplete="current-password" required>
+    <button class="primario">Entra</button>
+    <p class="err" id="err-accesso"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+<header class="testa">
+  <div>
+    <div class="occhiello" id="cliente"></div>
+    <h1 id="titolo"></h1>
+    <div class="meta" id="meta"></div>
+  </div>
+  <button class="esci" id="esci" title="Esci">Esci</button>
+</header>
+<nav class="schede">
+  <button data-s="risultati" class="on"><span>📊</span> Risultati</button>
+  <button data-s="personas"><span>👥</span> Personas di opinione</button>
+  <button data-s="impact"><span>🚀</span> Impact simulation</button>
+</nav>
+
+<main>
+<!-- RISULTATI -->
+<section id="s-risultati" class="sez on">
+  <div class="eroe">
+    <div class="indice-box">
+      <div class="faccia" id="faccia"></div>
+      <div class="numero" id="indice"></div>
+      <div class="sotto">indice complessivo su 100</div>
+      <div class="pill" id="semaforo"></div>
+    </div>
+    <div class="breve" id="in-breve"></div>
+  </div>
+  <div class="legenda" id="legenda"></div>
+
+  <h2>📋 Domanda per domanda</h2>
+  <p class="spiega">Ogni barra mostra il punteggio da 0 a 100. Sotto, in verde chi è d'accordo, in rosso chi non lo è.</p>
+  <div id="domande"></div>
+
+  <h2>👥 Gruppo per gruppo</h2>
+  <p class="spiega" id="gruppo-spiega"></p>
+  <div class="gruppi" id="gruppi"></div>
+  <div class="tab-scroll"><table class="mappa" id="mappa"></table></div>
+
+  <div id="categoriali"></div>
+  <p class="nota" id="nota"></p>
+</section>
+
+<!-- PERSONAS -->
+<section id="s-personas" class="sez">
+  <h2>👥 Le personas di opinione</h2>
+  <p class="spiega">Sono profili tipo costruiti dalle risposte medie di ogni gruppo: non sono persone reali. Ti aiutano a capire come ragiona ciascun gruppo e a parlarci prima di comunicare.</p>
+  <div class="personas" id="personas"></div>
+  <div class="chat" id="chat" hidden>
+    <div class="chat-testa" id="chat-testa"></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="chips" id="domande-rapide"></div>
+    <form id="f-chat"><input id="chat-in" placeholder="Fai una domanda…" autocomplete="off"><button class="primario">Invia</button></form>
+    <p class="err" id="err-chat"></p>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="s-impact" class="sez">
+  <h2>🚀 Impact simulation</h2>
+  <p class="spiega">Prova una comunicazione prima di diffonderla: scegli il tipo, scrivi il testo e guarda come reagiscono le personas di opinione.</p>
+  <div class="passo"><span class="n">1</span> Che cosa vuoi comunicare?</div>
+  <div class="tipi" id="tipi"></div>
+  <div class="passo"><span class="n">2</span> Scrivi il messaggio</div>
+  <textarea id="msg" rows="5" placeholder="Scrivi qui il testo…"></textarea>
+  <div class="chips" id="esempi"></div>
+  <div class="passo"><span class="n">3</span> Da quale canale arriva?</div>
+  <div class="canali" id="canali"></div>
+  <button class="primario grande" id="simula">🚀 Simula l'impatto</button>
+  <p class="err" id="err-sim"></p>
+
+  <div id="esito" hidden>
+    <div class="verdetto" id="verdetto"></div>
+    <div class="kpi3" id="kpi3"></div>
+    <h3>Come reagisce ogni persona</h3>
+    <div id="reazioni"></div>
+    <div class="due">
+      <div><h3>⚠️ Le obiezioni</h3><div id="obiezioni"></div></div>
+      <div><h3>💡 Come migliorare</h3><div id="consigli"></div><div id="voci"></div></div>
+    </div>
+    <h3>📈 Come cambia il giudizio nel passaparola</h3>
+    <div class="rounds" id="rounds"></div>
+    <p class="nota" id="avvertenza"></p>
+  </div>
+
+  <div id="prove-box" hidden>
+    <h3>🏆 Le tue prove</h3>
+    <p class="spiega">Confronta le versioni che hai provato: la migliore è in cima.</p>
+    <div id="prove"></div>
+  </div>
+</section>
+</main>
+</div>
+<script src="/static/cliente.js"></script>
+</body>
+</html>

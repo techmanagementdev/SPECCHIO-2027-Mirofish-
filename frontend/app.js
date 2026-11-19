@@ -57,7 +57,7 @@ function vai(v) {
   if (v === "mondo") disegnaMappa($("#mappa"), "persona");
   if (v === "dialoga") disegnaChatPersonas();
   if (v === "missioni") disegnaMissioni();
-  if (v === "importa" && fonte.tipo === "ls") caricaSondaggi();
+  if (v === "importa") { if (fonte.tipo === "ls") caricaSondaggi(); caricaReport(); }
   window.scrollTo(0, 0);
 }
 $$("#nav button").forEach((b) => (b.onclick = () => vai(b.dataset.v)));
@@ -422,22 +422,43 @@ $("#file").onchange = async (e) => {
     configuraImport(a, "File: " + f.name, `${a.righe} risposte, ${a.colonne.length} colonne. Al server arrivano solo i dati per calcolare le medie, che non vengono salvati.`);
   } catch (err) { $("#imp-err").textContent = "File non leggibile: " + err.message; }
 };
+$("#imp-report").onchange = () => ($("#imp-report-cfg").hidden = !$("#imp-report").checked);
 $("#imp-go").onclick = async () => {
-  $("#imp-err").textContent = "";
+  $("#imp-err").textContent = ""; $("#imp-link").innerHTML = "";
   const comune = { nome: $("#imp-nome").value || "Indagine reale", colonna_gruppo: $("#imp-gruppo").value,
     colonne_clima: $$("#imp-clima button.on").map((b) => b.dataset.c), colonna_fiducia: $("#imp-fid").value || null, modello_id: $("#imp-modello").value };
   if (!comune.colonne_clima.length) { $("#imp-err").textContent = "Scegli almeno una domanda di clima o soddisfazione."; return; }
+  const conReport = $("#imp-report").checked;
+  if (conReport && $("#imp-codice").value.trim().length < 6) { $("#imp-err").textContent = "Il codice di accesso del cliente deve avere almeno 6 caratteri."; return; }
   $("#imp-go").disabled = true;
   try {
-    const r = fonte.tipo === "ls" ? await api("/api/limesurvey/importa", { ...comune, sid: fonte.sid, titolo: fonte.titolo })
-      : await api("/api/importa", { ...comune, csv: csvTesto });
+    let r;
+    if (conReport) {
+      r = await api("/api/report", { fonte: fonte.tipo, sid: fonte.sid || null, csv: fonte.tipo === "file" ? csvTesto : null, titolo: comune.nome,
+        cliente: $("#imp-cliente").value, colonna_gruppo: comune.colonna_gruppo, colonne_clima: comune.colonne_clima,
+        colonna_fiducia: comune.colonna_fiducia, modello_id: comune.modello_id, codice: $("#imp-codice").value.trim() });
+      const url = location.origin + r.link;
+      $("#imp-link").innerHTML = `<div class="mission-done"><i class="ti ti-link"></i><div><b>Area cliente pronta</b><br><a href="${esc(url)}" target="_blank">${esc(url)}</a><br><span class="muted">Invia al cliente il link e, separatamente, il codice di accesso.</span></div></div>`;
+      r.id = r.mondo_id;
+      caricaReport();
+    } else {
+      r = fonte.tipo === "ls" ? await api("/api/limesurvey/importa", { ...comune, sid: fonte.sid, titolo: fonte.titolo })
+        : await api("/api/importa", { ...comune, csv: csvTesto });
+    }
     toast(`<i class="ti ti-check"></i> Mondo creato con ${r.personas} personas`);
     badge("analista");
     await caricaMondi(r.id);
-    vai("personas");
+    if (!conReport) vai("personas");
   } catch (e) { $("#imp-err").textContent = e.message; }
   finally { $("#imp-go").disabled = false; }
 };
+async function caricaReport() {
+  try {
+    const l = await api("/api/report");
+    $("#report-lista").innerHTML = l.length ? l.map((r) => `<div class="rank" style="grid-template-columns:minmax(0,1fr) 140px 160px"><span><b>${esc(r.titolo)}</b><br><small class="muted">${esc(r.cliente || "")} · ${r.risposte} risposte · ${esc(r.creato)}</small></span><a href="/r/${esc(r.id)}" target="_blank"><i class="ti ti-external-link"></i> Apri</a><button data-copia="${esc(r.id)}"><i class="ti ti-copy"></i> Copia il link</button></div>`).join("") : `<p class="muted">Nessuna area cliente ancora.</p>`;
+    $$("#report-lista [data-copia]").forEach((b) => (b.onclick = async () => { try { await navigator.clipboard.writeText(location.origin + "/r/" + b.dataset.copia); toast(`<i class="ti ti-check"></i> Link copiato`); } catch (e) { toast(location.origin + "/r/" + b.dataset.copia); } }));
+  } catch (e) { /* */ }
+}
 
 // ---------- avvio ----------
 async function caricaMondo(id) {
