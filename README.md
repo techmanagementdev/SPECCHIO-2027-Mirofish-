@@ -66,6 +66,20 @@ La password dell'area riservata apre anche l'area visibile. Senza password impos
 
 Su un server i dati (impostazioni, mondi creati, chiave di firma delle sessioni) stanno nella cartella indicata da `DATA_DIR`: su Railway va montato un volume.
 
+## Collegamento a LimeSurvey
+
+Dall'area riservata si inseriscono indirizzo, utente e password di LimeSurvey (oppure le variabili `LIMESURVEY_URL`, `LIMESURVEY_USER`, `LIMESURVEY_PASSWORD`). Su LimeSurvey va attivata l'interfaccia RemoteControl: **Configurazione → Impostazioni globali → Interfacce → Interfaccia RPC = JSON-RPC**.
+
+Poi, in **Importa dati → Da LimeSurvey**:
+
+1. compare l'elenco dei sondaggi con il numero di risposte complete;
+2. scegli un sondaggio: le domande sono mostrate con il loro testo;
+3. indichi la domanda che definisce i gruppi (es. categoria professionale), quelle di clima o soddisfazione e quella sulla fiducia;
+4. il sistema crea una persona per ogni gruppo con almeno 10 risposte, con i nomi delle risposte (es. «Operativi su strada» invece di «A1»);
+5. il nuovo mondo è subito pronto per la fase di stimolo: **Lancia**, **Sfida A/B**, **Dialoga**.
+
+Le risposte scaricate restano in memoria sul server per pochi minuti, solo per calcolare le medie: non vengono salvate.
+
 ## I mondi inclusi
 
 | Mondo | Tipo | Contenuto |

@@ -57,6 +57,7 @@ function vai(v) {
   if (v === "mondo") disegnaMappa($("#mappa"), "persona");
   if (v === "dialoga") disegnaChatPersonas();
   if (v === "missioni") disegnaMissioni();
+  if (v === "importa" && fonte.tipo === "ls") caricaSondaggi();
   window.scrollTo(0, 0);
 }
 $$("#nav button").forEach((b) => (b.onclick = () => vai(b.dataset.v)));
@@ -363,32 +364,79 @@ function disegnaMissioni() {
 }
 
 // ---------- importa ----------
-let csvTesto = "";
+let csvTesto = "", fonte = { tipo: "ls" }, lsSondaggi = null;
+$$("#imp-fonte button").forEach((b) => (b.onclick = () => {
+  $$("#imp-fonte button").forEach((x) => x.classList.toggle("on", x === b));
+  fonte = { tipo: b.dataset.f }; $("#imp-ls").hidden = b.dataset.f !== "ls"; $("#imp-file").hidden = b.dataset.f !== "file";
+  $("#imp-cfg").hidden = true; $("#imp-info").textContent = ""; $("#imp-err").textContent = "";
+  if (b.dataset.f === "ls") caricaSondaggi();
+}));
+async function caricaSondaggi(forza) {
+  if (lsSondaggi && !forza) return disegnaSondaggi();
+  $("#ls-lista").innerHTML = `<p class="muted">Collegamento a LimeSurvey…</p>`;
+  try {
+    const st = await api("/api/limesurvey/stato");
+    if (!st.configurato) { $("#ls-lista").innerHTML = `<p class="muted">Il collegamento a LimeSurvey non è ancora configurato. ${$("#link-admin").hidden ? "Chiedi a chi gestisce l'area riservata di inserire indirizzo, utente e password." : `Inseriscilo nell'<a href="/admin">area riservata</a>.`}</p>`; return; }
+    lsSondaggi = await api("/api/limesurvey/sondaggi"); disegnaSondaggi();
+  } catch (e) { $("#ls-lista").innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+}
+function disegnaSondaggi() {
+  if (!lsSondaggi.length) { $("#ls-lista").innerHTML = `<p class="muted">Nessun sondaggio trovato per questo utente.</p>`; return; }
+  $("#ls-lista").innerHTML = lsSondaggi.map((s) => `<div class="rank" style="grid-template-columns:minmax(0,1fr) 110px 120px 110px"><span><b>${esc(s.titolo)}</b><br><small class="muted">ID ${esc(s.sid)}</small></span>
+    <span class="tag">${s.attivo ? "attivo" : "non attivo"}</span><span class="muted">${s.completate == null ? "" : s.completate + " risposte complete"}</span>
+    <button data-sid="${esc(s.sid)}"><i class="ti ti-arrow-right"></i> Usa</button></div>`).join("");
+  $$("#ls-lista button[data-sid]").forEach((b) => (b.onclick = () => anteprimaLs(b.dataset.sid)));
+}
+$("#ls-aggiorna").onclick = () => caricaSondaggi(true);
+async function anteprimaLs(sid) {
+  $("#imp-err").textContent = ""; $("#imp-info").textContent = "Scarico le risposte…";
+  const s = lsSondaggi.find((x) => x.sid === sid) || { titolo: sid };
+  try {
+    const a = await api("/api/limesurvey/anteprima", { sid });
+    fonte = { tipo: "ls", sid, titolo: s.titolo };
+    $("#imp-nome").value = s.titolo;
+    configuraImport(a, `Sondaggio: ${s.titolo}`, `${a.righe} risposte complete. Le risposte restano in memoria sul server solo per il calcolo delle medie e non vengono salvate.`);
+  } catch (e) { $("#imp-info").textContent = ""; $("#imp-err").textContent = e.message; }
+}
+function configuraImport(a, titolo, info) {
+  const et = a.etichette || {};
+  const lab = (c) => (et[c] ? `${c} · ${et[c].slice(0, 70)}` : c);
+  $("#imp-titolo").textContent = titolo; $("#imp-info").textContent = info;
+  const opt = (cols, vuota) => (vuota ? `<option value="">— nessuna —</option>` : "") + cols.map((c) => `<option value="${esc(c)}">${esc(lab(c))}</option>`).join("");
+  $("#imp-gruppo").innerHTML = opt(a.categoriche.length ? a.categoriche : a.colonne);
+  $("#imp-fid").innerHTML = opt(a.numeriche, true);
+  const fid = a.numeriche.find((c) => /fiduc/i.test(c + " " + (et[c] || "")));
+  if (fid) $("#imp-fid").value = fid;
+  $("#imp-modello").innerHTML = S.mondi.map((m) => `<option value="${m.id}">${esc(m.nome)}</option>`).join("");
+  $("#imp-modello").value = S.mondo?.id || S.mondi[0].id;
+  $("#imp-clima").innerHTML = a.numeriche.map((c) => `<button class="chip ${c === fid ? "" : "on"}" data-c="${esc(c)}" title="${esc(et[c] || c)}">${esc(lab(c).slice(0, 60))}</button>`).join("") || `<p class="muted">Nessuna domanda numerica trovata.</p>`;
+  $$("#imp-clima button").forEach((b) => (b.onclick = () => b.classList.toggle("on")));
+  $("#imp-cfg").hidden = false;
+}
 $("#file").onchange = async (e) => {
   const f = e.target.files[0]; $("#imp-err").textContent = ""; if (!f) return;
   csvTesto = await f.text();
   try {
     const a = await api("/api/importa/anteprima", { csv: csvTesto });
-    $("#imp-info").textContent = `${a.righe} risposte, ${a.colonne.length} colonne. Il file resta nel tuo browser: al server arrivano solo i dati per calcolare le medie, che non vengono salvati.`;
-    const opt = (cols, vuota) => (vuota ? `<option value="">— nessuna —</option>` : "") + cols.map((c) => `<option>${esc(c)}</option>`).join("");
-    $("#imp-gruppo").innerHTML = opt(a.categoriche.length ? a.categoriche : a.colonne);
-    $("#imp-fid").innerHTML = opt(a.numeriche, true);
-    $("#imp-modello").innerHTML = S.mondi.map((m) => `<option value="${m.id}">${esc(m.nome)}</option>`).join("");
-    $("#imp-clima").innerHTML = a.numeriche.map((c) => `<button class="chip on" data-c="${esc(c)}">${esc(c)}</button>`).join("") || `<p class="muted">Nessuna colonna numerica trovata.</p>`;
-    $$("#imp-clima button").forEach((b) => (b.onclick = () => b.classList.toggle("on")));
-    $("#imp-cfg").hidden = false;
+    fonte = { tipo: "file" };
+    configuraImport(a, "File: " + f.name, `${a.righe} risposte, ${a.colonne.length} colonne. Al server arrivano solo i dati per calcolare le medie, che non vengono salvati.`);
   } catch (err) { $("#imp-err").textContent = "File non leggibile: " + err.message; }
 };
 $("#imp-go").onclick = async () => {
   $("#imp-err").textContent = "";
+  const comune = { nome: $("#imp-nome").value || "Indagine reale", colonna_gruppo: $("#imp-gruppo").value,
+    colonne_clima: $$("#imp-clima button.on").map((b) => b.dataset.c), colonna_fiducia: $("#imp-fid").value || null, modello_id: $("#imp-modello").value };
+  if (!comune.colonne_clima.length) { $("#imp-err").textContent = "Scegli almeno una domanda di clima o soddisfazione."; return; }
+  $("#imp-go").disabled = true;
   try {
-    const r = await api("/api/importa", { csv: csvTesto, nome: $("#imp-nome").value || "Indagine reale", colonna_gruppo: $("#imp-gruppo").value,
-      colonne_clima: $$("#imp-clima button.on").map((b) => b.dataset.c), colonna_fiducia: $("#imp-fid").value || null, modello_id: $("#imp-modello").value });
+    const r = fonte.tipo === "ls" ? await api("/api/limesurvey/importa", { ...comune, sid: fonte.sid, titolo: fonte.titolo })
+      : await api("/api/importa", { ...comune, csv: csvTesto });
     toast(`<i class="ti ti-check"></i> Mondo creato con ${r.personas} personas`);
     badge("analista");
     await caricaMondi(r.id);
     vai("personas");
   } catch (e) { $("#imp-err").textContent = e.message; }
+  finally { $("#imp-go").disabled = false; }
 };
 
 // ---------- avvio ----------

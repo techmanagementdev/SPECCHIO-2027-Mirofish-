@@ -55,6 +55,19 @@ textarea.json{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;m
   </section>
 
   <section class="card">
+    <h3><i class="ti ti-cloud-data-connection"></i> Collegamento a LimeSurvey</h3>
+    <p class="hint">Serve l'indirizzo della tua installazione (per esempio <code>https://nome.limesurvey.net</code>) e un utente amministratore. Su LimeSurvey va attivata l'interfaccia: Configurazione → Impostazioni globali → Interfacce → Interfaccia RPC = JSON-RPC.</p>
+    <div class="f2">
+      <label>Indirizzo LimeSurvey<input id="ls-url" placeholder="https://nome.limesurvey.net"></label>
+      <label>Utente<input id="ls-utente" autocomplete="off"></label>
+      <label>Password<input id="ls-password" type="password" autocomplete="off"></label>
+    </div>
+    <p class="hint">Lascia vuota la password per non cambiarla.</p>
+    <button id="salva-ls" class="big" style="margin:0"><i class="ti ti-device-floppy"></i> Salva</button> <button id="prova-ls"><i class="ti ti-plug-connected"></i> Prova il collegamento</button>
+    <p class="ok" id="ls-ok"></p><p class="err" id="ls-err"></p>
+  </section>
+
+  <section class="card">
     <h3><i class="ti ti-adjustments"></i> Parametri della simulazione</h3>
     <div class="f2">
       <label>Round di passaparola predefiniti<input type="number" id="p-round" min="1" max="20"></label>

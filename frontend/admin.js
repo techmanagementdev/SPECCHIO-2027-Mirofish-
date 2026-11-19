@@ -21,6 +21,8 @@ async function carica() {
   $("#provider").value = l.provider || "";
   for (const k of ["anthropic_model", "openai_model", "openai_base_url"]) $("#" + k).value = l[k] || "";
   for (const k of ["anthropic_key", "openai_key"]) { $("#" + k).value = ""; $("#" + k).placeholder = l[k] || "non impostata"; }
+  $("#ls-url").value = d.limesurvey.url || ""; $("#ls-utente").value = d.limesurvey.utente || "";
+  $("#ls-password").value = ""; $("#ls-password").placeholder = d.limesurvey.password || "non impostata";
   $("#p-round").value = d.simulazione.round; $("#p-esec").value = d.simulazione.esecuzioni; $("#p-max").value = d.simulazione.max_agenti;
   $("#mondi").innerHTML = d.mondi.map((m) => `<tr><td><b>${esc(m.nome)}</b><br><small class="muted">${esc(m.id)}</small></td><td>${m.tipo === "citta" ? "città" : "organizzazione"}</td><td>${m.personas}</td>
     <td><span class="badge-or ${m.origine}">${m.origine}</span></td>
@@ -44,6 +46,15 @@ $("#salva-llm").onclick = async () => {
 $("#prova-llm").onclick = async () => {
   esito("llm", true, "Prova in corso…");
   try { const r = await api("/api/admin/llm/prova", "POST", {}); esito("llm", true, `Collegamento riuscito con ${NOMI[r.fornitore] || r.fornitore} in ${r.secondi} s. Risposta: «${r.risposta}»`); } catch (e) { esito("llm", false, e.message); }
+};
+$("#salva-ls").onclick = async () => {
+  const body = { url: $("#ls-url").value, utente: $("#ls-utente").value };
+  const pw = $("#ls-password").value; if (pw) body.password = pw;
+  try { const r = await api("/api/admin/limesurvey", "POST", body); esito("ls", true, r.configurato ? "Salvato. Ora prova il collegamento." : "Salvato, ma mancano dei dati."); carica(); } catch (e) { esito("ls", false, e.message); }
+};
+$("#prova-ls").onclick = async () => {
+  esito("ls", true, "Collegamento in corso…");
+  try { const r = await api("/api/admin/limesurvey/prova", "POST", {}); esito("ls", true, `Collegato: ${r.sondaggi} sondaggi trovati.`); } catch (e) { esito("ls", false, e.message); }
 };
 $("#salva-sim").onclick = async () => {
   try { await api("/api/admin/simulazione", "POST", { round: +$("#p-round").value, esecuzioni: +$("#p-esec").value, max_agenti: +$("#p-max").value }); esito("sim", true, "Parametri salvati"); } catch (e) { esito("sim", false, e.message); }

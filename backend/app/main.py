@@ -9,11 +9,12 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import llm, settings
+from . import limesurvey, llm, settings
 from .analyzer import analizza
 from .chat import rispondi
 from .engine import Richiesta, simula
-from .importer import anteprima, crea_mondo
+from .importer import anteprima, crea_mondo, rinomina_valori
+from .limesurvey import ErroreLimeSurvey
 from .world import (carica_mondo, elenco_mondi, elimina_mondo_utente, origine, salva_mondo_utente, valida_mondo)
 
 FRONTEND = Path(__file__).resolve().parents[2] / "frontend"
@@ -202,6 +203,8 @@ def admin_get():
                 "anthropic_key": _maschera(l.get("anthropic_key", "")), "openai_key": _maschera(l.get("openai_key", "")),
                 "attivo": llm.provider()},
         "simulazione": d["simulazione"],
+        "limesurvey": {"url": limesurvey.configurazione()["url"], "utente": limesurvey.configurazione()["utente"],
+                       "password": _maschera(limesurvey.configurazione()["password"]), "configurato": limesurvey.configurato()},
         "statistiche": d["statistiche"],
         "password_personalizzate": sorted(d["password"].keys()),
         "mondi": [{"id": m["id"], "nome": m["nome"], "tipo": m["tipo"], "personas": len(m["personas"]),
@@ -320,6 +323,87 @@ def admin_password(body: PwIn):
         raise HTTPException(400, "Ruolo non valido")
     settings.imposta_password(body.ruolo, body.nuova)
     return {"ok": True}
+
+
+# ---------------------------------------------------------------- LimeSurvey
+class LsConfIn(BaseModel):
+    url: str = ""
+    utente: str = ""
+    password: str | None = None  # None = non cambiare
+
+
+@app.post("/api/admin/limesurvey")
+def admin_ls(body: LsConfIn):
+    def f(d):
+        c = d.setdefault("limesurvey", {})
+        c["url"], c["utente"] = body.url.strip(), body.utente.strip()
+        if body.password is not None:
+            c["password"] = body.password
+    settings.aggiorna(f)
+    return {"ok": True, "configurato": limesurvey.configurato()}
+
+
+def _ls(fn, *a):
+    try:
+        return fn(*a)
+    except ErroreLimeSurvey as e:
+        raise HTTPException(400, str(e))
+    except Exception as e:
+        raise HTTPException(502, f"LimeSurvey non raggiungibile: {str(e)[:200]}")
+
+
+@app.post("/api/admin/limesurvey/prova")
+def admin_ls_prova():
+    return _ls(limesurvey.prova)
+
+
+@app.get("/api/limesurvey/stato")
+def ls_stato():
+    return {"configurato": limesurvey.configurato()}
+
+
+@app.get("/api/limesurvey/sondaggi")
+def ls_sondaggi():
+    return _ls(limesurvey.elenco)
+
+
+class LsSondaggioIn(BaseModel):
+    sid: str
+    aggiorna: bool = False
+
+
+@app.post("/api/limesurvey/anteprima")
+def ls_anteprima(body: LsSondaggioIn):
+    csv_testo, et = _ls(limesurvey.scarica, body.sid, None, body.aggiorna)
+    a = anteprima(csv_testo)
+    a["etichette"] = {c: limesurvey.etichetta_colonna(c, et) for c in a["colonne"]}
+    return a
+
+
+class LsImportaIn(BaseModel):
+    sid: str
+    titolo: str = ""
+    nome: str = "Sondaggio LimeSurvey"
+    colonna_gruppo: str
+    colonne_clima: list[str] = []
+    colonna_fiducia: str | None = None
+    modello_id: str = "aaa-interno"
+
+
+@app.post("/api/limesurvey/importa")
+def ls_importa(body: LsImportaIn, request: Request):
+    csv_testo, _ = _ls(limesurvey.scarica, body.sid)
+    csv_testo = rinomina_valori(csv_testo, body.colonna_gruppo, limesurvey.opzioni(body.sid, body.colonna_gruppo))
+    modello = _mondo_visibile(body.modello_id, request)
+    m = crea_mondo(csv_testo, body.nome, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, modello)
+    if not m["personas"]:
+        raise HTTPException(400, "Nessun gruppo ha almeno 10 risposte: non è possibile creare personas rispettando l'anonimato")
+    m["fonte"] = {"tipo": "limesurvey", "sid": body.sid, "titolo": body.titolo, "importato": time.strftime("%Y-%m-%d %H:%M"),
+                  "risposte": sum(sum(v.values()) for v in m["composizione"].values())}
+    m["descrizione"] = f"Creato dal sondaggio LimeSurvey «{body.titolo or body.sid}»: " + m["descrizione"]
+    salva_mondo_utente(m)
+    settings.conta("importazioni")
+    return {"id": m["id"], "personas": len(m["personas"])}
 
 
 # ---------------------------------------------------------------- pagine

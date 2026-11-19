@@ -110,3 +110,20 @@ def crea_mondo(testo: str, nome: str, colonna_gruppo: str, colonne_clima: list[s
         "personas": personas, "composizione": {"tutti": composizione},
         "missioni": [], "esempi": modello.get("esempi", []),
     }
+
+
+def rinomina_valori(testo: str, colonna: str, mappa: dict[str, str]) -> str:
+    """Sostituisce i codici di risposta di una colonna con i testi (es. A1 -> Operativi su strada)."""
+    if not mappa:
+        return testo
+    sep = ";" if testo[:5000].count(";") > testo[:5000].count(",") else ","
+    reader = csv.DictReader(io.StringIO(testo), delimiter=sep)
+    out = io.StringIO()
+    w = csv.DictWriter(out, fieldnames=reader.fieldnames, delimiter=sep)
+    w.writeheader()
+    for r in reader:
+        v = (r.get(colonna) or "").strip()
+        if v in mappa and mappa[v]:
+            r[colonna] = mappa[v]
+        w.writerow(r)
+    return out.getvalue()

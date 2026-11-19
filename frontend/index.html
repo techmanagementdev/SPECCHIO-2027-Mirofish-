@@ -174,19 +174,30 @@
 
 <!-- IMPORTA -->
 <section id="v-importa" class="view">
-  <div class="head"><h1>Importa dati reali</h1><p>Carica il CSV esportato da LimeSurvey (o da un'altra piattaforma): il sistema crea una persona per ogni gruppo con almeno 10 risposte, usando solo le medie.</p></div>
+  <div class="head"><h1>Importa dati reali</h1><p>Crea le personas di opinione dalle risposte di un sondaggio: una persona per ogni gruppo con almeno 10 risposte, usando solo le medie. Poi lanci gli stimoli sul nuovo mondo.</p></div>
+  <div class="chips" id="imp-fonte">
+    <button class="chip on" data-f="ls"><i class="ti ti-cloud-download"></i> Da LimeSurvey</button>
+    <button class="chip" data-f="file"><i class="ti ti-file-upload"></i> Da file CSV</button>
+  </div>
   <div class="card">
-    <input type="file" id="file" accept=".csv,text/csv">
+    <div id="imp-ls">
+      <div class="row-btn"><h3 style="margin:0"><i class="ti ti-list-check"></i> I tuoi sondaggi su LimeSurvey</h3><button id="ls-aggiorna" class="ghost"><i class="ti ti-refresh"></i> Aggiorna elenco</button></div>
+      <div id="ls-lista"><p class="muted">Caricamento…</p></div>
+    </div>
+    <div id="imp-file" hidden>
+      <input type="file" id="file" accept=".csv,text/csv">
+    </div>
     <div id="imp-cfg" hidden>
+      <div class="lab" id="imp-titolo"></div>
       <div class="opts col">
         <label>Nome del nuovo mondo <input id="imp-nome" value="Indagine reale"></label>
-        <label>Colonna del gruppo o categoria <select id="imp-gruppo"></select></label>
-        <label>Colonna della fiducia <small class="muted">(facoltativa)</small> <select id="imp-fid"></select></label>
+        <label>Domanda che indica il gruppo o la categoria <select id="imp-gruppo"></select></label>
+        <label>Domanda sulla fiducia <small class="muted">(facoltativa)</small> <select id="imp-fid"></select></label>
         <label>Modello di partenza per canali e contesto <select id="imp-modello"></select></label>
       </div>
       <div class="lab">Domande che misurano il clima o la soddisfazione</div>
       <div class="chips" id="imp-clima"></div>
-      <button id="imp-go" class="big"><i class="ti ti-wand"></i> Crea il mondo</button>
+      <button id="imp-go" class="big"><i class="ti ti-wand"></i> Crea le personas</button>
     </div>
     <p class="hint" id="imp-info"></p>
     <p class="err" id="imp-err"></p>

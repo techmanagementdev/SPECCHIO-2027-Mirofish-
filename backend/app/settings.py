@@ -22,6 +22,7 @@ _lock = threading.Lock()
 PREDEFINITE = {
     "llm": {"provider": "", "anthropic_model": "claude-haiku-5-5", "openai_model": "gpt-4o-mini",
             "openai_base_url": "https://api.openai.com/v1", "anthropic_key": "", "openai_key": ""},
+    "limesurvey": {"url": "", "utente": "", "password": ""},
     "simulazione": {"round": 8, "esecuzioni": 3, "max_agenti": 400},
     "mondi_nascosti": [],
     "password": {},  # ruolo -> hash
