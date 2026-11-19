@@ -1,0 +1,837 @@
+{
+ "id": "aaa-interno",
+ "nome": "Autostrade Alto Adriatico · Personale",
+ "tipo": "organizzazione",
+ "descrizione": "Circa 600 dipendenti in 6 categorie. Personas illustrative costruite sulla struttura della proposta EMI-AAA-2026-02: da sostituire con i dati reali dell'indagine.",
+ "contesto": "Concessionaria autostradale in house delle Regioni FVG e Veneto, circa 600 dipendenti tra sede, centro operativo, caselli, centri di manutenzione e squadre su strada. Anni di cantieri per la terza corsia della A4.",
+ "etichetta_unita": "Reparto",
+ "unita": [
+  {
+   "id": "sede",
+   "nome": "Sede",
+   "x": 15,
+   "y": 20
+  },
+  {
+   "id": "centro_operativo",
+   "nome": "Centro operativo",
+   "x": 50,
+   "y": 15
+  },
+  {
+   "id": "caselli",
+   "nome": "Caselli e sportelli",
+   "x": 82,
+   "y": 30
+  },
+  {
+   "id": "manutenzione",
+   "nome": "Centri di manutenzione",
+   "x": 30,
+   "y": 70
+  },
+  {
+   "id": "strada",
+   "nome": "Squadre su strada",
+   "x": 72,
+   "y": 75
+  }
+ ],
+ "canali": [
+  {
+   "id": "email",
+   "nome": "E-mail aziendale",
+   "icona": "mail"
+  },
+  {
+   "id": "responsabile",
+   "nome": "Responsabile diretto",
+   "icona": "user-check"
+  },
+  {
+   "id": "incontro",
+   "nome": "Incontro in presenza",
+   "icona": "users"
+  },
+  {
+   "id": "bacheca",
+   "nome": "Bacheca e intranet",
+   "icona": "clipboard"
+  },
+  {
+   "id": "app",
+   "nome": "App aziendale",
+   "icona": "device-mobile"
+  }
+ ],
+ "personas": [
+  {
+   "id": "dir-coinvolto",
+   "nome": "Dirigente coinvolto",
+   "categoria": "Dirigenti e quadri",
+   "colore": "#2a78d6",
+   "avatar": "DC",
+   "descrizione": "Guida un'area, partecipa alle decisioni e difende le scelte della direzione.",
+   "atteggiamento": 0.5,
+   "fiducia": 0.8,
+   "scetticismo": 0.25,
+   "influenza": 0.8,
+   "sensibilita": {
+    "organizzazione": 0.8,
+    "carriera": 0.6,
+    "strumenti": 0.6,
+    "ascolto": 0.4,
+    "retribuzione": 0.5,
+    "turni": 0.2,
+    "sicurezza": 0.6,
+    "welfare": 0.4
+   },
+   "canali": {
+    "email": 0.8,
+    "responsabile": 0.7,
+    "incontro": 0.9,
+    "bacheca": 0.5,
+    "app": 0.6,
+    "passaparola": 0.4
+   },
+   "criticita": [
+    "troppi livelli di approvazione",
+    "difficoltà a trattenere i tecnici bravi"
+   ],
+   "aspettative": [
+    "obiettivi chiari e strumenti per decidere più in fretta",
+    "più autonomia sul budget"
+   ],
+   "voce": "Formale, orientato ai risultati",
+   "frasi": {
+    "positiva": [
+     "Mi sembra una scelta sensata su {tema}: la sosterrò con la mia squadra.",
+     "Finalmente una decisione chiara su {tema}."
+    ],
+    "negativa": [
+     "Su {tema} temo che non ci abbiano coinvolto abbastanza.",
+     "Così rischiamo di perdere persone valide."
+    ],
+    "neutra": [
+     "Su {tema} aspetto i dettagli operativi prima di esprimermi."
+    ]
+   },
+   "obiezioni": {
+    "organizzazione": "«Chi ha deciso i nuovi riporti? Serve chiarezza sui ruoli»",
+    "generale": "«Va bene, ma servono tempi e risorse»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "riorganizz": 0.6,
+    "obiettiv": 0.3
+   }
+  },
+  {
+   "id": "quadro-pressione",
+   "nome": "Quadro sotto pressione",
+   "categoria": "Dirigenti e quadri",
+   "colore": "#185fa5",
+   "avatar": "QP",
+   "descrizione": "Responsabile di ufficio schiacciato tra richieste della direzione e problemi della squadra.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.5,
+   "scetticismo": 0.5,
+   "influenza": 0.7,
+   "sensibilita": {
+    "organizzazione": 0.9,
+    "turni": 0.6,
+    "strumenti": 0.6,
+    "ascolto": 0.7,
+    "carriera": 0.5,
+    "retribuzione": 0.5,
+    "welfare": 0.4
+   },
+   "canali": {
+    "email": 0.6,
+    "responsabile": 0.6,
+    "incontro": 0.8,
+    "bacheca": 0.4,
+    "app": 0.4,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "deve spiegare decisioni che non ha preso",
+    "carichi di lavoro in crescita"
+   ],
+   "aspettative": [
+    "essere informato prima della squadra",
+    "poter dire la sua prima delle decisioni"
+   ],
+   "voce": "Pratico, un po' stanco",
+   "frasi": {
+    "positiva": [
+     "Se su {tema} mi danno gli strumenti, lo porto avanti volentieri."
+    ],
+    "negativa": [
+     "Su {tema} lo scopro insieme ai miei collaboratori: così non posso fare il mio lavoro.",
+     "Le domande poi le fanno a me, e io non ho le risposte."
+    ],
+    "neutra": [
+     "Su {tema} vediamo come viene applicato nella pratica."
+    ]
+   },
+   "obiezioni": {
+    "organizzazione": "«Io lo devo spiegare alla squadra, ma non so ancora cosa cambia»",
+    "turni": "«Chi copre i buchi nei turni? Sempre noi»",
+    "generale": "«Informate prima i responsabili»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "responsabil": 0.3,
+    "caposquadra": 0.2,
+    "prima di renderlo definitivo": 0.5
+   }
+  },
+  {
+   "id": "impiegato-sede",
+   "nome": "Impiegato di sede",
+   "categoria": "Amministrativi e impiegati",
+   "colore": "#1baf7a",
+   "avatar": "IS",
+   "descrizione": "Lavora negli uffici di Trieste, stabile, attento a welfare e conciliazione.",
+   "atteggiamento": 0.15,
+   "fiducia": 0.55,
+   "scetticismo": 0.45,
+   "influenza": 0.4,
+   "sensibilita": {
+    "welfare": 0.9,
+    "retribuzione": 0.7,
+    "carriera": 0.6,
+    "organizzazione": 0.6,
+    "strumenti": 0.5,
+    "ascolto": 0.5,
+    "turni": 0.3
+   },
+   "canali": {
+    "email": 0.7,
+    "responsabile": 0.6,
+    "incontro": 0.5,
+    "bacheca": 0.6,
+    "app": 0.5,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "poche possibilità di crescita",
+    "procedure lente e doppie"
+   ],
+   "aspettative": [
+    "lavoro agile più flessibile",
+    "percorsi di crescita chiari"
+   ],
+   "voce": "Misurato, attento ai dettagli",
+   "frasi": {
+    "positiva": [
+     "Bene: su {tema} era ora.",
+     "Una buona notizia su {tema}, speriamo duri."
+    ],
+    "negativa": [
+     "Su {tema} ci hanno detto poco e male.",
+     "Il solito annuncio, poi in ufficio non cambia niente."
+    ],
+    "neutra": [
+     "Su {tema} leggerò bene la circolare."
+    ]
+   },
+   "obiezioni": {
+    "welfare": "«Chi ne ha diritto? Sempre i soliti?»",
+    "organizzazione": "«Ci spostano di nuovo di ufficio?»",
+    "generale": "«Vorrei capire cosa cambia per me»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "lavoro agile": 0.8,
+    "smart working": 0.8,
+    "welfare": 0.3
+   }
+  },
+  {
+   "id": "tecnico-progetto",
+   "nome": "Tecnico di progetto",
+   "categoria": "Tecnici",
+   "colore": "#0f6e56",
+   "avatar": "TP",
+   "descrizione": "Ingegnere o geometra su progettazione e direzione lavori della terza corsia.",
+   "atteggiamento": 0.1,
+   "fiducia": 0.5,
+   "scetticismo": 0.55,
+   "influenza": 0.5,
+   "sensibilita": {
+    "strumenti": 0.8,
+    "carriera": 0.8,
+    "organizzazione": 0.6,
+    "cantieri": 0.7,
+    "retribuzione": 0.6,
+    "sicurezza": 0.6,
+    "ascolto": 0.4
+   },
+   "canali": {
+    "email": 0.7,
+    "responsabile": 0.7,
+    "incontro": 0.6,
+    "bacheca": 0.3,
+    "app": 0.5,
+    "passaparola": 0.5
+   },
+   "criticita": [
+    "software e strumenti vecchi",
+    "stipendi meno competitivi del mercato"
+   ],
+   "aspettative": [
+    "strumenti digitali moderni",
+    "riconoscimento delle competenze"
+   ],
+   "voce": "Tecnico, preciso",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è una scelta tecnicamente corretta.",
+     "Ottimo, su {tema} ci serviva."
+    ],
+    "negativa": [
+     "Su {tema} mancano i dettagli tecnici: così non regge.",
+     "Le decisioni le prendono senza chiedere a chi ci lavora."
+    ],
+    "neutra": [
+     "Su {tema} voglio vedere il piano."
+    ]
+   },
+   "obiezioni": {
+    "strumenti": "«Chi ci forma sul nuovo strumento, e quando?»",
+    "retribuzione": "«Fuori pagano di più: così i bravi se ne vanno»",
+    "generale": "«Servono dati, non annunci»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "software": 0.5,
+    "digital": 0.4,
+    "tablet": 0.3
+   }
+  },
+  {
+   "id": "op-coinvolto",
+   "nome": "Operativo su strada coinvolto",
+   "categoria": "Operativi su strada",
+   "colore": "#eb6834",
+   "avatar": "OC",
+   "descrizione": "Addetto alla manutenzione e alla viabilità, orgoglioso del lavoro di squadra.",
+   "atteggiamento": 0.2,
+   "fiducia": 0.5,
+   "scetticismo": 0.45,
+   "influenza": 0.6,
+   "sensibilita": {
+    "sicurezza": 1.0,
+    "turni": 0.9,
+    "strumenti": 0.8,
+    "welfare": 0.5,
+    "retribuzione": 0.6,
+    "ascolto": 0.6,
+    "organizzazione": 0.6,
+    "cantieri": 0.6,
+    "traffico": 0.5
+   },
+   "canali": {
+    "email": 0.2,
+    "responsabile": 0.8,
+    "incontro": 0.8,
+    "bacheca": 0.4,
+    "app": 0.3,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "mezzi e attrezzature da rinnovare",
+    "turni notturni pesanti nei periodi di cantiere"
+   ],
+   "aspettative": [
+    "più sicurezza in strada",
+    "mezzi nuovi e turni prevedibili"
+   ],
+   "voce": "Diretto, concreto",
+   "frasi": {
+    "positiva": [
+     "Se su {tema} è così, va bene davvero.",
+     "Finalmente qualcuno pensa a chi sta in strada."
+    ],
+    "negativa": [
+     "Su {tema} decidono in ufficio e poi in strada ci andiamo noi.",
+     "Belle parole, ma i mezzi sono sempre quelli."
+    ],
+    "neutra": [
+     "Su {tema} aspetto di vedere cosa dice il caposquadra."
+    ]
+   },
+   "obiezioni": {
+    "turni": "«E chi ha figli piccoli come fa con i nuovi turni?»",
+    "sicurezza": "«Prima i DPI e i mezzi, poi i corsi»",
+    "strumenti": "«Un'app non ripara un furgone»",
+    "generale": "«Venite a vedere come lavoriamo»"
+   },
+   "aperture": [
+    "Allora,",
+    "Guardi,",
+    "Le dico la verità:"
+   ],
+   "posizioni": {
+    "mezzi nuovi": 0.8,
+    "dpi": 0.6,
+    "notturn": -0.5,
+    "due notti": 0.5
+   }
+  },
+  {
+   "id": "op-disilluso",
+   "nome": "Operativo su strada disilluso",
+   "categoria": "Operativi su strada",
+   "colore": "#e34948",
+   "avatar": "OD",
+   "descrizione": "Tanti anni in strada, ha visto molti annunci e pochi cambiamenti. Molto ascoltato dai colleghi.",
+   "atteggiamento": -0.45,
+   "fiducia": 0.2,
+   "scetticismo": 0.8,
+   "influenza": 0.75,
+   "sensibilita": {
+    "sicurezza": 1.0,
+    "turni": 1.0,
+    "retribuzione": 0.8,
+    "strumenti": 0.7,
+    "organizzazione": 0.8,
+    "welfare": 0.4,
+    "ascolto": 0.5,
+    "cantieri": 0.6
+   },
+   "canali": {
+    "email": 0.1,
+    "responsabile": 0.5,
+    "incontro": 0.6,
+    "bacheca": 0.2,
+    "app": 0.1,
+    "passaparola": 0.95
+   },
+   "criticita": [
+    "promesse non mantenute",
+    "sensazione di non contare niente"
+   ],
+   "aspettative": [
+    "fatti concreti prima delle parole",
+    "rispetto per chi lavora di notte"
+   ],
+   "voce": "Brusco, ironico",
+   "frasi": {
+    "positiva": [
+     "Su {tema} stavolta mi sembra una cosa vera, vediamo.",
+     "Questa su {tema} non è male, lo ammetto."
+    ],
+    "negativa": [
+     "Su {tema} l'abbiamo già sentita mille volte.",
+     "Tanto decidono loro, come sempre.",
+     "Altra mail, altra fregatura."
+    ],
+    "neutra": [
+     "Su {tema} ci credo quando lo vedo."
+    ]
+   },
+   "obiezioni": {
+    "turni": "«Ci cambiano i turni e lo scopriamo dalla bacheca»",
+    "organizzazione": "«Riorganizzazione vuol dire meno persone, lo sappiamo»",
+    "welfare": "«Il welfare non paga la stanchezza»",
+    "strumenti": "«Ci vogliono controllare con l'app»",
+    "generale": "«Le solite promesse»"
+   },
+   "aperture": [
+    "Senta,",
+    "Mah,",
+    "Glielo dico chiaro:"
+   ],
+   "posizioni": {
+    " app": -0.4,
+    "notturn": -0.8,
+    "storic": -0.6,
+    "proposte della squadra": 0.4,
+    "due notti": 0.4
+   }
+  },
+  {
+   "id": "esattore",
+   "nome": "Esattore con lunga anzianità",
+   "categoria": "Esazione e sportello",
+   "colore": "#993c1d",
+   "avatar": "EA",
+   "descrizione": "Lavora ai caselli da molti anni, preoccupato dall'automazione e dai cambi di sede.",
+   "atteggiamento": -0.2,
+   "fiducia": 0.3,
+   "scetticismo": 0.7,
+   "influenza": 0.55,
+   "sensibilita": {
+    "organizzazione": 1.0,
+    "turni": 0.8,
+    "sicurezza": 0.6,
+    "retribuzione": 0.6,
+    "strumenti": 0.7,
+    "welfare": 0.5,
+    "ascolto": 0.6
+   },
+   "canali": {
+    "email": 0.2,
+    "responsabile": 0.6,
+    "incontro": 0.7,
+    "bacheca": 0.4,
+    "app": 0.1,
+    "passaparola": 0.85
+   },
+   "criticita": [
+    "paura che il casello venga automatizzato",
+    "turni a ciclo continuo"
+   ],
+   "aspettative": [
+    "garanzie sul posto e sulla sede",
+    "formazione per nuovi ruoli"
+   ],
+   "voce": "Preoccupato, schietto",
+   "frasi": {
+    "positiva": [
+     "Se su {tema} ci garantiscono il posto, sono contento."
+    ],
+    "negativa": [
+     "Su {tema} ho paura che sia il primo passo per chiudere i caselli.",
+     "Nessuno ci dice cosa sarà di noi."
+    ],
+    "neutra": [
+     "Su {tema} voglio capire cosa succede al mio casello."
+    ]
+   },
+   "obiezioni": {
+    "organizzazione": "«Ci spostano o ci sostituiscono con le casse automatiche?»",
+    "strumenti": "«Le macchine prendono il nostro posto»",
+    "turni": "«Già facciamo le notti, adesso cosa cambia?»",
+    "generale": "«Diteci chiaramente cosa cambia per noi»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "automat": -0.9,
+    "casse automatiche": -0.9,
+    "caselli": -0.2
+   }
+  },
+  {
+   "id": "sportello-giovane",
+   "nome": "Addetto allo sportello, giovane",
+   "categoria": "Esazione e sportello",
+   "colore": "#e87ba4",
+   "avatar": "SG",
+   "descrizione": "Da poco in azienda, a contatto con i clienti, attento a crescita e strumenti digitali.",
+   "atteggiamento": 0.1,
+   "fiducia": 0.45,
+   "scetticismo": 0.5,
+   "influenza": 0.4,
+   "sensibilita": {
+    "carriera": 0.9,
+    "strumenti": 0.7,
+    "welfare": 0.7,
+    "retribuzione": 0.7,
+    "turni": 0.6,
+    "ascolto": 0.5,
+    "organizzazione": 0.5
+   },
+   "canali": {
+    "email": 0.5,
+    "responsabile": 0.6,
+    "incontro": 0.5,
+    "bacheca": 0.4,
+    "app": 0.8,
+    "passaparola": 0.7
+   },
+   "criticita": [
+    "poche prospettive di crescita",
+    "clienti arrabbiati per code e cantieri"
+   ],
+   "aspettative": [
+    "formazione e possibilità di cambiare ruolo",
+    "strumenti per rispondere meglio ai clienti"
+   ],
+   "voce": "Informale, veloce",
+   "frasi": {
+    "positiva": [
+     "Su {tema} mi piace, finalmente qualcosa di nuovo.",
+     "Bene, su {tema} può servire anche a noi giovani."
+    ],
+    "negativa": [
+     "Su {tema} non si capisce cosa cambia per chi è appena entrato.",
+     "Sempre le stesse cose, nessuna novità vera."
+    ],
+    "neutra": [
+     "Su {tema} ok, vediamo."
+    ]
+   },
+   "obiezioni": {
+    "carriera": "«E per chi è appena entrato?»",
+    "generale": "«Ci sarà una possibilità di crescere davvero?»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "formazion": 0.6,
+    " app": 0.5,
+    "under": 0.3
+   }
+  },
+  {
+   "id": "sala-radio",
+   "nome": "Operatore del centro operativo",
+   "categoria": "Centro operativo",
+   "colore": "#6250d6",
+   "avatar": "CO",
+   "descrizione": "Lavora in sala radio sul traffico, vive in diretta incidenti e code.",
+   "atteggiamento": -0.05,
+   "fiducia": 0.4,
+   "scetticismo": 0.6,
+   "influenza": 0.5,
+   "sensibilita": {
+    "turni": 0.9,
+    "strumenti": 0.8,
+    "sicurezza": 0.8,
+    "traffico": 0.7,
+    "cantieri": 0.7,
+    "organizzazione": 0.6,
+    "ascolto": 0.6,
+    "welfare": 0.5
+   },
+   "canali": {
+    "email": 0.5,
+    "responsabile": 0.7,
+    "incontro": 0.6,
+    "bacheca": 0.3,
+    "app": 0.5,
+    "passaparola": 0.7
+   },
+   "criticita": [
+    "stress nei picchi di traffico",
+    "informazioni sui cantieri che arrivano tardi"
+   ],
+   "aspettative": [
+    "sistemi di monitoraggio aggiornati",
+    "pause e turni più sostenibili"
+   ],
+   "voce": "Preciso, sotto pressione",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è quello che chiedevamo da tempo."
+    ],
+    "negativa": [
+     "Su {tema} ancora una volta lo sappiamo per ultimi, e siamo noi a dover rispondere agli utenti.",
+     "Ci caricano di più senza strumenti nuovi."
+    ],
+    "neutra": [
+     "Su {tema} servono istruzioni operative precise."
+    ]
+   },
+   "obiezioni": {
+    "cantieri": "«Le chiusure ce le comunicano all'ultimo»",
+    "turni": "«Nei picchi siamo sempre sotto organico»",
+    "generale": "«Diteci prima, non dopo»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "monitoraggio": 0.5,
+    "chiusur": -0.2
+   }
+  },
+  {
+   "id": "caposquadra",
+   "nome": "Caposquadra di manutenzione",
+   "categoria": "Operativi su strada",
+   "colore": "#eda100",
+   "avatar": "CS",
+   "descrizione": "Punto di riferimento della squadra: quello che pensa lui lo pensa presto anche il gruppo.",
+   "atteggiamento": 0.05,
+   "fiducia": 0.45,
+   "scetticismo": 0.55,
+   "influenza": 0.9,
+   "sensibilita": {
+    "sicurezza": 1.0,
+    "turni": 0.8,
+    "strumenti": 0.9,
+    "organizzazione": 0.7,
+    "ascolto": 0.7,
+    "retribuzione": 0.5,
+    "cantieri": 0.7
+   },
+   "canali": {
+    "email": 0.3,
+    "responsabile": 0.8,
+    "incontro": 0.9,
+    "bacheca": 0.3,
+    "app": 0.3,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "squadre ridotte",
+    "materiali che arrivano in ritardo"
+   ],
+   "aspettative": [
+    "essere coinvolto prima delle decisioni",
+    "squadre complete"
+   ],
+   "voce": "Autorevole, concreto",
+   "frasi": {
+    "positiva": [
+     "Su {tema} lo spiegherò io ai ragazzi: è una cosa buona.",
+     "Su {tema} hanno fatto bene, l'avevamo chiesto."
+    ],
+    "negativa": [
+     "Su {tema} me lo dovevano dire prima: adesso i ragazzi chiedono a me.",
+     "Così la squadra non regge."
+    ],
+    "neutra": [
+     "Su {tema} ne parlo con la squadra e poi vediamo."
+    ]
+   },
+   "obiezioni": {
+    "turni": "«Con questi turni le squadre restano scoperte»",
+    "organizzazione": "«Chi comanda la squadra dopo la riorganizzazione?»",
+    "generale": "«Coinvolgete i capisquadra prima»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "caposquadra": 0.6,
+    "squadra": 0.3,
+    "notturn": -0.4
+   }
+  }
+ ],
+ "composizione": {
+  "sede": {
+   "dir-coinvolto": 15,
+   "quadro-pressione": 12,
+   "impiegato-sede": 70,
+   "tecnico-progetto": 25
+  },
+  "centro_operativo": {
+   "sala-radio": 30,
+   "quadro-pressione": 3,
+   "tecnico-progetto": 5
+  },
+  "caselli": {
+   "esattore": 45,
+   "sportello-giovane": 30,
+   "quadro-pressione": 5
+  },
+  "manutenzione": {
+   "caposquadra": 15,
+   "op-coinvolto": 30,
+   "op-disilluso": 25,
+   "tecnico-progetto": 10
+  },
+  "strada": {
+   "caposquadra": 10,
+   "op-coinvolto": 25,
+   "op-disilluso": 30
+  }
+ },
+ "esempi": [
+  {
+   "titolo": "Cambio dei turni",
+   "canale": "email",
+   "testo": "Dal 1° marzo entra in vigore il nuovo piano dei turni per le squadre di manutenzione, con più turni notturni nei mesi di cantiere. Il piano è necessario per garantire la sicurezza dei lavori sulla terza corsia."
+  },
+  {
+   "titolo": "Cambio dei turni, versione ascolto",
+   "canale": "responsabile",
+   "testo": "Dal 1° marzo cambieranno i turni delle squadre di manutenzione nei mesi di cantiere. Prima di renderlo definitivo, entro il 15 febbraio ogni caposquadra raccoglierà le proposte della squadra; nessuno farà più di due notti consecutive."
+  },
+  {
+   "titolo": "Riorganizzazione",
+   "canale": "email",
+   "testo": "Annunciamo una storica riorganizzazione dell'azienda: un nuovo modello organizzativo straordinario che renderà l'azienda un'eccellenza nazionale!"
+  },
+  {
+   "titolo": "Nuova app per le squadre",
+   "canale": "app",
+   "testo": "Da aprile le squadre su strada avranno una nuova app sul tablet per segnalare guasti e richiedere materiali. Sono previsti 2 corsi di formazione in orario di lavoro e un referente per ogni centro di manutenzione."
+  },
+  {
+   "titolo": "Piano welfare",
+   "canale": "incontro",
+   "testo": "Dal 2027 tutti i dipendenti avranno un piano welfare da 600 euro l'anno, utilizzabile per spese scolastiche, sanitarie e trasporti. Lo presenteremo in incontri in ogni sede a gennaio, con la possibilità di fare proposte."
+  }
+ ],
+ "missioni": [
+  {
+   "id": "m-turni",
+   "titolo": "Turni senza rivolta",
+   "descrizione": "Annuncia il cambio dei turni ottenendo almeno 50 di gradimento tra gli operativi su strada disillusi.",
+   "condizione": {
+    "tipo": "indice_personas_min",
+    "personas": [
+     "op-disilluso"
+    ],
+    "valore": 50
+   },
+   "xp": 60
+  },
+  {
+   "id": "m-welfare",
+   "titolo": "Welfare che convince",
+   "descrizione": "Presenta un piano welfare con gradimento complessivo di almeno 65 e meno del 15% di negativi.",
+   "condizione": {
+    "tipo": "indice_e_negativi",
+    "indice": 65,
+    "negativi": 15
+   },
+   "xp": 50
+  },
+  {
+   "id": "m-portata",
+   "titolo": "Arriva a tutti",
+   "descrizione": "Fai arrivare la notizia a più del 90% del personale entro la fine della simulazione.",
+   "condizione": {
+    "tipo": "informati_min",
+    "valore": 90
+   },
+   "xp": 30
+  },
+  {
+   "id": "m-zero-voci",
+   "titolo": "Nessuna voce di corridoio",
+   "descrizione": "Annuncia una riorganizzazione senza far nascere voci negative nel passaparola.",
+   "condizione": {
+    "tipo": "nessuna_voce_con_tema",
+    "tema": "organizzazione"
+   },
+   "xp": 70
+  }
+ ]
+}

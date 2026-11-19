@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPECCHIO · simulatore di personas di opinione</title>
+<link rel="stylesheet" href="/static/vendor/tabler/tabler-icons-outline.min.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">S</span><div><b>SPECCHIO</b><small>personas di opinione</small></div></div>
+  <select id="mondo" aria-label="Scegli il mondo"></select>
+  <span id="modalita" class="pill"></span>
+  <div class="player">
+    <div class="lvl"><span>Livello</span><b id="livello">1</b></div>
+    <div class="xpwrap"><div class="xpbar"><div id="xpfill"></div></div><small id="xptxt">0 / 100 XP</small></div>
+    <div class="badges" id="badges" title="Badge ottenuti"></div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side" id="nav">
+  <button data-v="mondo" class="on"><i class="ti ti-map-2"></i><span>Mondo</span></button>
+  <button data-v="personas"><i class="ti ti-users"></i><span>Personas</span></button>
+  <button data-v="lancia"><i class="ti ti-rocket"></i><span>Lancia</span></button>
+  <button data-v="risultati"><i class="ti ti-chart-dots"></i><span>Risultati</span></button>
+  <button data-v="dialoga"><i class="ti ti-messages"></i><span>Dialoga</span></button>
+  <button data-v="sfida"><i class="ti ti-swords"></i><span>Sfida A/B</span></button>
+  <button data-v="missioni"><i class="ti ti-target-arrow"></i><span>Missioni</span></button>
+  <button data-v="importa"><i class="ti ti-file-upload"></i><span>Importa dati</span></button>
+</nav>
+
+<main>
+<!-- MONDO -->
+<section id="v-mondo" class="view on">
+  <div class="head"><h1 id="mondo-nome"></h1><p id="mondo-desc"></p></div>
+  <div class="grid-mondo">
+    <div class="card map-card">
+      <svg id="mappa" viewBox="0 0 1000 560" role="img" aria-label="Mappa del mondo con la popolazione di personas"></svg>
+      <div class="legend" id="legenda-personas"></div>
+    </div>
+    <div class="card">
+      <h3><i class="ti ti-building-community"></i> Costruisci la composizione</h3>
+      <p class="hint">Scegli <span id="etichetta-unita">un'unità</span> e cambia quante persone di ogni tipo ci vivono o ci lavorano.</p>
+      <div class="chips" id="unita-chips"></div>
+      <div id="sliders"></div>
+      <div class="row-btn"><button id="reset-comp" class="ghost"><i class="ti ti-refresh"></i> Ripristina</button><span id="tot-pop" class="muted"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section id="v-personas" class="view">
+  <div class="head"><h1>Le personas</h1><p>Profili tipo costruiti da dati aggregati: non sono persone reali. Clicca su una scheda per dialogare.</p></div>
+  <div class="cards" id="personas-cards"></div>
+</section>
+
+<!-- LANCIA -->
+<section id="v-lancia" class="view">
+  <div class="head"><h1>Lancia un annuncio</h1><p>Scrivi una notizia, un comunicato o una proposta, scegli il canale e guarda come reagisce il tuo mondo.</p></div>
+  <div class="grid-lancia">
+    <div class="card">
+      <label class="lab" for="msg">Il messaggio</label>
+      <textarea id="msg" rows="6" placeholder="Dal 1° marzo cambiano i turni delle squadre di manutenzione…"></textarea>
+      <div class="lab">Esempi pronti</div>
+      <div class="chips" id="esempi"></div>
+      <div class="lab">Canale</div>
+      <div class="canali" id="canali"></div>
+      <div class="lab">Destinatari <small class="muted">(nessuna scelta = tutti)</small></div>
+      <div class="chips" id="bersaglio"></div>
+      <div class="opts">
+        <label>Round di passaparola <input type="range" id="round" min="2" max="15" value="8"><b id="round-v">8</b></label>
+        <label>Esecuzioni <input type="range" id="esec" min="1" max="6" value="3"><b id="esec-v">3</b></label>
+        <label class="sw"><input type="checkbox" id="usa-llm"> Usa il modello linguistico</label>
+      </div>
+      <button id="lancia" class="big"><i class="ti ti-rocket"></i> Lancia la simulazione</button>
+      <p class="err" id="lancia-err"></p>
+    </div>
+    <div class="card">
+      <h3><i class="ti ti-scan"></i> Radiografia del messaggio</h3>
+      <p class="hint">Si aggiorna mentre scrivi.</p>
+      <div id="radiografia"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RISULTATI -->
+<section id="v-risultati" class="view">
+  <div class="head"><h1>Risultati</h1><p id="ris-sotto">Lancia un annuncio per vedere le reazioni.</p></div>
+  <div id="ris-vuoto" class="empty"><i class="ti ti-rocket"></i><p>Nessuna simulazione ancora.</p><button data-go="lancia">Lancia il primo annuncio</button></div>
+  <div id="ris" hidden>
+    <div class="score-row">
+      <div class="card score">
+        <div class="gauge"><svg viewBox="0 0 200 120"><path d="M20 110 A80 80 0 0 1 180 110" class="g-bg"/><path id="g-val" d="M20 110 A80 80 0 0 1 180 110" class="g-val"/></svg>
+          <div class="g-num"><b id="indice">0</b><span>gradimento</span></div></div>
+        <div class="stars" id="stelle"></div>
+        <div class="xp-gain" id="xp-gain"></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><span>Raggiunti dal canale</span><b id="k-canale"></b></div>
+        <div class="kpi"><span>Informati alla fine</span><b id="k-inf"></b></div>
+        <div class="kpi pos"><span>Positivi</span><b id="k-pos"></b></div>
+        <div class="kpi neg"><span>Negativi</span><b id="k-neg"></b></div>
+        <div class="kpi"><span>Stabilità tra esecuzioni</span><b id="k-stab"></b></div>
+        <div class="kpi"><span>Agenti simulati</span><b id="k-ag"></b></div>
+      </div>
+    </div>
+    <div id="missioni-ok"></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="play"><button id="play" aria-label="Riproduci"><i class="ti ti-player-play"></i></button>
+          <input type="range" id="t" min="0" max="8" value="8"><span id="t-lab">Round 8</span></div>
+        <svg id="mappa-ris" viewBox="0 0 1000 560" role="img" aria-label="Mappa del sentiment per unità e round"></svg>
+        <div class="legend"><span><i class="dot" style="background:#1baf7a"></i>positivo</span><span><i class="dot" style="background:#c9c7bd"></i>neutro</span><span><i class="dot" style="background:#e34948"></i>negativo</span><span><i class="dot hollow"></i>non ancora informato</span></div>
+      </div>
+      <div class="card">
+        <h3><i class="ti ti-chart-line"></i> Gradimento e diffusione nei round</h3>
+        <svg id="grafico" viewBox="0 0 520 260" role="img" aria-label="Andamento del gradimento e della diffusione"></svg>
+        <div class="legend"><span><i class="ln"></i>gradimento (fascia tra esecuzioni)</span><span><i class="ln dash"></i>informati %</span></div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3><i class="ti ti-trophy"></i> Classifica delle personas</h3><p class="hint">Da dove partivano (tacca) a dove arrivano.</p><div id="classifica"></div></div>
+      <div class="card"><h3><i class="ti ti-message-exclamation"></i> Obiezioni più frequenti</h3><div id="obiezioni"></div>
+        <h3 class="mt"><i class="ti ti-ear"></i> Voci di corridoio</h3><div id="voci"></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3><i class="ti ti-quote"></i> Cosa dicono</h3><div id="frasi"></div></div>
+      <div class="card"><h3><i class="ti ti-bulb"></i> Mosse consigliate</h3><div id="consigli"></div>
+        <button class="ghost mt" data-go="dialoga"><i class="ti ti-messages"></i> Approfondisci dialogando</button></div>
+    </div>
+    <p class="avv" id="avvertenza"></p>
+  </div>
+</section>
+
+<!-- DIALOGA -->
+<section id="v-dialoga" class="view">
+  <div class="head"><h1>Dialoga con una persona</h1><p>Fai domande come in un'intervista. Le risposte sono simulate dal profilo, non da persone reali.</p></div>
+  <div class="grid-chat">
+    <div class="card plist" id="chat-personas"></div>
+    <div class="card chat">
+      <div class="chat-head" id="chat-head"></div>
+      <div class="msgs" id="msgs"></div>
+      <div class="chips" id="domande"></div>
+      <label class="sw small"><input type="checkbox" id="ctx" checked> Tieni conto dell'ultimo annuncio lanciato</label>
+      <form id="chat-form"><input id="chat-in" placeholder="Scrivi una domanda…" autocomplete="off"><button><i class="ti ti-send"></i></button></form>
+      <p class="err" id="chat-err"></p>
+    </div>
+  </div>
+</section>
+
+<!-- SFIDA -->
+<section id="v-sfida" class="view">
+  <div class="head"><h1>Sfida A/B</h1><p>Stesso annuncio, due versioni: cambia testo o canale e scopri quale funziona meglio, con le stesse condizioni di partenza.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Versione A</h3><textarea id="a-msg" rows="5"></textarea><select id="a-can"></select></div>
+    <div class="card"><h3>Versione B</h3><textarea id="b-msg" rows="5"></textarea><select id="b-can"></select></div>
+  </div>
+  <button id="sfida-go" class="big"><i class="ti ti-swords"></i> Avvia la sfida</button>
+  <p class="err" id="sfida-err"></p>
+  <div id="sfida-ris"></div>
+</section>
+
+<!-- MISSIONI -->
+<section id="v-missioni" class="view">
+  <div class="head"><h1>Missioni</h1><p>Obiettivi di comunicazione da raggiungere nel mondo scelto. Ogni missione completata vale XP.</p></div>
+  <div class="cards" id="missioni"></div>
+  <h2 class="mt">Badge</h2>
+  <div class="cards badges-big" id="badge-list"></div>
+</section>
+
+<!-- IMPORTA -->
+<section id="v-importa" class="view">
+  <div class="head"><h1>Importa dati reali</h1><p>Carica il CSV esportato da LimeSurvey (o da un'altra piattaforma): il sistema crea una persona per ogni gruppo con almeno 10 risposte, usando solo le medie.</p></div>
+  <div class="card">
+    <input type="file" id="file" accept=".csv,text/csv">
+    <div id="imp-cfg" hidden>
+      <div class="opts col">
+        <label>Nome del nuovo mondo <input id="imp-nome" value="Indagine reale"></label>
+        <label>Colonna del gruppo o categoria <select id="imp-gruppo"></select></label>
+        <label>Colonna della fiducia <small class="muted">(facoltativa)</small> <select id="imp-fid"></select></label>
+        <label>Modello di partenza per canali e contesto <select id="imp-modello"></select></label>
+      </div>
+      <div class="lab">Domande che misurano il clima o la soddisfazione</div>
+      <div class="chips" id="imp-clima"></div>
+      <button id="imp-go" class="big"><i class="ti ti-wand"></i> Crea il mondo</button>
+    </div>
+    <p class="hint" id="imp-info"></p>
+    <p class="err" id="imp-err"></p>
+  </div>
+</section>
+</main>
+</div>
+<div id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

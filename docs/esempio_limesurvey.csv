@@ -1,0 +1,305 @@
+id;submitdate;categoria;Q01_orgoglio;Q02_consiglierei;Q03_sicurezza;Q04_fiducia_direzione;Q05_canale_preferito
+1;2027-02-10 10:00:00;Operativi su strada;3;4;2;3;A1
+2;2027-02-10 10:00:00;Operativi su strada;1;1;1;2;A2
+3;2027-02-10 10:00:00;Operativi su strada;4;2;3;1;A2
+4;2027-02-10 10:00:00;Operativi su strada;3;3;3;2;A1
+5;2027-02-10 10:00:00;Operativi su strada;2;2;3;1;A3
+6;2027-02-10 10:00:00;Operativi su strada;3;1;2;3;A4
+7;2027-02-10 10:00:00;Operativi su strada;2;1;1;3;A4
+8;2027-02-10 10:00:00;Operativi su strada;3;2;2;2;A4
+9;2027-02-10 10:00:00;Operativi su strada;3;5;1;3;A3
+10;2027-02-10 10:00:00;Operativi su strada;1;3;2;2;A4
+11;2027-02-10 10:00:00;Operativi su strada;1;1;2;1;A3
+12;2027-02-10 10:00:00;Operativi su strada;4;2;4;4;A1
+13;2027-02-10 10:00:00;Operativi su strada;2;2;3;1;A3
+14;2027-02-10 10:00:00;Operativi su strada;3;3;2;1;A3
+15;2027-02-10 10:00:00;Operativi su strada;3;2;3;3;A4
+16;2027-02-10 10:00:00;Operativi su strada;3;2;2;2;A3
+17;2027-02-10 10:00:00;Operativi su strada;1;2;2;3;A1
+18;2027-02-10 10:00:00;Operativi su strada;2;3;2;2;A2
+19;2027-02-10 10:00:00;Operativi su strada;3;2;2;4;A3
+20;2027-02-10 10:00:00;Operativi su strada;2;4;3;2;A4
+21;2027-02-10 10:00:00;Operativi su strada;3;2;4;1;A1
+22;2027-02-10 10:00:00;Operativi su strada;1;1;2;2;A2
+23;2027-02-10 10:00:00;Operativi su strada;3;2;3;3;A3
+24;2027-02-10 10:00:00;Operativi su strada;4;2;2;2;A2
+25;2027-02-10 10:00:00;Operativi su strada;4;3;1;2;A3
+26;2027-02-10 10:00:00;Operativi su strada;2;2;1;2;A1
+27;2027-02-10 10:00:00;Operativi su strada;3;2;1;3;A3
+28;2027-02-10 10:00:00;Operativi su strada;3;3;3;1;A3
+29;2027-02-10 10:00:00;Operativi su strada;2;3;3;2;A2
+30;2027-02-10 10:00:00;Operativi su strada;2;3;3;2;A2
+31;2027-02-10 10:00:00;Operativi su strada;2;1;4;3;A3
+32;2027-02-10 10:00:00;Operativi su strada;2;2;3;1;A1
+33;2027-02-10 10:00:00;Operativi su strada;2;4;3;2;A2
+34;2027-02-10 10:00:00;Operativi su strada;3;2;3;2;A2
+35;2027-02-10 10:00:00;Operativi su strada;3;2;3;2;A3
+36;2027-02-10 10:00:00;Operativi su strada;2;2;1;2;A4
+37;2027-02-10 10:00:00;Operativi su strada;2;3;2;3;A4
+38;2027-02-10 10:00:00;Operativi su strada;3;2;4;2;A4
+39;2027-02-10 10:00:00;Operativi su strada;1;1;3;2;A4
+40;2027-02-10 10:00:00;Operativi su strada;3;1;2;2;A3
+41;2027-02-10 10:00:00;Operativi su strada;4;1;4;1;A1
+42;2027-02-10 10:00:00;Operativi su strada;3;2;4;1;A2
+43;2027-02-10 10:00:00;Operativi su strada;4;1;2;2;A1
+44;2027-02-10 10:00:00;Operativi su strada;3;3;2;1;A4
+45;2027-02-10 10:00:00;Operativi su strada;4;3;3;3;A4
+46;2027-02-10 10:00:00;Operativi su strada;3;2;3;3;A1
+47;2027-02-10 10:00:00;Operativi su strada;3;4;4;1;A1
+48;2027-02-10 10:00:00;Operativi su strada;1;2;1;3;A2
+49;2027-02-10 10:00:00;Operativi su strada;2;3;2;3;A1
+50;2027-02-10 10:00:00;Operativi su strada;4;1;3;2;A4
+51;2027-02-10 10:00:00;Operativi su strada;4;2;4;3;A3
+52;2027-02-10 10:00:00;Operativi su strada;3;3;2;3;A3
+53;2027-02-10 10:00:00;Operativi su strada;2;3;2;3;A1
+54;2027-02-10 10:00:00;Operativi su strada;2;2;3;2;A3
+55;2027-02-10 10:00:00;Operativi su strada;1;3;1;2;A1
+56;2027-02-10 10:00:00;Operativi su strada;2;2;2;3;A3
+57;2027-02-10 10:00:00;Operativi su strada;1;3;2;2;A3
+58;2027-02-10 10:00:00;Operativi su strada;2;2;2;3;A1
+59;2027-02-10 10:00:00;Operativi su strada;3;2;4;1;A3
+60;2027-02-10 10:00:00;Operativi su strada;4;3;4;2;A4
+61;2027-02-10 10:00:00;Operativi su strada;2;1;2;2;A1
+62;2027-02-10 10:00:00;Operativi su strada;2;3;2;3;A1
+63;2027-02-10 10:00:00;Operativi su strada;2;2;3;1;A1
+64;2027-02-10 10:00:00;Operativi su strada;3;2;1;2;A3
+65;2027-02-10 10:00:00;Operativi su strada;1;2;4;3;A2
+66;2027-02-10 10:00:00;Operativi su strada;4;3;3;2;A3
+67;2027-02-10 10:00:00;Operativi su strada;3;2;5;4;A2
+68;2027-02-10 10:00:00;Operativi su strada;1;3;3;2;A4
+69;2027-02-10 10:00:00;Operativi su strada;4;2;3;2;A2
+70;2027-02-10 10:00:00;Operativi su strada;4;2;3;2;A4
+71;2027-02-10 10:00:00;Operativi su strada;3;3;3;2;A4
+72;2027-02-10 10:00:00;Operativi su strada;3;1;2;2;A2
+73;2027-02-10 10:00:00;Operativi su strada;4;4;3;3;A2
+74;2027-02-10 10:00:00;Operativi su strada;3;2;3;1;A4
+75;2027-02-10 10:00:00;Operativi su strada;2;2;4;2;A3
+76;2027-02-10 10:00:00;Operativi su strada;4;3;2;3;A3
+77;2027-02-10 10:00:00;Operativi su strada;3;3;3;1;A4
+78;2027-02-10 10:00:00;Operativi su strada;2;2;1;1;A1
+79;2027-02-10 10:00:00;Operativi su strada;1;3;3;1;A1
+80;2027-02-10 10:00:00;Operativi su strada;2;3;3;4;A1
+81;2027-02-10 10:00:00;Operativi su strada;4;2;3;3;A3
+82;2027-02-10 10:00:00;Operativi su strada;3;3;2;2;A3
+83;2027-02-10 10:00:00;Operativi su strada;3;3;3;3;A1
+84;2027-02-10 10:00:00;Operativi su strada;3;3;3;2;A4
+85;2027-02-10 10:00:00;Operativi su strada;1;2;3;2;A4
+86;2027-02-10 10:00:00;Operativi su strada;2;3;2;1;A4
+87;2027-02-10 10:00:00;Operativi su strada;2;3;3;3;A4
+88;2027-02-10 10:00:00;Operativi su strada;4;4;3;2;A3
+89;2027-02-10 10:00:00;Operativi su strada;2;2;1;3;A3
+90;2027-02-10 10:00:00;Operativi su strada;4;4;2;3;A1
+91;2027-02-10 10:00:00;Esazione e sportello;2;2;4;3;A2
+92;2027-02-10 10:00:00;Esazione e sportello;2;2;4;3;A4
+93;2027-02-10 10:00:00;Esazione e sportello;4;4;4;3;A4
+94;2027-02-10 10:00:00;Esazione e sportello;2;2;2;3;A2
+95;2027-02-10 10:00:00;Esazione e sportello;3;2;3;4;A4
+96;2027-02-10 10:00:00;Esazione e sportello;3;3;2;4;A1
+97;2027-02-10 10:00:00;Esazione e sportello;2;3;3;2;A3
+98;2027-02-10 10:00:00;Esazione e sportello;4;2;3;2;A4
+99;2027-02-10 10:00:00;Esazione e sportello;3;2;3;3;A1
+100;2027-02-10 10:00:00;Esazione e sportello;1;2;4;4;A4
+101;2027-02-10 10:00:00;Esazione e sportello;3;2;3;3;A2
+102;2027-02-10 10:00:00;Esazione e sportello;4;2;2;2;A2
+103;2027-02-10 10:00:00;Esazione e sportello;3;3;3;2;A4
+104;2027-02-10 10:00:00;Esazione e sportello;5;1;2;3;A3
+105;2027-02-10 10:00:00;Esazione e sportello;1;1;3;2;A4
+106;2027-02-10 10:00:00;Esazione e sportello;4;3;3;2;A2
+107;2027-02-10 10:00:00;Esazione e sportello;2;3;2;3;A2
+108;2027-02-10 10:00:00;Esazione e sportello;4;3;2;2;A3
+109;2027-02-10 10:00:00;Esazione e sportello;5;2;4;4;A1
+110;2027-02-10 10:00:00;Esazione e sportello;4;3;2;3;A1
+111;2027-02-10 10:00:00;Esazione e sportello;4;2;4;2;A2
+112;2027-02-10 10:00:00;Esazione e sportello;5;4;3;2;A1
+113;2027-02-10 10:00:00;Esazione e sportello;3;2;4;1;A2
+114;2027-02-10 10:00:00;Esazione e sportello;2;3;3;3;A1
+115;2027-02-10 10:00:00;Esazione e sportello;2;4;3;2;A4
+116;2027-02-10 10:00:00;Esazione e sportello;3;2;2;3;A3
+117;2027-02-10 10:00:00;Esazione e sportello;4;3;3;2;A4
+118;2027-02-10 10:00:00;Esazione e sportello;4;2;2;3;A3
+119;2027-02-10 10:00:00;Esazione e sportello;2;2;4;3;A3
+120;2027-02-10 10:00:00;Esazione e sportello;4;4;3;3;A2
+121;2027-02-10 10:00:00;Esazione e sportello;2;2;3;2;A2
+122;2027-02-10 10:00:00;Esazione e sportello;2;3;3;2;A3
+123;2027-02-10 10:00:00;Esazione e sportello;2;4;4;3;A4
+124;2027-02-10 10:00:00;Esazione e sportello;1;3;3;2;A4
+125;2027-02-10 10:00:00;Esazione e sportello;2;3;2;2;A1
+126;2027-02-10 10:00:00;Esazione e sportello;2;2;2;5;A4
+127;2027-02-10 10:00:00;Esazione e sportello;4;1;2;3;A1
+128;2027-02-10 10:00:00;Esazione e sportello;4;2;3;3;A4
+129;2027-02-10 10:00:00;Esazione e sportello;4;3;3;3;A1
+130;2027-02-10 10:00:00;Esazione e sportello;4;3;2;3;A3
+131;2027-02-10 10:00:00;Esazione e sportello;4;5;1;3;A3
+132;2027-02-10 10:00:00;Esazione e sportello;3;3;3;4;A4
+133;2027-02-10 10:00:00;Esazione e sportello;4;3;3;2;A4
+134;2027-02-10 10:00:00;Esazione e sportello;2;2;3;2;A4
+135;2027-02-10 10:00:00;Esazione e sportello;4;2;4;2;A4
+136;2027-02-10 10:00:00;Esazione e sportello;2;3;3;2;A2
+137;2027-02-10 10:00:00;Esazione e sportello;1;3;4;2;A4
+138;2027-02-10 10:00:00;Esazione e sportello;4;3;3;1;A1
+139;2027-02-10 10:00:00;Esazione e sportello;3;1;4;3;A1
+140;2027-02-10 10:00:00;Esazione e sportello;4;2;1;3;A3
+141;2027-02-10 10:00:00;Esazione e sportello;3;3;4;4;A1
+142;2027-02-10 10:00:00;Esazione e sportello;3;3;1;3;A2
+143;2027-02-10 10:00:00;Esazione e sportello;3;3;4;4;A1
+144;2027-02-10 10:00:00;Esazione e sportello;4;3;3;4;A4
+145;2027-02-10 10:00:00;Esazione e sportello;1;3;2;4;A2
+146;2027-02-10 10:00:00;Esazione e sportello;2;3;5;3;A1
+147;2027-02-10 10:00:00;Esazione e sportello;3;2;4;2;A1
+148;2027-02-10 10:00:00;Esazione e sportello;2;3;4;2;A4
+149;2027-02-10 10:00:00;Esazione e sportello;3;1;2;4;A4
+150;2027-02-10 10:00:00;Esazione e sportello;3;2;4;2;A4
+151;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;2;4;A1
+152;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;4;1;A3
+153;2027-02-10 10:00:00;Amministrativi e impiegati;2;4;3;3;A3
+154;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;4;A3
+155;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;5;3;A4
+156;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;2;4;A4
+157;2027-02-10 10:00:00;Amministrativi e impiegati;2;4;1;5;A1
+158;2027-02-10 10:00:00;Amministrativi e impiegati;3;5;4;4;A2
+159;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;3;3;A2
+160;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;3;5;A3
+161;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;4;3;A2
+162;2027-02-10 10:00:00;Amministrativi e impiegati;4;5;3;1;A3
+163;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;5;3;A2
+164;2027-02-10 10:00:00;Amministrativi e impiegati;2;5;3;4;A3
+165;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;5;A1
+166;2027-02-10 10:00:00;Amministrativi e impiegati;5;4;4;3;A1
+167;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;4;2;A3
+168;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;3;A4
+169;2027-02-10 10:00:00;Amministrativi e impiegati;5;2;2;2;A4
+170;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;4;2;A3
+171;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;5;4;A2
+172;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;4;4;A4
+173;2027-02-10 10:00:00;Amministrativi e impiegati;2;3;3;3;A2
+174;2027-02-10 10:00:00;Amministrativi e impiegati;5;4;5;4;A4
+175;2027-02-10 10:00:00;Amministrativi e impiegati;2;4;5;3;A4
+176;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;4;4;A2
+177;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;3;4;A4
+178;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;3;4;A3
+179;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;3;3;A4
+180;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;5;4;A1
+181;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;3;1;A1
+182;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;5;4;A4
+183;2027-02-10 10:00:00;Amministrativi e impiegati;4;5;4;4;A4
+184;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;5;3;A3
+185;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;5;4;A4
+186;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;4;A1
+187;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;3;3;A1
+188;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;3;2;A4
+189;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;3;3;A4
+190;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;3;A4
+191;2027-02-10 10:00:00;Amministrativi e impiegati;3;2;4;4;A2
+192;2027-02-10 10:00:00;Amministrativi e impiegati;3;5;4;4;A2
+193;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;4;4;A1
+194;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;4;4;A3
+195;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;4;3;A3
+196;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;4;4;A4
+197;2027-02-10 10:00:00;Amministrativi e impiegati;5;4;2;4;A4
+198;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;3;3;A4
+199;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;2;2;A2
+200;2027-02-10 10:00:00;Amministrativi e impiegati;3;5;4;3;A2
+201;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;5;4;A2
+202;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;5;2;A3
+203;2027-02-10 10:00:00;Amministrativi e impiegati;2;3;5;4;A4
+204;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;4;4;A3
+205;2027-02-10 10:00:00;Amministrativi e impiegati;3;2;3;2;A3
+206;2027-02-10 10:00:00;Amministrativi e impiegati;5;2;3;5;A3
+207;2027-02-10 10:00:00;Amministrativi e impiegati;4;5;4;5;A2
+208;2027-02-10 10:00:00;Amministrativi e impiegati;3;5;3;4;A2
+209;2027-02-10 10:00:00;Amministrativi e impiegati;5;3;2;4;A1
+210;2027-02-10 10:00:00;Amministrativi e impiegati;3;4;3;3;A2
+211;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;4;3;A2
+212;2027-02-10 10:00:00;Amministrativi e impiegati;5;4;5;4;A4
+213;2027-02-10 10:00:00;Amministrativi e impiegati;3;3;3;4;A4
+214;2027-02-10 10:00:00;Amministrativi e impiegati;2;4;3;3;A4
+215;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;3;4;A2
+216;2027-02-10 10:00:00;Amministrativi e impiegati;4;3;3;4;A1
+217;2027-02-10 10:00:00;Amministrativi e impiegati;2;3;2;3;A2
+218;2027-02-10 10:00:00;Amministrativi e impiegati;2;4;5;5;A4
+219;2027-02-10 10:00:00;Amministrativi e impiegati;4;4;3;4;A1
+220;2027-02-10 10:00:00;Amministrativi e impiegati;4;2;4;3;A3
+221;2027-02-10 10:00:00;Tecnici;3;4;4;3;A2
+222;2027-02-10 10:00:00;Tecnici;3;4;2;4;A3
+223;2027-02-10 10:00:00;Tecnici;3;3;5;3;A1
+224;2027-02-10 10:00:00;Tecnici;5;4;3;2;A1
+225;2027-02-10 10:00:00;Tecnici;3;5;3;3;A3
+226;2027-02-10 10:00:00;Tecnici;2;2;4;4;A4
+227;2027-02-10 10:00:00;Tecnici;4;3;1;3;A2
+228;2027-02-10 10:00:00;Tecnici;3;3;4;4;A4
+229;2027-02-10 10:00:00;Tecnici;3;5;3;2;A2
+230;2027-02-10 10:00:00;Tecnici;3;3;2;2;A3
+231;2027-02-10 10:00:00;Tecnici;3;3;4;1;A2
+232;2027-02-10 10:00:00;Tecnici;2;4;4;2;A4
+233;2027-02-10 10:00:00;Tecnici;4;3;4;1;A1
+234;2027-02-10 10:00:00;Tecnici;4;3;4;2;A1
+235;2027-02-10 10:00:00;Tecnici;3;4;4;2;A1
+236;2027-02-10 10:00:00;Tecnici;3;4;4;4;A3
+237;2027-02-10 10:00:00;Tecnici;3;5;3;3;A2
+238;2027-02-10 10:00:00;Tecnici;3;4;4;4;A2
+239;2027-02-10 10:00:00;Tecnici;4;5;3;3;A4
+240;2027-02-10 10:00:00;Tecnici;3;3;4;4;A3
+241;2027-02-10 10:00:00;Tecnici;5;4;4;2;A2
+242;2027-02-10 10:00:00;Tecnici;3;5;3;2;A4
+243;2027-02-10 10:00:00;Tecnici;2;5;3;3;A4
+244;2027-02-10 10:00:00;Tecnici;3;4;3;3;A2
+245;2027-02-10 10:00:00;Tecnici;4;2;2;3;A4
+246;2027-02-10 10:00:00;Tecnici;3;3;3;4;A1
+247;2027-02-10 10:00:00;Tecnici;3;1;2;2;A3
+248;2027-02-10 10:00:00;Tecnici;1;3;4;2;A3
+249;2027-02-10 10:00:00;Tecnici;4;3;2;2;A4
+250;2027-02-10 10:00:00;Tecnici;2;3;3;4;A4
+251;2027-02-10 10:00:00;Tecnici;3;2;4;5;A4
+252;2027-02-10 10:00:00;Tecnici;4;4;4;4;A3
+253;2027-02-10 10:00:00;Tecnici;4;3;3;3;A2
+254;2027-02-10 10:00:00;Tecnici;4;4;4;4;A3
+255;2027-02-10 10:00:00;Tecnici;3;3;3;4;A3
+256;2027-02-10 10:00:00;Centro operativo;5;4;2;3;A3
+257;2027-02-10 10:00:00;Centro operativo;2;4;3;4;A2
+258;2027-02-10 10:00:00;Centro operativo;3;2;3;4;A3
+259;2027-02-10 10:00:00;Centro operativo;3;3;3;1;A2
+260;2027-02-10 10:00:00;Centro operativo;4;3;4;4;A2
+261;2027-02-10 10:00:00;Centro operativo;4;4;3;4;A3
+262;2027-02-10 10:00:00;Centro operativo;4;2;2;3;A4
+263;2027-02-10 10:00:00;Centro operativo;4;3;3;3;A4
+264;2027-02-10 10:00:00;Centro operativo;3;3;3;3;A2
+265;2027-02-10 10:00:00;Centro operativo;1;3;4;2;A3
+266;2027-02-10 10:00:00;Centro operativo;3;4;1;2;A3
+267;2027-02-10 10:00:00;Centro operativo;3;3;4;3;A4
+268;2027-02-10 10:00:00;Centro operativo;2;3;4;3;A2
+269;2027-02-10 10:00:00;Centro operativo;3;3;4;3;A1
+270;2027-02-10 10:00:00;Centro operativo;3;3;3;2;A4
+271;2027-02-10 10:00:00;Centro operativo;2;2;2;3;A1
+272;2027-02-10 10:00:00;Centro operativo;4;3;3;3;A3
+273;2027-02-10 10:00:00;Centro operativo;2;3;3;3;A2
+274;2027-02-10 10:00:00;Centro operativo;2;4;2;3;A3
+275;2027-02-10 10:00:00;Centro operativo;2;2;3;3;A2
+276;2027-02-10 10:00:00;Centro operativo;3;4;4;3;A1
+277;2027-02-10 10:00:00;Centro operativo;2;2;3;3;A1
+278;2027-02-10 10:00:00;Centro operativo;2;2;2;3;A4
+279;2027-02-10 10:00:00;Centro operativo;2;2;2;3;A3
+280;2027-02-10 10:00:00;Centro operativo;3;2;2;3;A3
+281;2027-02-10 10:00:00;Dirigenti e quadri;5;3;3;3;A2
+282;2027-02-10 10:00:00;Dirigenti e quadri;4;5;4;5;A3
+283;2027-02-10 10:00:00;Dirigenti e quadri;5;5;3;4;A4
+284;2027-02-10 10:00:00;Dirigenti e quadri;4;4;4;4;A4
+285;2027-02-10 10:00:00;Dirigenti e quadri;4;4;4;3;A4
+286;2027-02-10 10:00:00;Dirigenti e quadri;3;4;4;3;A1
+287;2027-02-10 10:00:00;Dirigenti e quadri;3;5;5;5;A2
+288;2027-02-10 10:00:00;Dirigenti e quadri;5;5;3;4;A2
+289;2027-02-10 10:00:00;Dirigenti e quadri;4;4;4;3;A1
+290;2027-02-10 10:00:00;Dirigenti e quadri;3;4;4;4;A3
+291;2027-02-10 10:00:00;Dirigenti e quadri;3;4;3;4;A1
+292;2027-02-10 10:00:00;Dirigenti e quadri;4;5;3;3;A3
+293;2027-02-10 10:00:00;Dirigenti e quadri;4;4;4;5;A4
+294;2027-02-10 10:00:00;Dirigenti e quadri;4;4;4;4;A2
+295;2027-02-10 10:00:00;Dirigenti e quadri;4;4;3;4;A3
+296;2027-02-10 10:00:00;Dirigenti e quadri;5;4;3;4;A4
+297;2027-02-10 10:00:00;Dirigenti e quadri;3;4;4;4;A4
+298;2027-02-10 10:00:00;Dirigenti e quadri;3;5;4;5;A2
+299;2027-02-10 10:00:00;Altro;4;2;4;3;A1
+300;2027-02-10 10:00:00;Altro;2;2;2;3;A4
+301;2027-02-10 10:00:00;Altro;2;2;4;3;A2
+302;2027-02-10 10:00:00;Altro;4;2;4;2;A1
+303;2027-02-10 10:00:00;Altro;3;3;3;1;A1
+304;2027-02-10 10:00:00;Altro;3;3;4;2;A2

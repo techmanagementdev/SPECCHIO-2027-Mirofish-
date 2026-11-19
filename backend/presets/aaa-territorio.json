@@ -1,0 +1,705 @@
+{
+ "id": "aaa-territorio",
+ "nome": "Autostrade Alto Adriatico · Territorio",
+ "tipo": "citta",
+ "descrizione": "Residenti dei comuni attraversati e limitrofi di A4, A23, A28, A34 e A57. Personas illustrative sulla struttura della proposta EMI-AAA-2026-01.",
+ "contesto": "Rete autostradale A4, A23, A28, A34 e A57 tra Veneto e Friuli Venezia Giulia. Cantiere della terza corsia San Donà–Portogruaro, pedaggi fermi con l'obiettivo di mantenerli invariati fino al 2029.",
+ "etichetta_unita": "Macroarea",
+ "unita": [
+  {
+   "id": "veneto_or",
+   "nome": "Veneto orientale",
+   "x": 12,
+   "y": 62
+  },
+  {
+   "id": "pordenonese",
+   "nome": "Pordenonese (A28)",
+   "x": 30,
+   "y": 25
+  },
+  {
+   "id": "bassa",
+   "nome": "Bassa friulana",
+   "x": 45,
+   "y": 70
+  },
+  {
+   "id": "udinese",
+   "nome": "Udinese (A23)",
+   "x": 55,
+   "y": 22
+  },
+  {
+   "id": "isontino",
+   "nome": "Isontino (A34)",
+   "x": 75,
+   "y": 50
+  },
+  {
+   "id": "triestino",
+   "nome": "Triestino",
+   "x": 88,
+   "y": 78
+  }
+ ],
+ "canali": [
+  {
+   "id": "giornale",
+   "nome": "Quotidiano locale",
+   "icona": "news"
+  },
+  {
+   "id": "tv_radio",
+   "nome": "TV e radio locali",
+   "icona": "broadcast"
+  },
+  {
+   "id": "social",
+   "nome": "Social network",
+   "icona": "brand-facebook"
+  },
+  {
+   "id": "app_traffico",
+   "nome": "App e pannelli sul traffico",
+   "icona": "road"
+  },
+  {
+   "id": "assemblea",
+   "nome": "Incontro con i sindaci",
+   "icona": "building-community"
+  },
+  {
+   "id": "sito",
+   "nome": "Sito e comunicato ufficiale",
+   "icona": "world"
+  }
+ ],
+ "personas": [
+  {
+   "id": "pendolare",
+   "nome": "Pendolare A4",
+   "categoria": "Utilizzatori frequenti",
+   "colore": "#2a78d6",
+   "avatar": "PE",
+   "descrizione": "45–54 anni, 4 o più passaggi a settimana tra casa e lavoro, telepedaggio.",
+   "atteggiamento": 0.05,
+   "fiducia": 0.45,
+   "scetticismo": 0.55,
+   "influenza": 0.55,
+   "sensibilita": {
+    "cantieri": 1.0,
+    "traffico": 1.0,
+    "tariffe": 0.8,
+    "sicurezza": 0.7,
+    "ambiente": 0.2
+   },
+   "canali": {
+    "giornale": 0.5,
+    "tv_radio": 0.6,
+    "social": 0.6,
+    "app_traffico": 0.9,
+    "assemblea": 0.2,
+    "sito": 0.4,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "chiusure scoperte all'ultimo momento",
+    "code nei tratti in cantiere"
+   ],
+   "aspettative": [
+    "informazioni con un giorno di anticipo",
+    "tempi certi di fine lavori"
+   ],
+   "voce": "Pratico, impaziente",
+   "frasi": {
+    "positiva": [
+     "Se su {tema} mi avvisate prima, mi organizzo.",
+     "Su {tema} è la notizia che aspettavo."
+    ],
+    "negativa": [
+     "Su {tema} lo scopro quando sono già in coda.",
+     "Ogni giorno la stessa storia."
+    ],
+    "neutra": [
+     "Su {tema} vediamo se è vero."
+    ]
+   },
+   "obiezioni": {
+    "cantieri": "«Quando finiscono davvero i lavori?»",
+    "tariffe": "«Pedaggi fermi ma code ogni giorno»",
+    "generale": "«Avvisateci prima»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "24 ore di anticipo": 0.7,
+    " app": 0.4,
+    "percorsi alternativi": 0.4
+   }
+  },
+  {
+   "id": "residente-svincolo",
+   "nome": "Residente vicino allo svincolo",
+   "categoria": "Residenti comuni attraversati",
+   "colore": "#e34948",
+   "avatar": "RS",
+   "descrizione": "Vive in un comune attraversato, usa poco l'autostrada, subisce traffico deviato e rumore.",
+   "atteggiamento": -0.35,
+   "fiducia": 0.25,
+   "scetticismo": 0.75,
+   "influenza": 0.7,
+   "sensibilita": {
+    "traffico": 1.0,
+    "ambiente": 1.0,
+    "cantieri": 0.9,
+    "servizi": 0.4,
+    "tariffe": 0.2,
+    "sicurezza": 0.6
+   },
+   "canali": {
+    "giornale": 0.6,
+    "tv_radio": 0.5,
+    "social": 0.7,
+    "app_traffico": 0.2,
+    "assemblea": 0.8,
+    "sito": 0.2,
+    "passaparola": 0.9
+   },
+   "criticita": [
+    "camion deviati nelle strade del paese",
+    "rumore dei lavori notturni"
+   ],
+   "aspettative": [
+    "controlli sui mezzi pesanti deviati",
+    "barriere antirumore e orari dei lavori rispettati"
+   ],
+   "voce": "Arrabbiato, concreto",
+   "frasi": {
+    "positiva": [
+     "Su {tema} finalmente qualcuno pensa a chi vive qui.",
+     "Questa su {tema} è una cosa concreta."
+    ],
+    "negativa": [
+     "Su {tema} a me non cambia niente: i camion passano sotto casa mia.",
+     "Pensano agli automobilisti, non a noi."
+    ],
+    "neutra": [
+     "Su {tema} voglio vedere i fatti in paese."
+    ]
+   },
+   "obiezioni": {
+    "tariffe": "«I pedaggi fermi a me non interessano»",
+    "traffico": "«I camion deviati passano in paese»",
+    "cantieri": "«I lavori di notte non ci fanno dormire»",
+    "generale": "«Venite a vedere cosa succede qui»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "mezzi pesanti deviati": 0.7,
+    "fino alle 23": 0.6,
+    "pedagg": -0.3,
+    "notturn": -0.5
+   }
+  },
+  {
+   "id": "autotrasportatore",
+   "nome": "Autotrasportatore",
+   "categoria": "Utilizzatori frequenti",
+   "colore": "#993c1d",
+   "avatar": "AT",
+   "descrizione": "Uso quotidiano per lavoro sulla tratta A4–A23, attento a orari, soste e costi.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.4,
+   "scetticismo": 0.55,
+   "influenza": 0.5,
+   "sensibilita": {
+    "tariffe": 0.9,
+    "cantieri": 0.9,
+    "traffico": 0.9,
+    "sicurezza": 0.6,
+    "servizi": 0.4
+   },
+   "canali": {
+    "giornale": 0.3,
+    "tv_radio": 0.6,
+    "social": 0.5,
+    "app_traffico": 0.9,
+    "assemblea": 0.2,
+    "sito": 0.5,
+    "passaparola": 0.7
+   },
+   "criticita": [
+    "orari di chiusura incerti",
+    "aree di sosta piene"
+   ],
+   "aspettative": [
+    "orari certi di chiusura",
+    "più aree di sosta"
+   ],
+   "voce": "Asciutto",
+   "frasi": {
+    "positiva": [
+     "Su {tema} mi serve proprio questo.",
+     "Bene, su {tema} è una cosa utile per chi lavora."
+    ],
+    "negativa": [
+     "Su {tema} nessuno pensa a chi viaggia per lavoro.",
+     "Ogni ora persa in coda la pago io."
+    ],
+    "neutra": [
+     "Su {tema} servono orari precisi."
+    ]
+   },
+   "obiezioni": {
+    "cantieri": "«Mi servono orari di chiusura certi»",
+    "tariffe": "«Il pedaggio pesa sui costi dell'impresa»",
+    "generale": "«Pensate anche a chi lavora in strada»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "orari": 0.4,
+    "dalle 22 alle 5": 0.3,
+    "sosta": 0.5,
+    "pedagg": 0.4
+   }
+  },
+  {
+   "id": "famiglia-weekend",
+   "nome": "Famiglia del fine settimana",
+   "categoria": "Utilizzatori occasionali",
+   "colore": "#1baf7a",
+   "avatar": "FW",
+   "descrizione": "Usa l'autostrada per il mare e la montagna nei weekend, attenta a sicurezza e costi.",
+   "atteggiamento": 0.25,
+   "fiducia": 0.55,
+   "scetticismo": 0.4,
+   "influenza": 0.4,
+   "sensibilita": {
+    "sicurezza": 0.9,
+    "tariffe": 0.8,
+    "traffico": 0.6,
+    "cantieri": 0.5,
+    "ambiente": 0.4
+   },
+   "canali": {
+    "giornale": 0.4,
+    "tv_radio": 0.7,
+    "social": 0.7,
+    "app_traffico": 0.6,
+    "assemblea": 0.1,
+    "sito": 0.4,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "code nei weekend estivi"
+   ],
+   "aspettative": [
+    "viaggi più sicuri",
+    "nessun aumento dei pedaggi"
+   ],
+   "voce": "Tranquillo",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è una buona notizia per le famiglie.",
+     "Bene, su {tema} si viaggia più tranquilli."
+    ],
+    "negativa": [
+     "Su {tema} speriamo non sia l'ennesimo disagio d'estate."
+    ],
+    "neutra": [
+     "Su {tema} non mi cambia molto."
+    ]
+   },
+   "obiezioni": {
+    "tariffe": "«Finché i pedaggi restano fermi va bene»",
+    "generale": "«Basta che d'estate non ci siano code»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "pedagg": 0.5,
+    "sicurezz": 0.3
+   }
+  },
+  {
+   "id": "pensionato",
+   "nome": "Pensionato non utilizzatore",
+   "categoria": "Residenti",
+   "colore": "#5f5e5a",
+   "avatar": "PN",
+   "descrizione": "Non usa quasi mai l'autostrada; legge il giornale locale e frequenta il bar del paese.",
+   "atteggiamento": 0.1,
+   "fiducia": 0.5,
+   "scetticismo": 0.5,
+   "influenza": 0.6,
+   "sensibilita": {
+    "ambiente": 0.6,
+    "traffico": 0.7,
+    "servizi": 0.7,
+    "cantieri": 0.5,
+    "sicurezza": 0.5,
+    "tariffe": 0.3
+   },
+   "canali": {
+    "giornale": 0.9,
+    "tv_radio": 0.8,
+    "social": 0.2,
+    "app_traffico": 0.1,
+    "assemblea": 0.6,
+    "sito": 0.2,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "traffico pesante nelle strade comunali"
+   ],
+   "aspettative": [
+    "un paese tranquillo"
+   ],
+   "voce": "Riflessivo",
+   "frasi": {
+    "positiva": [
+     "Su {tema} mi sembra una cosa fatta bene."
+    ],
+    "negativa": [
+     "Su {tema} ai miei tempi le cose si facevano prima."
+    ],
+    "neutra": [
+     "Su {tema} l'ho letto sul giornale, vedremo."
+    ]
+   },
+   "obiezioni": {
+    "generale": "«Basta che non passino i camion in paese»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "giornale": 0.2,
+    "mezzi pesanti": 0.4
+   }
+  },
+  {
+   "id": "studente",
+   "nome": "Giovane studente",
+   "categoria": "Residenti",
+   "colore": "#e87ba4",
+   "avatar": "GS",
+   "descrizione": "Studente universitario, si informa sui social, sensibile ai temi ambientali.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.35,
+   "scetticismo": 0.6,
+   "influenza": 0.5,
+   "sensibilita": {
+    "ambiente": 0.9,
+    "trasporti": 0.8,
+    "tariffe": 0.6,
+    "sicurezza": 0.5,
+    "traffico": 0.5,
+    "cantieri": 0.3
+   },
+   "canali": {
+    "giornale": 0.1,
+    "tv_radio": 0.2,
+    "social": 0.95,
+    "app_traffico": 0.4,
+    "assemblea": 0.2,
+    "sito": 0.3,
+    "passaparola": 0.7
+   },
+   "criticita": [
+    "poche alternative all'auto"
+   ],
+   "aspettative": [
+    "più trasporto pubblico",
+    "attenzione all'ambiente"
+   ],
+   "voce": "Informale, ironico",
+   "frasi": {
+    "positiva": [
+     "Su {tema} ok, è un passo avanti."
+    ],
+    "negativa": [
+     "Su {tema} sempre più asfalto, zero alternative.",
+     "Il solito comunicato da ufficio stampa."
+    ],
+    "neutra": [
+     "Su {tema} boh, vediamo."
+    ]
+   },
+   "obiezioni": {
+    "ambiente": "«E l'impatto ambientale?»",
+    "generale": "«Comunicazione vecchia, nessuno legge i comunicati»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "ambient": 0.3,
+    "storic": -0.4,
+    "straordinar": -0.4
+   }
+  },
+  {
+   "id": "imprenditore",
+   "nome": "Imprenditore locale",
+   "categoria": "Attività economiche",
+   "colore": "#eda100",
+   "avatar": "IL",
+   "descrizione": "Titolare di un'azienda di logistica o manifattura vicino a un casello.",
+   "atteggiamento": 0.35,
+   "fiducia": 0.6,
+   "scetticismo": 0.4,
+   "influenza": 0.65,
+   "sensibilita": {
+    "tariffe": 0.9,
+    "traffico": 0.8,
+    "cantieri": 0.7,
+    "lavoro": 0.8,
+    "sicurezza": 0.4
+   },
+   "canali": {
+    "giornale": 0.8,
+    "tv_radio": 0.5,
+    "social": 0.4,
+    "app_traffico": 0.5,
+    "assemblea": 0.7,
+    "sito": 0.6,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "ritardi nelle consegne per i cantieri"
+   ],
+   "aspettative": [
+    "infrastruttura efficiente",
+    "tariffe stabili per pianificare"
+   ],
+   "voce": "Pragmatico",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è un buon segnale per chi fa impresa.",
+     "Tariffe ferme e lavori: per noi conta molto."
+    ],
+    "negativa": [
+     "Su {tema} i ritardi li paghiamo noi."
+    ],
+    "neutra": [
+     "Su {tema} conta il risultato."
+    ]
+   },
+   "obiezioni": {
+    "cantieri": "«Ogni ritardo è un costo per le imprese»",
+    "generale": "«Diteci tempi certi»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "pedagg": 0.6,
+    "2029": 0.4
+   }
+  },
+  {
+   "id": "sindaco",
+   "nome": "Sindaco di un comune attraversato",
+   "categoria": "Amministratori locali",
+   "colore": "#6250d6",
+   "avatar": "SI",
+   "descrizione": "Riceve le lamentele dei cittadini e chiede di essere coinvolto prima delle decisioni.",
+   "atteggiamento": -0.1,
+   "fiducia": 0.45,
+   "scetticismo": 0.6,
+   "influenza": 0.85,
+   "sensibilita": {
+    "traffico": 0.9,
+    "ambiente": 0.8,
+    "cantieri": 0.9,
+    "servizi": 0.6,
+    "ascolto": 0.9,
+    "sicurezza": 0.6
+   },
+   "canali": {
+    "giornale": 0.7,
+    "tv_radio": 0.5,
+    "social": 0.4,
+    "app_traffico": 0.2,
+    "assemblea": 0.95,
+    "sito": 0.5,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "lo scopre dai cittadini",
+    "nessun ristoro per il territorio"
+   ],
+   "aspettative": [
+    "un tavolo stabile con la concessionaria",
+    "misure concrete nei comuni"
+   ],
+   "voce": "Istituzionale, fermo",
+   "frasi": {
+    "positiva": [
+     "Su {tema} finalmente una misura che posso spiegare ai miei cittadini."
+    ],
+    "negativa": [
+     "Su {tema} ci chiamano i cittadini, ma noi non sappiamo più di loro."
+    ],
+    "neutra": [
+     "Su {tema} chiederò un incontro."
+    ]
+   },
+   "obiezioni": {
+    "cantieri": "«Coinvolgete i comuni prima di aprire i cantieri»",
+    "traffico": "«Chi controlla i mezzi pesanti deviati?»",
+    "generale": "«Serve un tavolo con i sindaci»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "sindaci": 0.7,
+    "ogni mese": 0.5,
+    "comuni": 0.3
+   }
+  }
+ ],
+ "composizione": {
+  "veneto_or": {
+   "pendolare": 20,
+   "residente-svincolo": 14,
+   "autotrasportatore": 8,
+   "famiglia-weekend": 12,
+   "pensionato": 12,
+   "studente": 8,
+   "imprenditore": 6,
+   "sindaco": 2
+  },
+  "bassa": {
+   "pendolare": 16,
+   "residente-svincolo": 18,
+   "autotrasportatore": 6,
+   "famiglia-weekend": 10,
+   "pensionato": 14,
+   "studente": 6,
+   "imprenditore": 5,
+   "sindaco": 2
+  },
+  "udinese": {
+   "pendolare": 18,
+   "residente-svincolo": 8,
+   "autotrasportatore": 8,
+   "famiglia-weekend": 12,
+   "pensionato": 12,
+   "studente": 12,
+   "imprenditore": 7,
+   "sindaco": 2
+  },
+  "isontino": {
+   "pendolare": 10,
+   "residente-svincolo": 8,
+   "autotrasportatore": 6,
+   "famiglia-weekend": 8,
+   "pensionato": 10,
+   "studente": 6,
+   "imprenditore": 4,
+   "sindaco": 2
+  },
+  "triestino": {
+   "pendolare": 12,
+   "residente-svincolo": 6,
+   "autotrasportatore": 10,
+   "famiglia-weekend": 10,
+   "pensionato": 14,
+   "studente": 10,
+   "imprenditore": 5,
+   "sindaco": 1
+  },
+  "pordenonese": {
+   "pendolare": 14,
+   "residente-svincolo": 8,
+   "autotrasportatore": 8,
+   "famiglia-weekend": 10,
+   "pensionato": 10,
+   "studente": 8,
+   "imprenditore": 8,
+   "sindaco": 2
+  }
+ },
+ "esempi": [
+  {
+   "titolo": "Informazione sui cantieri",
+   "canale": "app_traffico",
+   "testo": "Da lunedì 12 gennaio il tratto San Donà–Portogruaro avrà chiusure notturne dalle 22 alle 5. Ogni chiusura sarà annunciata con 24 ore di anticipo su app, radio e pannelli, con i percorsi alternativi consigliati."
+  },
+  {
+   "titolo": "Mitigazione nei comuni",
+   "canale": "assemblea",
+   "testo": "Con i sindaci dei comuni attraversati abbiamo concordato controlli sui mezzi pesanti deviati, lavori rumorosi solo fino alle 23 e un numero dedicato per le segnalazioni dei residenti. Ci rivedremo ogni mese per verificare i risultati."
+  },
+  {
+   "titolo": "Benefici: pedaggi fermi",
+   "canale": "giornale",
+   "testo": "Una notizia storica: i pedaggi resteranno fermi fino al 2029! Un risultato straordinario che conferma l'eccellenza della nostra gestione."
+  }
+ ],
+ "missioni": [
+  {
+   "id": "t-svincolo",
+   "titolo": "Pace allo svincolo",
+   "descrizione": "Porta sopra 50 il gradimento dei residenti vicini allo svincolo.",
+   "condizione": {
+    "tipo": "indice_personas_min",
+    "personas": [
+     "residente-svincolo"
+    ],
+    "valore": 50
+   },
+   "xp": 60
+  },
+  {
+   "id": "t-sindaci",
+   "titolo": "Sindaci dalla tua parte",
+   "descrizione": "Ottieni almeno 60 di gradimento tra i sindaci.",
+   "condizione": {
+    "tipo": "indice_personas_min",
+    "personas": [
+     "sindaco"
+    ],
+    "valore": 60
+   },
+   "xp": 50
+  },
+  {
+   "id": "t-tutti",
+   "titolo": "Messaggio per tutti",
+   "descrizione": "Gradimento complessivo di almeno 60 con meno del 20% di negativi.",
+   "condizione": {
+    "tipo": "indice_e_negativi",
+    "indice": 60,
+    "negativi": 20
+   },
+   "xp": 50
+  }
+ ]
+}
