@@ -19,12 +19,18 @@ TEMI: dict[str, dict] = {
     "organizzazione": {"nome": "riorganizzazione", "kw": ["riorganizz", "ristruttur", "accorpa", "trasferiment", "nuovo modello", "organigramma", "esternalizz", "unificaz"], "tipo": "cambiamento"},
     "ascolto": {"nome": "ascolto e coinvolgimento", "kw": ["ascolt", "confront", "proposte", "partecip", "insieme", "coinvolg", "dialogo", "feedback", "suggeriment", "segnalazion", "ci rivedremo", "tavolo", "incontri"], "tipo": "beneficio"},
     "cantieri": {"nome": "cantieri e lavori", "kw": ["cantier", "lavori", "terza corsia", "deviazion", "restringiment", "chiusur"], "tipo": "costo"},
-    "tariffe": {"nome": "pedaggi e tariffe", "kw": ["pedagg", "tariff", "prezz", "costo", "costi", "tasse", "tassa", " imu", " tari ", "bollett"], "tipo": "costo"},
+    "tariffe": {"nome": "tariffe e prezzi", "kw": ["pedagg", "tariff", "prezz", "scont", " costa ", " costerà", "costo", "costi", "tasse", "tassa", " imu", " tari ", "bollett", " euro", "€"], "tipo": "costo"},
     "traffico": {"nome": "traffico e viabilità", "kw": ["traffic", "code ", "coda", "congestion", "mezzi pesanti", "camion", "viabilit", "parchegg", "ztl", "zona a traffico limitato"], "tipo": "costo"},
-    "ambiente": {"nome": "ambiente", "kw": ["ambient", "rumor", "inquin", "verde", "alberi", "emission", "aria ", "barriere antirumore", "parco", "parchi"], "tipo": "misto"},
+    "ambiente": {"nome": "ambiente", "kw": ["ambient", "rumor", "inquin", "verde", "alberi", "emission", " aria ", "barriere antirumore", "parco", "parchi"], "tipo": "misto"},
     "servizi": {"nome": "servizi pubblici", "kw": ["serviz", "sanit", "ospedal", "scuol", "asilo", "bibliotec", "sportell", "assistenza"], "tipo": "beneficio"},
     "casa": {"nome": "casa e affitti", "kw": ["casa", "case ", "affitt", "abitaz", "alloggi", "mutu"], "tipo": "beneficio"},
     "lavoro": {"nome": "lavoro e imprese", "kw": ["occupaz", "posti di lavoro", "assunzion", "impres", "aziende", "negozi", "commerc", "attività produttiv"], "tipo": "beneficio"},
+    "frequenza": {"nome": "frequenza delle corse", "kw": ["frequen", "più corse", "nuove corse", "corse ogni", "ogni 10 minuti", "ogni 15 minuti", "ogni 20 minuti", "ogni 30 minuti", "corse notturne", "corse serali"], "tipo": "beneficio"},
+    "puntualita": {"nome": "puntualità", "kw": ["puntual", "ritard", "in orario", "orari garantiti"], "tipo": "beneficio"},
+    "comfort": {"nome": "comfort del viaggio", "kw": ["comfort", "wi-fi", "wifi", "aria condizionata", "climatizz", "posti a sedere", "bagagli", "mezzi nuovi", "autobus nuovi"], "tipo": "beneficio"},
+    "biglietto": {"nome": "acquisto del biglietto", "kw": ["bigliett", "prenota", "acquist", "contactless", "carta di credito", "biglietteria"], "tipo": "beneficio"},
+    "tempi": {"nome": "tempi di viaggio", "kw": ["tempo di viaggio", "più veloce", "veloci", "diretto", "diretta", "senza fermate intermedie", "in meno di"], "tipo": "beneficio"},
+    "fermate": {"nome": "fermate e accessibilità", "kw": ["fermat", "capolinea", "accessib", "mobilità ridotta", "assistenza"], "tipo": "beneficio"},
     "trasporti": {"nome": "trasporto pubblico", "kw": ["autobus", " bus", "tram", "trasporto pubblico", "ciclabil", "bici", "treno", "navett"], "tipo": "beneficio"},
 }
 
@@ -80,6 +86,9 @@ def analizza(messaggio: str) -> Analisi:
     for frase in _frasi(testo):
         f = " " + frase + " "
         aum, rid = _count(f, AUMENTO), _count(f, RIDUZIONE)
+        for x, y in re.findall(r"da (\d+(?:[.,]\d+)?) a (\d+(?:[.,]\d+)?)", f):  # «passa da 10 a 12 euro»
+            vx, vy = float(x.replace(",", ".")), float(y.replace(",", "."))
+            aum, rid = aum + (vy > vx), rid + (vy < vx)
         pos, neg = _count(f, POSITIVI), _count(f, NEGATIVI)
         generale = pos - neg
         tot_generale += generale

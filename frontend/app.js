@@ -409,6 +409,7 @@ function configuraImport(a, titolo, info) {
   if (fid) $("#imp-fid").value = fid;
   $("#imp-modello").innerHTML = S.mondi.map((m) => `<option value="${m.id}">${esc(m.nome)}</option>`).join("");
   $("#imp-modello").value = S.mondo?.id || S.mondi[0].id;
+  $("#imp-mondo-es").innerHTML = `<option value="">Crea dai gruppi del sondaggio</option>` + S.mondi.map((m) => `<option value="${m.id}">Usa le personas di «${esc(m.nome)}»</option>`).join("");
   $("#imp-clima").innerHTML = a.numeriche.map((c) => `<button class="chip ${c === fid ? "" : "on"}" data-c="${esc(c)}" title="${esc(et[c] || c)}">${esc(lab(c).slice(0, 60))}</button>`).join("") || `<p class="muted">Nessuna domanda numerica trovata.</p>`;
   $$("#imp-clima button").forEach((b) => (b.onclick = () => b.classList.toggle("on")));
   $("#imp-cfg").hidden = false;
@@ -436,7 +437,7 @@ $("#imp-go").onclick = async () => {
     if (conReport) {
       r = await api("/api/report", { fonte: fonte.tipo, sid: fonte.sid || null, csv: fonte.tipo === "file" ? csvTesto : null, titolo: comune.nome,
         cliente: $("#imp-cliente").value, colonna_gruppo: comune.colonna_gruppo, colonne_clima: comune.colonne_clima,
-        colonna_fiducia: comune.colonna_fiducia, modello_id: comune.modello_id, codice: $("#imp-codice").value.trim() });
+        colonna_fiducia: comune.colonna_fiducia, modello_id: comune.modello_id, codice: $("#imp-codice").value.trim(), mondo_esistente: $("#imp-mondo-es").value || null });
       const url = location.origin + r.link;
       $("#imp-link").innerHTML = `<div class="mission-done"><i class="ti ti-link"></i><div><b>Area cliente pronta</b><br><a href="${esc(url)}" target="_blank">${esc(url)}</a><br><span class="muted">Invia al cliente il link e, separatamente, il codice di accesso.</span></div></div>`;
       r.id = r.mondo_id;

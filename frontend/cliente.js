@@ -62,7 +62,7 @@ function disegnaRisultati() {
   if (gs.length > 1) {
     $("#mappa").innerHTML = `<tr><th>Domanda</th>${gs.map((g) => `<th>${esc(g)}</th>`).join("")}</tr>` + r.domande.map((d) => `<tr><td class="q">${d.emoji} ${esc(d.breve)}</td>${gs.map((g) => { const v = d.per_gruppo[g]; return v == null ? `<td class="c-vuoto">—</td>` : `<td class="c-${colore(v)}">${r0(v)}</td>`; }).join("")}</tr>`).join("");
   }
-  $("#categoriali").innerHTML = r.categoriali.map((c) => `<h3>🗂️ ${esc(c.testo)}</h3><div class="card cat">${c.voci.map((v) => `<div class="cvoce"><span>${esc(v.etichetta)}</span><div class="barra" style="margin:0"><div class="blu" style="width:${v.quota}%;background:var(--blu)"></div></div><b>${v.quota}%</b></div>`).join("")}</div>`).join("");
+  $("#categoriali").innerHTML = r.categoriali.map((c) => `<h3>${c.multipla ? "☑️" : "🗂️"} ${esc(c.testo)}</h3>${c.multipla ? `<p class="spiega">Quota di chi ha indicato ciascuna voce (più risposte possibili).</p>` : ""}<div class="card cat">${c.voci.map((v) => `<div class="cvoce"><span>${esc(v.etichetta)}</span><div class="barra" style="margin:0"><div class="blu" style="width:${v.quota}%;background:var(--blu)"></div></div><b>${v.quota}%</b></div>`).join("")}</div>`).join("");
   $("#nota").textContent = r.nota;
 }
 

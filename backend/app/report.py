@@ -15,6 +15,9 @@ from .importer import SOGLIA_ANONIMATO, _numero, leggi_csv
 from .settings import DATA_DIR, _hash, _verifica_hash
 
 REPORT_DIR = DATA_DIR / "report"
+NON_RISPONDE = {"NS/NR", "NS", "NR", "NON SO", "NON RISPONDE", "N/A", "NA"}
+SI_NO = {"Sì", "Si", "SI", "SÌ", "Y", "Yes", "No", "N", "NO"}
+MULTIPLA = re.compile(r"^(.*?)\s*\[(.+)\]\s*$")
 TECNICHE = re.compile(r"^(id|submitdate|lastpage|startlanguage|seed|startdate|datestamp|ipaddr|refurl|token|interviewtime|.*time)$", re.I)
 
 
@@ -59,11 +62,19 @@ def genera(csv_testo: str, titolo: str, cliente: str, colonna_gruppo: str, colon
             gruppi["Altri"] = altri
 
     domande, categoriali = [], []
+    multiple: dict[str, list[dict]] = {}
     for c in colonne:
         if c == colonna_gruppo or TECNICHE.match(c):
             continue
+        mm = MULTIPLA.match(nome(c)) or MULTIPLA.match(c)
+        pieni_c = [(r.get(c) or "").strip() for r in righe if (r.get(c) or "").strip()]
+        if mm and pieni_c and set(pieni_c) <= SI_NO:
+            if len(pieni_c) >= SOGLIA_ANONIMATO:
+                si = sum(1 for v in pieni_c if v.upper() in {"SÌ", "SI", "Y", "YES"})
+                multiple.setdefault(mm.group(1).strip(), []).append({"etichetta": mm.group(2).strip(), "quota": round(100 * si / len(pieni_c)), "n": len(pieni_c)})
+            continue
         valori = [(r.get(c) or "").strip() for r in righe]
-        pieni = [v for v in valori if v]
+        pieni = [v for v in valori if v and v.upper() not in NON_RISPONDE]
         if len(pieni) < SOGLIA_ANONIMATO:
             continue
         numeri = [n for v in pieni if re.fullmatch(r"-?\d+([.,]\d+)?", v) and (n := _numero(v)) is not None]
@@ -94,6 +105,10 @@ def genera(csv_testo: str, titolo: str, cliente: str, colonna_gruppo: str, colon
                 categoriali.append({"id": c, "testo": nome(c), "n": len(pieni),
                                     "voci": [{"etichetta": k, "quota": round(100 * v / len(pieni))} for k, v in freq.items()]})
 
+    for domanda, voci in multiple.items():
+        if len(voci) >= 2:
+            categoriali.append({"id": domanda[:40], "testo": domanda, "n": max(v["n"] for v in voci), "multipla": True,
+                                "voci": sorted(voci, key=lambda v: -v["quota"])})
     clima = [d for d in domande if d["clima"]] or domande
     indice = round(statistics.fmean(d["punteggio"] for d in clima), 1) if clima else None
     per_gruppo_indice = {}

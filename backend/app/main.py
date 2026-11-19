@@ -429,6 +429,7 @@ class ReportIn(BaseModel):
     colonna_fiducia: str | None = None
     modello_id: str = "aaa-interno"
     codice: str = Field(min_length=6, max_length=100)
+    mondo_esistente: str | None = None  # collega il report a personas già costruite (es. segmentazione statistica)
 
 
 @app.post("/api/report")
@@ -445,15 +446,18 @@ def crea_report(body: ReportIn, request: Request):
         if not body.csv:
             raise HTTPException(400, "Carica il file CSV")
         csv_testo = body.csv
-    modello = _mondo_visibile(body.modello_id, request)
-    csv_mondo = rinomina_valori(csv_testo, body.colonna_gruppo, opzioni.get(body.colonna_gruppo, {}))
-    mondo_nuovo = crea_mondo(csv_mondo, body.titolo, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, modello)
-    if not mondo_nuovo["personas"]:
-        raise HTTPException(400, "Nessun gruppo ha almeno 10 risposte: non è possibile creare personas rispettando l'anonimato")
     r = rep.genera(csv_testo, body.titolo, body.cliente, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, etichette, opzioni)
-    _arricchisci_personas(mondo_nuovo, r)
-    mondo_nuovo["fonte"] = {"tipo": body.fonte, "sid": body.sid, "titolo": body.titolo, "importato": time.strftime("%Y-%m-%d %H:%M")}
-    salva_mondo_utente(mondo_nuovo)
+    if body.mondo_esistente:
+        mondo_nuovo = _mondo_visibile(body.mondo_esistente, request)
+    else:
+        modello = _mondo_visibile(body.modello_id, request)
+        csv_mondo = rinomina_valori(csv_testo, body.colonna_gruppo, opzioni.get(body.colonna_gruppo, {}))
+        mondo_nuovo = crea_mondo(csv_mondo, body.titolo, body.colonna_gruppo, body.colonne_clima, body.colonna_fiducia, modello)
+        if not mondo_nuovo["personas"]:
+            raise HTTPException(400, "Nessun gruppo ha almeno 10 risposte: non è possibile creare personas rispettando l'anonimato")
+        _arricchisci_personas(mondo_nuovo, r)
+        mondo_nuovo["fonte"] = {"tipo": body.fonte, "sid": body.sid, "titolo": body.titolo, "importato": time.strftime("%Y-%m-%d %H:%M")}
+        salva_mondo_utente(mondo_nuovo)
     r["mondo_id"] = mondo_nuovo["id"]
     r = rep.salva(r, body.codice)
     settings.conta("importazioni")

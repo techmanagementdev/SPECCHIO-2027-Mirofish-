@@ -76,3 +76,12 @@ def test_api():
     assert client.post("/api/simula", json={"mondo_id": "aaa-territorio", "messaggio": "Prova", "canale": "inesistente"}).status_code == 400
     c = client.post("/api/chat", json={"mondo_id": "aaa-interno", "persona_id": "caposquadra", "domanda": "Qual è il problema principale?", "usa_llm": False})
     assert c.status_code == 200 and "squadre ridotte" in c.json()["risposta"]
+
+
+def test_temi_trasporto_e_prezzi():
+    from app.analyzer import analizza
+    assert analizza("Il biglietto passa da 10 a 12 euro.").temi["tariffe"] < 0
+    assert analizza("Il biglietto passa da 12 a 10 euro.").temi["tariffe"] > 0
+    assert analizza("Studenti: il biglietto costa il 30% in meno.").temi["tariffe"] > 0
+    assert analizza("Più corse: ogni 15 minuti dalle 5 del mattino.").temi["frequenza"] > 0
+    assert "puntualita" in analizza("Stop ai ritardi: orari garantiti.").temi
