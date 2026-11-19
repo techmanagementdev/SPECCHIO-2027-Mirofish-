@@ -35,7 +35,7 @@ TEMI: dict[str, dict] = {
 }
 
 AUMENTO = ["aument", "rincar", "più ", "maggior", "potenzi", "rafforz", "estens", "raddopp", "nuov", "avranno", "avrete", "nascerà", "introdu", "attiver", "arriverà", "sarà disponibile", "collegherà", "metteremo a disposizione"]
-RIDUZIONE = ["riduz", "ridott", "riduc", "diminu", "meno ", "calo", "tagli", "sopprim", "eliminaz", "elimin", "sospens", "sospes"]
+RIDUZIONE = ["riduz", "ridott", "riduc", "diminu", " meno", "calo", "tagli", "sopprim", "eliminaz", "elimin", "sospens", "sospes"]
 POSITIVI = ["miglior", "investiment", "gratuit", "sconto", "valorizz", "semplific", "garant", "tutel", "incentiv", "risparmi", "agevol", "stabilizz", "fine lavori", "conclusion", "completament", "riconosciment"]
 MITIGAZIONE = ["controll", "solo fino", "mitigaz", "ristor", "barrier", "limitat", "riduzione dei disagi", "numero dedicato", "verific", "anticipo", "percorsi alternativi", "gratuit", "fermi", "invariat", "congelat"]
 NEGATIVI = ["sacrific", "obbligatori", "sanzion", "ritard", "rinvi", "blocc", "esuber", "disagi", "penalizz", "costrett", "rincar"]
