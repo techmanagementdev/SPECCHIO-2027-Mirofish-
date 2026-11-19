@@ -114,3 +114,5 @@ main{flex:1;padding:22px 28px;max-width:1400px}
 #toast i{color:var(--gold)}
 svg text{font-family:Inter,system-ui,sans-serif}
 @media (max-width:1000px){.grid-mondo,.grid-lancia,.grid2,.grid-chat,.score-row{grid-template-columns:1fr}.side{width:76px}.side span{font-size:10px}.xpwrap{display:none}}
+.iconlink{border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;display:grid;place-items:center;color:var(--muted);text-decoration:none;padding:0;font-size:20px}
+.iconlink:hover{color:var(--accent)}

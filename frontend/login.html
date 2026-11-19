@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accesso · SPECCHIO</title>
+<link rel="stylesheet" href="/static/vendor/tabler/tabler-icons-outline.min.css">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+body{display:grid;place-items:center;min-height:100vh;background:linear-gradient(135deg,#eef1ff,#f6f0ff)}
+.box{width:min(400px,92vw);background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 28px;text-align:center}
+.box .logo{margin:0 auto 10px;width:52px;height:52px;font-size:24px;border-radius:14px}
+.box h1{font-size:22px;margin:4px 0}.box p{color:var(--muted);margin:0 0 18px}
+.box input{margin-bottom:12px;text-align:center;font-size:16px}
+.box button{width:100%;margin-top:0}
+.switch{margin-top:16px;font-size:13px}.switch a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<form class="box" id="f">
+  <div class="logo">S</div>
+  <h1 id="titolo">SPECCHIO</h1>
+  <p id="sotto">Simulatore di personas di opinione</p>
+  <input type="password" id="pw" placeholder="Password" autocomplete="current-password" autofocus required>
+  <button class="big" id="go"><i class="ti ti-lock-open"></i> Entra</button>
+  <p class="err" id="err"></p>
+  <div class="switch" id="switch"></div>
+</form>
+<script src="/static/login.js"></script>
+</body>
+</html>

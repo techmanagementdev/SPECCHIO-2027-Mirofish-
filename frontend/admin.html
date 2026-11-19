@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Area riservata · SPECCHIO</title>
+<link rel="stylesheet" href="/static/vendor/tabler/tabler-icons-outline.min.css">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+main.adm{max-width:1100px;margin:0 auto;padding:24px}
+.adm section{margin-bottom:18px}
+.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.f2 label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+table.t td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.t td.az{white-space:nowrap;text-align:right}
+table.t td.az button{padding:5px 9px;font-size:13px}
+.ok{color:var(--pos);font-size:13px;min-height:1em}
+textarea.json{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;min-height:420px}
+.st{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.badge-or{font-size:11px;padding:2px 8px;border-radius:10px;background:#f1f2f6}
+.badge-or.creato{background:#e3f7ee;color:#0b6b47}.badge-or.modificato{background:#fff6dc;color:#8a6200}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">S</span><div><b>SPECCHIO</b><small>area riservata</small></div></div>
+  <div class="player">
+    <a href="/" class="iconlink" title="Torna al simulatore"><i class="ti ti-arrow-back-up"></i></a>
+    <button id="esci" class="iconlink" title="Esci"><i class="ti ti-logout"></i></button>
+  </div>
+</header>
+<main class="adm">
+  <div class="head"><h1>Impostazioni</h1><p>Le modifiche valgono subito per tutti gli utenti. Le chiavi API non vengono mai mostrate per intero.</p></div>
+
+  <section class="card">
+    <h3><i class="ti ti-chart-bar"></i> Utilizzo</h3>
+    <div class="st" id="stat"></div>
+  </section>
+
+  <section class="card">
+    <h3><i class="ti ti-brain"></i> Modello linguistico</h3>
+    <p class="hint">Senza chiave il simulatore funziona con le regole (modalità dimostrativa). Stato attuale: <b id="llm-attivo"></b></p>
+    <div class="f2">
+      <label>Fornitore<select id="provider"><option value="">Automatico (la prima chiave presente)</option><option value="anthropic">Anthropic</option><option value="openai">Compatibile OpenAI</option><option value="mock">Solo regole</option></select></label>
+      <label>Modello Anthropic<input id="anthropic_model"></label>
+      <label>Chiave Anthropic<input id="anthropic_key" type="password" autocomplete="off"></label>
+      <label>Modello compatibile OpenAI<input id="openai_model"></label>
+      <label>Indirizzo API compatibile OpenAI<input id="openai_base_url"></label>
+      <label>Chiave compatibile OpenAI<input id="openai_key" type="password" autocomplete="off"></label>
+    </div>
+    <p class="hint">Lascia vuoto il campo di una chiave per non cambiarla. Scrivi <code>-</code> per cancellarla.</p>
+    <div class="row-btn"><span><button id="salva-llm" class="big" style="margin:0"><i class="ti ti-device-floppy"></i> Salva</button> <button id="prova-llm"><i class="ti ti-plug-connected"></i> Prova il collegamento</button></span></div>
+    <p class="ok" id="llm-ok"></p><p class="err" id="llm-err"></p>
+  </section>
+
+  <section class="card">
+    <h3><i class="ti ti-adjustments"></i> Parametri della simulazione</h3>
+    <div class="f2">
+      <label>Round di passaparola predefiniti<input type="number" id="p-round" min="1" max="20"></label>
+      <label>Esecuzioni predefinite<input type="number" id="p-esec" min="1" max="10"></label>
+      <label>Numero massimo di agenti<input type="number" id="p-max" min="50" max="2000" step="50"></label>
+    </div>
+    <p class="hint">Più agenti ed esecuzioni rendono i risultati più stabili ma la simulazione più lenta.</p>
+    <button id="salva-sim"><i class="ti ti-device-floppy"></i> Salva parametri</button>
+    <p class="ok" id="sim-ok"></p><p class="err" id="sim-err"></p>
+  </section>
+
+  <section class="card">
+    <h3><i class="ti ti-world"></i> Mondi</h3>
+    <p class="hint">Nascondi i mondi che non devono vedere gli utenti, modifica personas e composizione nel testo JSON, carica un nuovo mondo o scarica quelli esistenti.</p>
+    <table class="t"><thead><tr><th>Mondo</th><th>Tipo</th><th>Personas</th><th>Origine</th><th>Visibile</th><th></th></tr></thead><tbody id="mondi"></tbody></table>
+    <div class="row-btn"><label class="sw"><i class="ti ti-upload"></i> Carica un mondo (JSON) <input type="file" id="carica" accept=".json,application/json"></label></div>
+    <p class="ok" id="m-ok"></p><p class="err" id="m-err"></p>
+    <div id="editor" hidden>
+      <div class="lab" id="ed-tit"></div>
+      <textarea class="json" id="ed-json" spellcheck="false"></textarea>
+      <div class="row-btn"><span><button id="ed-salva" class="big" style="margin:0"><i class="ti ti-device-floppy"></i> Salva il mondo</button> <button id="ed-chiudi" class="ghost">Chiudi</button></span></div>
+      <p class="err" id="ed-err"></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3><i class="ti ti-key"></i> Password</h3>
+    <p class="hint">Le password iniziali sono quelle impostate sul server. Da qui puoi sostituirle (almeno 8 caratteri). La password dell'area riservata vale anche per l'area visibile.</p>
+    <div class="f2">
+      <label>Nuova password area visibile<input type="password" id="pw-utente" autocomplete="new-password"></label>
+      <label>Nuova password area riservata<input type="password" id="pw-admin" autocomplete="new-password"></label>
+    </div>
+    <button id="salva-pw"><i class="ti ti-device-floppy"></i> Cambia password</button>
+    <p class="ok" id="pw-ok"></p><p class="err" id="pw-err"></p>
+  </section>
+</main>
+<script src="/static/admin.js"></script>
+</body>
+</html>

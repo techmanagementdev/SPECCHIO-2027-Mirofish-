@@ -55,6 +55,17 @@ Il repository è pronto anche per la pubblicazione su Railway: crea un servizio 
 
 ---
 
+## Accesso e area riservata
+
+Se è impostata una password (variabili `ACCESS_PASSWORD` e `ADMIN_PASSWORD`, oppure dall'area riservata) il sistema chiede l'accesso:
+
+- **area visibile** `/`: simulatore per gli utenti;
+- **area riservata** `/admin`: modello linguistico e chiavi API, parametri della simulazione, mondi visibili, modifica e caricamento dei mondi, cambio password, statistiche d'uso.
+
+La password dell'area riservata apre anche l'area visibile. Senza password impostate (uso sul proprio computer) l'accesso è libero.
+
+Su un server i dati (impostazioni, mondi creati, chiave di firma delle sessioni) stanno nella cartella indicata da `DATA_DIR`: su Railway va montato un volume.
+
 ## I mondi inclusi
 
 | Mondo | Tipo | Contenuto |

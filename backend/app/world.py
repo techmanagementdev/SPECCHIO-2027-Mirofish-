@@ -8,7 +8,9 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
 PRESET_DIR = BASE / "presets"
-USER_DIR = Path(__file__).resolve().parents[2] / "data" / "mondi_utente"
+from .settings import DATA_DIR
+
+USER_DIR = DATA_DIR / "mondi_utente"
 
 CANALE_PASSAPAROLA = "passaparola"
 
@@ -33,6 +35,44 @@ def carica_mondo(mondo_id: str) -> dict:
     if mondo_id not in mondi:
         raise KeyError(f"Mondo non trovato: {mondo_id}")
     return mondi[mondo_id]
+
+
+def origine(mondo_id: str) -> str:
+    if (USER_DIR / f"{mondo_id}.json").exists():
+        return "modificato" if (PRESET_DIR / f"{mondo_id}.json").exists() else "creato"
+    return "predefinito"
+
+
+def elimina_mondo_utente(mondo_id: str) -> bool:
+    f = USER_DIR / f"{mondo_id}.json"
+    if f.exists():
+        f.unlink()
+        return True
+    return False
+
+
+def valida_mondo(m: dict) -> list[str]:
+    errori = []
+    for k in ["id", "nome", "tipo", "unita", "canali", "personas", "composizione"]:
+        if k not in m:
+            errori.append(f"manca il campo «{k}»")
+    if errori:
+        return errori
+    ids = {p.get("id") for p in m["personas"]}
+    for p in m["personas"]:
+        for k in ["id", "nome", "atteggiamento", "fiducia", "scetticismo", "influenza"]:
+            if k not in p:
+                errori.append(f"persona {p.get('id', '?')}: manca «{k}»")
+    unita = {u.get("id") for u in m["unita"]}
+    for u, mix in m["composizione"].items():
+        if u not in unita:
+            errori.append(f"composizione: unità «{u}» non definita")
+        for pid in mix:
+            if pid not in ids:
+                errori.append(f"composizione: persona «{pid}» non definita")
+    if not m["canali"]:
+        errori.append("serve almeno un canale")
+    return errori
 
 
 def salva_mondo_utente(mondo: dict) -> None:
@@ -61,9 +101,12 @@ def _clip(x: float, lo: float, hi: float) -> float:
     return max(lo, min(hi, x))
 
 
-def costruisci_popolazione(mondo: dict, composizione: dict | None, rng: random.Random, max_agenti: int = 400) -> list[Agente]:
+def costruisci_popolazione(mondo: dict, composizione: dict | None, rng: random.Random, max_agenti: int | None = None) -> list[Agente]:
     """Crea gli agenti secondo la composizione {unita_id: {persona_id: numero}}."""
     personas = {p["id"]: p for p in mondo["personas"]}
+    if max_agenti is None:
+        from .settings import carica
+        max_agenti = int(carica()["simulazione"].get("max_agenti", 400))
     comp = composizione or mondo["composizione"]
     totale = sum(sum(v.values()) for v in comp.values()) or 1
     scala = min(1.0, max_agenti / totale)

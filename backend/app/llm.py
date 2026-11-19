@@ -1,6 +1,6 @@
 """Collegamento opzionale a un modello linguistico.
 
-Variabili d'ambiente:
+Configurazione: area riservata (/admin) oppure variabili d'ambiente:
   LLM_PROVIDER   anthropic | openai | mock (predefinito: mock se non ci sono chiavi)
   ANTHROPIC_API_KEY, ANTHROPIC_MODEL (predefinito claude-haiku-5-5)
   OPENAI_API_KEY, OPENAI_BASE_URL (qualsiasi API compatibile OpenAI), OPENAI_MODEL
@@ -16,14 +16,34 @@ import re
 import httpx
 
 
+def _cfg() -> dict:
+    """Impostazioni dell'area riservata, con le variabili d'ambiente come riserva."""
+    from .settings import carica
+    c = carica()["llm"]
+    return {
+        "provider": (c.get("provider") or os.getenv("LLM_PROVIDER", "")).lower(),
+        "anthropic_key": c.get("anthropic_key") or os.getenv("ANTHROPIC_API_KEY", ""),
+        "anthropic_model": c.get("anthropic_model") or os.getenv("ANTHROPIC_MODEL", "claude-haiku-5-5"),
+        "openai_key": c.get("openai_key") or os.getenv("OPENAI_API_KEY", ""),
+        "openai_model": c.get("openai_model") or os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        "openai_base_url": c.get("openai_base_url") or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+    }
+
+
 def provider() -> str:
-    p = os.getenv("LLM_PROVIDER", "").lower()
-    if p in {"anthropic", "openai", "mock"}:
-        return p
-    if os.getenv("ANTHROPIC_API_KEY"):
+    c = _cfg()
+    p = c["provider"]
+    if p == "mock":
+        return "mock"
+    if p == "anthropic" and c["anthropic_key"]:
         return "anthropic"
-    if os.getenv("OPENAI_API_KEY"):
+    if p == "openai" and c["openai_key"]:
         return "openai"
+    if not p:
+        if c["anthropic_key"]:
+            return "anthropic"
+        if c["openai_key"]:
+            return "openai"
     return "mock"
 
 
@@ -32,23 +52,23 @@ def disponibile() -> bool:
 
 
 def completa(sistema: str, messaggi: list[dict], max_tokens: int = 600, temperatura: float = 0.8) -> str:
-    p = provider()
+    p, c = provider(), _cfg()
     if p == "anthropic":
         r = httpx.post(
             "https://api.anthropic.com/v1/messages",
-            headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01", "content-type": "application/json"},
-            json={"model": os.getenv("ANTHROPIC_MODEL", "claude-haiku-5-5"), "max_tokens": max_tokens, "temperature": temperatura,
+            headers={"x-api-key": c["anthropic_key"], "anthropic-version": "2023-06-01", "content-type": "application/json"},
+            json={"model": c["anthropic_model"], "max_tokens": max_tokens, "temperature": temperatura,
                   "system": sistema, "messages": messaggi},
             timeout=60,
         )
         r.raise_for_status()
         return "".join(b.get("text", "") for b in r.json()["content"])
     if p == "openai":
-        base = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        base = c["openai_base_url"].rstrip("/")
         r = httpx.post(
             f"{base}/chat/completions",
-            headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"},
-            json={"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "max_tokens": max_tokens, "temperature": temperatura,
+            headers={"Authorization": f"Bearer {c['openai_key']}"},
+            json={"model": c["openai_model"], "max_tokens": max_tokens, "temperature": temperatura,
                   "messages": [{"role": "system", "content": sistema}] + messaggi},
             timeout=60,
         )

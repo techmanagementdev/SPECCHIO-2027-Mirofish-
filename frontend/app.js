@@ -45,6 +45,7 @@ function disegnaPlayer() {
 // ---------- API ----------
 async function api(path, body) {
   const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  if (r.status === 401) { location.href = "/login?torna=" + encodeURIComponent(location.pathname); throw new Error("Accesso richiesto"); }
   if (!r.ok) { let m = r.statusText; try { m = (await r.json()).detail || m; } catch (e) { /* */ } throw new Error(typeof m === "string" ? m : JSON.stringify(m)); }
   return r.json();
 }
@@ -409,12 +410,16 @@ async function caricaMondi(sel) {
   const id = sel || S.mondi[0].id; $("#mondo").value = id;
   await caricaMondo(id);
 }
+$("#esci").onclick = async () => { await fetch("/api/logout", { method: "POST" }); location.href = "/login"; };
 $("#mondo").onchange = () => { $("#msg").value = ""; caricaMondo($("#mondo").value); };
 (async () => {
   disegnaPlayer();
   try {
     const st = await api("/api/stato");
     S.llm = st.disponibile;
+    $("#round").value = st.round; $("#round-v").textContent = st.round; $("#esec").value = st.esecuzioni; $("#esec-v").textContent = st.esecuzioni;
+    $("#link-admin").hidden = st.ruolo !== "admin";
+    $("#esci").hidden = !st.protezione;
     $("#modalita").textContent = st.disponibile ? `Modello linguistico: ${st.modello_linguistico}` : "Modalità dimostrativa (regole)";
     $("#modalita").classList.toggle("llm", st.disponibile);
     $("#usa-llm").checked = st.disponibile; $("#usa-llm").disabled = !st.disponibile;
