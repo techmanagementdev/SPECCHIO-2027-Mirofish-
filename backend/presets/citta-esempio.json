@@ -1,0 +1,695 @@
+{
+ "id": "citta-esempio",
+ "nome": "Borgo Nuovo · città di esempio",
+ "tipo": "citta",
+ "descrizione": "Città immaginaria di circa 25.000 abitanti in 5 quartieri. Puoi cambiarne la composizione e lanciare annunci e proposte.",
+ "contesto": "Città di circa 25.000 abitanti con un centro storico commerciale, una periferia nord popolare, una zona industriale, un quartiere residenziale con giardini e alcune frazioni.",
+ "etichetta_unita": "Quartiere",
+ "unita": [
+  {
+   "id": "centro",
+   "nome": "Centro storico",
+   "x": 50,
+   "y": 45
+  },
+  {
+   "id": "nord",
+   "nome": "Periferia nord",
+   "x": 45,
+   "y": 12
+  },
+  {
+   "id": "industriale",
+   "nome": "Zona industriale",
+   "x": 85,
+   "y": 30
+  },
+  {
+   "id": "giardino",
+   "nome": "Quartiere giardino",
+   "x": 18,
+   "y": 55
+  },
+  {
+   "id": "frazioni",
+   "nome": "Frazioni",
+   "x": 72,
+   "y": 82
+  }
+ ],
+ "canali": [
+  {
+   "id": "giornale",
+   "nome": "Giornale locale",
+   "icona": "news"
+  },
+  {
+   "id": "social",
+   "nome": "Pagina social del Comune",
+   "icona": "brand-facebook"
+  },
+  {
+   "id": "gruppi",
+   "nome": "Gruppi WhatsApp e Facebook di quartiere",
+   "icona": "message-circle"
+  },
+  {
+   "id": "assemblea",
+   "nome": "Assemblea pubblica",
+   "icona": "building-community"
+  },
+  {
+   "id": "sito",
+   "nome": "Sito del Comune",
+   "icona": "world"
+  },
+  {
+   "id": "tv_radio",
+   "nome": "TV e radio locali",
+   "icona": "broadcast"
+  }
+ ],
+ "personas": [
+  {
+   "id": "famiglia",
+   "nome": "Famiglia giovane",
+   "categoria": "Famiglie",
+   "colore": "#1baf7a",
+   "avatar": "FG",
+   "descrizione": "Due figli piccoli, attenta a scuole, parchi e sicurezza delle strade.",
+   "atteggiamento": 0.15,
+   "fiducia": 0.5,
+   "scetticismo": 0.45,
+   "influenza": 0.55,
+   "sensibilita": {
+    "servizi": 1.0,
+    "ambiente": 0.8,
+    "sicurezza": 0.8,
+    "tariffe": 0.7,
+    "traffico": 0.6,
+    "casa": 0.7,
+    "trasporti": 0.5
+   },
+   "canali": {
+    "giornale": 0.3,
+    "social": 0.7,
+    "gruppi": 0.9,
+    "assemblea": 0.4,
+    "sito": 0.5,
+    "tv_radio": 0.4,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "pochi posti negli asili",
+    "strade poco sicure per i bambini"
+   ],
+   "aspettative": [
+    "più servizi per l'infanzia",
+    "spazi verdi vicino a casa"
+   ],
+   "voce": "Concreta",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è una bella notizia per i bambini.",
+     "Bene, su {tema} finalmente qualcosa per le famiglie."
+    ],
+    "negativa": [
+     "Su {tema} pagano sempre le famiglie.",
+     "Nessuno pensa a chi ha figli."
+    ],
+    "neutra": [
+     "Su {tema} chiedo nel gruppo delle mamme."
+    ]
+   },
+   "obiezioni": {
+    "tariffe": "«Ancora aumenti per le famiglie»",
+    "servizi": "«E gli asili?»",
+    "generale": "«Cosa cambia per chi ha figli?»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "parco": 0.8,
+    "area giochi": 0.9,
+    "gratuit": 0.3
+   }
+  },
+  {
+   "id": "pensionato-citta",
+   "nome": "Pensionato del centro",
+   "categoria": "Anziani",
+   "colore": "#5f5e5a",
+   "avatar": "PC",
+   "descrizione": "Vive in centro da sempre, legge il giornale, partecipa alle assemblee.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.45,
+   "scetticismo": 0.55,
+   "influenza": 0.6,
+   "sensibilita": {
+    "servizi": 0.9,
+    "traffico": 0.7,
+    "sicurezza": 0.9,
+    "tariffe": 0.7,
+    "trasporti": 0.7,
+    "ambiente": 0.4
+   },
+   "canali": {
+    "giornale": 0.9,
+    "social": 0.2,
+    "gruppi": 0.4,
+    "assemblea": 0.8,
+    "sito": 0.2,
+    "tv_radio": 0.8,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "servizi sanitari lontani",
+    "insicurezza la sera"
+   ],
+   "aspettative": [
+    "un centro vivo e sicuro",
+    "trasporti comodi"
+   ],
+   "voce": "Riflessivo, tradizionale",
+   "frasi": {
+    "positiva": [
+     "Su {tema} mi sembra una cosa giusta."
+    ],
+    "negativa": [
+     "Su {tema} non ci hanno chiesto niente.",
+     "Una volta il centro era un'altra cosa."
+    ],
+    "neutra": [
+     "Su {tema} ne parlerò al bar."
+    ]
+   },
+   "obiezioni": {
+    "traffico": "«Come ci arrivo in centro, adesso?»",
+    "generale": "«Ci hanno chiesto un parere?»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "zona a traffico limitato": -0.4,
+    "autobus": 0.4
+   }
+  },
+  {
+   "id": "commerciante",
+   "nome": "Commerciante del centro",
+   "categoria": "Attività economiche",
+   "colore": "#eda100",
+   "avatar": "CM",
+   "descrizione": "Ha un negozio in centro, teme tutto ciò che riduce il passaggio di clienti.",
+   "atteggiamento": -0.1,
+   "fiducia": 0.4,
+   "scetticismo": 0.65,
+   "influenza": 0.75,
+   "sensibilita": {
+    "traffico": 1.0,
+    "lavoro": 1.0,
+    "tariffe": 0.9,
+    "sicurezza": 0.7,
+    "ambiente": 0.3
+   },
+   "canali": {
+    "giornale": 0.7,
+    "social": 0.5,
+    "gruppi": 0.7,
+    "assemblea": 0.7,
+    "sito": 0.3,
+    "tv_radio": 0.5,
+    "passaparola": 0.9
+   },
+   "criticita": [
+    "meno clienti per i parcheggi",
+    "affitti dei negozi alti"
+   ],
+   "aspettative": [
+    "parcheggi vicini",
+    "eventi in centro"
+   ],
+   "voce": "Diretto, preoccupato",
+   "frasi": {
+    "positiva": [
+     "Su {tema} può portare gente in centro, bene."
+    ],
+    "negativa": [
+     "Su {tema} così il centro muore.",
+     "Chiudono le strade e noi chiudiamo i negozi."
+    ],
+    "neutra": [
+     "Su {tema} dipende da quanti clienti porta."
+    ]
+   },
+   "obiezioni": {
+    "traffico": "«Senza auto i clienti vanno al centro commerciale»",
+    "tariffe": "«Altre tasse sui negozi»",
+    "generale": "«Chi pensa ai commercianti?»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "zona a traffico limitato": -0.9,
+    "ztl": -0.9,
+    "parcheggio": 0.5,
+    "tassa sui rifiuti": -0.4
+   }
+  },
+  {
+   "id": "studente-citta",
+   "nome": "Studente",
+   "categoria": "Giovani",
+   "colore": "#e87ba4",
+   "avatar": "ST",
+   "descrizione": "Universitario pendolare, sempre sui social, attento ad ambiente e trasporti.",
+   "atteggiamento": 0.05,
+   "fiducia": 0.35,
+   "scetticismo": 0.55,
+   "influenza": 0.5,
+   "sensibilita": {
+    "trasporti": 1.0,
+    "ambiente": 0.9,
+    "casa": 0.8,
+    "servizi": 0.5,
+    "tariffe": 0.5
+   },
+   "canali": {
+    "giornale": 0.1,
+    "social": 0.9,
+    "gruppi": 0.7,
+    "assemblea": 0.2,
+    "sito": 0.3,
+    "tv_radio": 0.1,
+    "passaparola": 0.7
+   },
+   "criticita": [
+    "bus poco frequenti la sera",
+    "affitti cari"
+   ],
+   "aspettative": [
+    "trasporti notturni",
+    "più spazi per i giovani"
+   ],
+   "voce": "Informale",
+   "frasi": {
+    "positiva": [
+     "Su {tema} era ora!",
+     "Su {tema} bella mossa."
+    ],
+    "negativa": [
+     "Su {tema} il solito annuncio, poi niente.",
+     "Comunicazione da boomer."
+    ],
+    "neutra": [
+     "Su {tema} ok, vediamo."
+    ]
+   },
+   "obiezioni": {
+    "trasporti": "«E la sera dopo le 21?»",
+    "generale": "«Coinvolgete i giovani, non solo con un post»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "under 26": 0.9,
+    "la sera": 0.5,
+    "gratuit": 0.4
+   }
+  },
+  {
+   "id": "pendolare-citta",
+   "nome": "Pendolare in auto",
+   "categoria": "Lavoratori",
+   "colore": "#2a78d6",
+   "avatar": "PA",
+   "descrizione": "Esce presto la mattina in auto verso la zona industriale o la città vicina.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.4,
+   "scetticismo": 0.55,
+   "influenza": 0.45,
+   "sensibilita": {
+    "traffico": 1.0,
+    "tariffe": 0.7,
+    "trasporti": 0.6,
+    "casa": 0.4,
+    "ambiente": 0.3
+   },
+   "canali": {
+    "giornale": 0.4,
+    "social": 0.6,
+    "gruppi": 0.6,
+    "assemblea": 0.2,
+    "sito": 0.4,
+    "tv_radio": 0.7,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "code all'ingresso in città"
+   ],
+   "aspettative": [
+    "percorsi più rapidi"
+   ],
+   "voce": "Impaziente",
+   "frasi": {
+    "positiva": [
+     "Su {tema} mi fa risparmiare tempo, bene."
+    ],
+    "negativa": [
+     "Su {tema} altro traffico, altro tempo perso."
+    ],
+    "neutra": [
+     "Su {tema} vediamo i tempi."
+    ]
+   },
+   "obiezioni": {
+    "traffico": "«Quanto tempo perdo in più la mattina?»",
+    "generale": "«Pensate anche a chi lavora fuori»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "zona a traffico limitato": -0.3,
+    "parcheggio": 0.4,
+    "stazione": 0.4
+   }
+  },
+  {
+   "id": "imprenditore-citta",
+   "nome": "Imprenditore della zona industriale",
+   "categoria": "Attività economiche",
+   "colore": "#993c1d",
+   "avatar": "IZ",
+   "descrizione": "Guida un'azienda di 40 dipendenti, attento a viabilità, tasse e servizi.",
+   "atteggiamento": 0.2,
+   "fiducia": 0.55,
+   "scetticismo": 0.45,
+   "influenza": 0.7,
+   "sensibilita": {
+    "lavoro": 1.0,
+    "tariffe": 0.9,
+    "traffico": 0.8,
+    "servizi": 0.5
+   },
+   "canali": {
+    "giornale": 0.8,
+    "social": 0.4,
+    "gruppi": 0.3,
+    "assemblea": 0.6,
+    "sito": 0.6,
+    "tv_radio": 0.4,
+    "passaparola": 0.6
+   },
+   "criticita": [
+    "burocrazia lenta",
+    "strade della zona industriale"
+   ],
+   "aspettative": [
+    "tempi certi per i permessi",
+    "collegamenti migliori"
+   ],
+   "voce": "Pragmatico",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è un segnale positivo per le imprese."
+    ],
+    "negativa": [
+     "Su {tema} altri costi e nessun servizio."
+    ],
+    "neutra": [
+     "Su {tema} valuto i numeri."
+    ]
+   },
+   "obiezioni": {
+    "tariffe": "«Le imprese pagano già abbastanza»",
+    "generale": "«Tempi certi e meno burocrazia»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "tassa": -0.5,
+    "zona industriale": 0.4
+   }
+  },
+  {
+   "id": "precario",
+   "nome": "Lavoratore precario",
+   "categoria": "Lavoratori",
+   "colore": "#e34948",
+   "avatar": "LP",
+   "descrizione": "Contratti brevi, affitto pesante, sfiducia verso le istituzioni.",
+   "atteggiamento": -0.4,
+   "fiducia": 0.2,
+   "scetticismo": 0.8,
+   "influenza": 0.55,
+   "sensibilita": {
+    "casa": 1.0,
+    "tariffe": 1.0,
+    "lavoro": 0.9,
+    "trasporti": 0.7,
+    "servizi": 0.6
+   },
+   "canali": {
+    "giornale": 0.2,
+    "social": 0.7,
+    "gruppi": 0.8,
+    "assemblea": 0.3,
+    "sito": 0.2,
+    "tv_radio": 0.4,
+    "passaparola": 0.9
+   },
+   "criticita": [
+    "affitti insostenibili",
+    "bollette e tasse"
+   ],
+   "aspettative": [
+    "costi della vita più bassi",
+    "lavoro stabile"
+   ],
+   "voce": "Amaro, diretto",
+   "frasi": {
+    "positiva": [
+     "Su {tema} stavolta forse aiutano davvero."
+    ],
+    "negativa": [
+     "Su {tema} non cambia niente per chi fa fatica.",
+     "Fanno le cose per chi sta già bene."
+    ],
+    "neutra": [
+     "Su {tema} non mi riguarda."
+    ]
+   },
+   "obiezioni": {
+    "tariffe": "«Altri soldi da pagare, sempre a noi»",
+    "casa": "«E gli affitti?»",
+    "generale": "«Per chi fa fatica non cambia niente»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "gratuit": 0.5,
+    "aumenter": -0.4
+   }
+  },
+  {
+   "id": "attivista",
+   "nome": "Attivista ambientale",
+   "categoria": "Associazioni",
+   "colore": "#008300",
+   "avatar": "AA",
+   "descrizione": "Fa parte di un'associazione di quartiere, molto attiva online e alle assemblee.",
+   "atteggiamento": 0.0,
+   "fiducia": 0.35,
+   "scetticismo": 0.7,
+   "influenza": 0.85,
+   "sensibilita": {
+    "ambiente": 1.0,
+    "trasporti": 0.9,
+    "traffico": 0.7,
+    "ascolto": 0.8,
+    "servizi": 0.5
+   },
+   "canali": {
+    "giornale": 0.5,
+    "social": 0.9,
+    "gruppi": 0.8,
+    "assemblea": 0.9,
+    "sito": 0.4,
+    "tv_radio": 0.4,
+    "passaparola": 0.8
+   },
+   "criticita": [
+    "poco verde",
+    "decisioni prese senza partecipazione"
+   ],
+   "aspettative": [
+    "più verde e mobilità dolce",
+    "percorsi partecipati veri"
+   ],
+   "voce": "Argomentato, combattivo",
+   "frasi": {
+    "positiva": [
+     "Su {tema} è la direzione giusta, ora servono i fatti.",
+     "Su {tema} bene, l'avevamo chiesto noi."
+    ],
+    "negativa": [
+     "Su {tema} è greenwashing.",
+     "Decidono senza ascoltare i cittadini."
+    ],
+    "neutra": [
+     "Su {tema} chiediamo i dati."
+    ]
+   },
+   "obiezioni": {
+    "ambiente": "«Quanti alberi, dove e quando?»",
+    "ascolto": "«Partecipazione vera, non un'assemblea di facciata»",
+    "generale": "«Fateci vedere i dati»"
+   },
+   "aperture": [
+    "Guardi,",
+    "Le dico come la vedo:",
+    "Sinceramente,"
+   ],
+   "posizioni": {
+    "alberi": 0.8,
+    "parco": 0.6,
+    "zona a traffico limitato": 0.7,
+    "asfalto": -0.8,
+    "autobus": 0.5,
+    "proposte": 0.4
+   }
+  }
+ ],
+ "composizione": {
+  "centro": {
+   "famiglia": 10,
+   "pensionato-citta": 25,
+   "commerciante": 20,
+   "studente-citta": 10,
+   "pendolare-citta": 8,
+   "imprenditore-citta": 3,
+   "precario": 8,
+   "attivista": 6
+  },
+  "nord": {
+   "famiglia": 20,
+   "pensionato-citta": 12,
+   "commerciante": 4,
+   "studente-citta": 12,
+   "pendolare-citta": 15,
+   "imprenditore-citta": 2,
+   "precario": 20,
+   "attivista": 5
+  },
+  "industriale": {
+   "famiglia": 5,
+   "pensionato-citta": 4,
+   "commerciante": 3,
+   "studente-citta": 4,
+   "pendolare-citta": 20,
+   "imprenditore-citta": 15,
+   "precario": 15,
+   "attivista": 2
+  },
+  "giardino": {
+   "famiglia": 28,
+   "pensionato-citta": 15,
+   "commerciante": 3,
+   "studente-citta": 8,
+   "pendolare-citta": 14,
+   "imprenditore-citta": 5,
+   "precario": 5,
+   "attivista": 8
+  },
+  "frazioni": {
+   "famiglia": 12,
+   "pensionato-citta": 20,
+   "commerciante": 4,
+   "studente-citta": 6,
+   "pendolare-citta": 14,
+   "imprenditore-citta": 3,
+   "precario": 6,
+   "attivista": 3
+  }
+ },
+ "esempi": [
+  {
+   "titolo": "ZTL in centro",
+   "canale": "sito",
+   "testo": "Dal 1° aprile il centro storico diventa zona a traffico limitato dalle 10 alle 19. I residenti avranno il permesso gratuito; nasce un parcheggio da 200 posti a 300 metri dalla piazza."
+  },
+  {
+   "titolo": "Nuovo parco",
+   "canale": "assemblea",
+   "testo": "Nell'area dell'ex caserma nascerà un parco di 4 ettari con 300 alberi e un'area giochi. Il progetto sarà discusso con i cittadini in tre incontri di quartiere a febbraio, aperti alle proposte."
+  },
+  {
+   "titolo": "Aumento TARI",
+   "canale": "social",
+   "testo": "Dal 2027 la tassa sui rifiuti aumenterà del 6% per coprire i maggiori costi del servizio."
+  },
+  {
+   "titolo": "Bus notturno",
+   "canale": "gruppi",
+   "testo": "Da settembre una nuova linea di autobus collegherà la periferia nord, il centro e la stazione anche la sera, ogni 30 minuti fino all'una, con biglietto gratuito per gli under 26."
+  }
+ ],
+ "missioni": [
+  {
+   "id": "c-ztl",
+   "titolo": "ZTL senza saracinesche abbassate",
+   "descrizione": "Annuncia la ZTL ottenendo almeno 60 di gradimento tra i commercianti del centro.",
+   "condizione": {
+    "tipo": "indice_personas_min",
+    "personas": [
+     "commerciante"
+    ],
+    "valore": 60
+   },
+   "xp": 70
+  },
+  {
+   "id": "c-tari",
+   "titolo": "Spiegare un aumento",
+   "descrizione": "Comunica un aumento di tassa senza scendere sotto 40 di gradimento complessivo.",
+   "condizione": {
+    "tipo": "indice_min_con_tema",
+    "tema": "tariffe",
+    "valore": 40
+   },
+   "xp": 60
+  },
+  {
+   "id": "c-consenso",
+   "titolo": "Città unita",
+   "descrizione": "Gradimento complessivo di almeno 65 con meno del 15% di negativi.",
+   "condizione": {
+    "tipo": "indice_e_negativi",
+    "indice": 65,
+    "negativi": 15
+   },
+   "xp": 50
+  }
+ ]
+}

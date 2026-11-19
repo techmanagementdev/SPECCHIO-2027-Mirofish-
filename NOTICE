@@ -1,0 +1,14 @@
+SPECCHIO · simulatore di personas di opinione
+European Management Institute S.r.l.
+
+Componenti di terze parti inclusi nel repository
+- Tabler Icons (webfont), MIT License, Copyright (c) 2020-2024 Paweł Kuna
+  frontend/vendor/tabler/LICENSE
+
+Progetti open source di riferimento (non inclusi, scaricabili con scripts/scarica_open_source.sh)
+- OASIS, CAMEL-AI · Apache-2.0
+- AgentSociety, Tsinghua FIB Lab · Apache-2.0 (esclusa la cartella commercial)
+- Concordia, Google DeepMind · Apache-2.0
+- TinyTroupe, Microsoft · MIT
+- EDSL, Expected Parrot · vedere il file LICENSE del progetto
+- MiroFish (666ghj) e MiroFish-Offline (nikmcfly) · AGPL-3.0: usati solo come applicazioni separate
