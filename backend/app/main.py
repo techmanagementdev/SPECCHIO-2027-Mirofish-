@@ -65,6 +65,16 @@ class LoginIn(BaseModel):
     area: str = "utente"
 
 
+@app.middleware("http")
+async def niente_cache(request: Request, call_next):
+    """Pagine e file dell'interfaccia sempre ricontrollati: dopo un aggiornamento il browser vede subito la nuova versione."""
+    risposta = await call_next(request)
+    p = request.url.path
+    if not p.startswith("/static/vendor/") and (p.startswith("/static/") or not p.startswith("/api/")):
+        risposta.headers["Cache-Control"] = "no-cache, must-revalidate"
+    return risposta
+
+
 @app.post("/api/login")
 def api_login(body: LoginIn, request: Request):
     ip = request.client.host if request.client else "?"
