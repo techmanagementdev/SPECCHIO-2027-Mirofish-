@@ -1,4 +1,4 @@
-# SPECCHIO · simulatore di personas di opinione
+# SPECCHIO — simulatore di opinioni e scenari futuri · by European Management Institute
 
 Un laboratorio, con grafica da gioco, per provare **prima di diffonderli** annunci, comunicati e proposte su una popolazione di **personas di opinione**: profili tipo costruiti da dati aggregati di indagini (LimeSurvey, CATI, CAWI).
 

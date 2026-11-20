@@ -3,27 +3,29 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Risultati e personas di opinione</title>
+<link rel="icon" type="image/svg+xml" href="/static/logo.svg">
 <link rel="stylesheet" href="/static/cliente.css">
 </head>
 <body>
 <div id="accesso" class="accesso" hidden>
   <form id="f-accesso" class="box">
-    <div class="big-emoji">🔐</div>
+    <img class="marchio-big" src="/static/logo.svg" alt="SPECCHIO">
     <h1>Area riservata al cliente</h1>
     <p>Inserisci il codice di accesso che ti abbiamo inviato.</p>
     <input type="password" id="codice" placeholder="Codice di accesso" autocomplete="current-password" required>
     <button class="primario">Entra</button>
     <p class="err" id="err-accesso"></p>
+    <div class="firma"><b>SPECCHIO</b> · simulatore di opinioni e scenari futuri<br><span>by European Management Institute</span></div>
   </form>
 </div>
 
 <div id="app" hidden>
 <header class="testa">
-  <div>
+  <div class="testa-sx"><img class="marchio" src="/static/logo.svg" alt="SPECCHIO"><div>
     <div class="occhiello" id="cliente"></div>
     <h1 id="titolo"></h1>
     <div class="meta" id="meta"></div>
-  </div>
+  </div></div>
   <button class="esci" id="esci" title="Esci">Esci</button>
 </header>
 <nav class="schede">

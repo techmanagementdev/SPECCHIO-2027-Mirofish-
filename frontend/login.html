@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Accesso · SPECCHIO</title>
+<link rel="icon" type="image/svg+xml" href="/static/logo.svg">
 <link rel="stylesheet" href="/static/vendor/tabler/tabler-icons-outline.min.css">
 <link rel="stylesheet" href="/static/style.css">
 <style>
 body{display:grid;place-items:center;min-height:100vh;background:linear-gradient(135deg,#eef1ff,#f6f0ff)}
 .box{width:min(400px,92vw);background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 28px;text-align:center}
-.box .logo{margin:0 auto 10px;width:52px;height:52px;font-size:24px;border-radius:14px}
+.box .logo{display:block;margin:0 auto 14px;width:76px;height:76px;border-radius:20px;box-shadow:0 10px 30px rgba(59,130,246,.35)}
+.box h1{letter-spacing:.14em}.box p#sotto{margin-bottom:2px}.box p.by{font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
 .box h1{font-size:22px;margin:4px 0}.box p{color:var(--muted);margin:0 0 18px}
 .box input{margin-bottom:12px;text-align:center;font-size:16px}
 .box button{width:100%;margin-top:0}
@@ -17,9 +19,9 @@ body{display:grid;place-items:center;min-height:100vh;background:linear-gradient
 </head>
 <body>
 <form class="box" id="f">
-  <div class="logo">S</div>
+  <img class="logo" src="/static/logo.svg" alt="">
   <h1 id="titolo">SPECCHIO</h1>
-  <p id="sotto">Simulatore di personas di opinione</p>
+  <p id="sotto">Simulatore di opinioni e scenari futuri</p><p class="by">by European Management Institute</p>
   <input type="password" id="pw" placeholder="Password" autocomplete="current-password" autofocus required>
   <button class="big" id="go"><i class="ti ti-lock-open"></i> Entra</button>
   <p class="err" id="err"></p>

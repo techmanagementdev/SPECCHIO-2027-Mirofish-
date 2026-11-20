@@ -91,3 +91,7 @@ table.mappa td.q{text-align:left;font-weight:500;background:#fff;max-width:360px
 .prova{display:grid;grid-template-columns:40px minmax(0,1fr) 90px 70px;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:6px 0;font-size:16px}
 .prova.migliore{border:2px solid var(--giallo);background:#fffbef}.prova .v{font-weight:800;font-size:22px;text-align:right}
 @media (max-width:800px){.eroe,.due{grid-template-columns:1fr}.kpi3{grid-template-columns:1fr}.reaz{grid-template-columns:40px 1fr 50px}.reaz .barra{display:none}body{font-size:17px}.testa{padding:16px}}
+
+.testa-sx{display:flex;gap:16px;align-items:center}.marchio{width:56px;height:56px;border-radius:14px;flex:none}
+.marchio-big{display:block;width:84px;height:84px;margin:0 auto 12px;border-radius:22px;box-shadow:0 10px 30px rgba(59,130,246,.35)}
+.firma{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.5}.firma b{letter-spacing:.14em;color:var(--ink)}.firma span{text-transform:uppercase;letter-spacing:.06em;font-size:10px}

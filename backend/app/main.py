@@ -39,7 +39,7 @@ def ruolo_richiesta(request: Request) -> str | None:
 @app.middleware("http")
 async def protezione(request: Request, call_next):
     path = request.url.path
-    if path in LIBERI or path.startswith("/static/vendor/") or path.startswith("/static/cliente") \
+    if path in LIBERI or path.startswith("/static/vendor/") or path.startswith("/static/cliente") or path == "/static/logo.svg" \
             or re.fullmatch(r"/r/[A-Za-z0-9]{6,20}", path) or re.fullmatch(r"/api/r/[A-Za-z0-9]{6,20}/login", path):
         return await call_next(request)
     ruolo = ruolo_richiesta(request)
