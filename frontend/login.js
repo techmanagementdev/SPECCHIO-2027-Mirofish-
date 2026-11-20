@@ -16,7 +16,7 @@ document.getElementById("f").onsubmit = async (e) => {
   const pw = document.getElementById("pw").value;
   if (!pw) { err.textContent = "Inserisci la password."; return; }
   const r = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pw, area }) });
-  if (r.ok) { location.href = torna; return; }
+  if (r.ok) { location.href = torna + (torna.includes("?") ? "&" : "?") + "v=" + Date.now(); return; }
   let m = "Accesso non riuscito"; try { m = (await r.json()).detail || m; } catch (x) { /* */ }
   err.textContent = m;
 };
