@@ -72,6 +72,27 @@ h2{margin:30px 0 0;font-size:23px;line-height:1.36;font-weight:600}
 .tip.on{opacity:1}
 .dim .dt.off{opacity:.15}.dim .cl.off{opacity:.55}
 .dt{transition:background-color .7s ease,transform .5s ease,opacity .3s}
+.dt{pointer-events:auto;cursor:help}
+.dt::before{content:"";position:absolute;inset:-3px;border-radius:50%}
+.dt.me{transform:scale(1.8)!important;box-shadow:0 0 0 2px #fff}
+.tip{transform:translate(-50%,calc(-100% - var(--lift,54px)))}
+.tip i{font-style:italic;opacity:.9}
+.res .n em{margin-left:auto;font-style:normal;font-size:11px;font-weight:600}
+.res .n em.su{color:#2a6f97}.res .n em.giu{color:#c0682a}
+.res .obj{margin-top:4px;color:#8a3a2c;font-weight:500}
+.lab{margin-top:20px;width:100%;max-width:470px;background:rgba(255,255,255,.75);box-shadow:0 4px 18px rgba(110,60,45,.08);padding:16px 18px}
+.lab-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.lab-h span{font-size:10px;font-weight:700;letter-spacing:2.6px;color:#8a3a2c}.lab-h small{font-size:10.5px;color:#8b8582}
+.row{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.rl{width:64px;font-size:11px;font-weight:600;color:#3b3533}
+.chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0}
+.chips button{min-height:32px;padding:0 10px;border:1.5px solid #ddd0ca;background:#fff;font:500 11.5px 'Montserrat',sans-serif;color:#3b3533;cursor:pointer;transition:all .2s}
+.chips button:hover{border-color:#8a3a2c}
+.chips button[aria-checked="true"]{background:#8a3a2c;border-color:#8a3a2c;color:#fff}
+.go{margin-top:14px;width:100%;min-height:44px;border:0;background:#1f1d1c;color:#fff;font:600 11.5px 'Montserrat',sans-serif;letter-spacing:1.4px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.go:hover{background:#8a3a2c}
+.res{width:200px;margin-left:-100px;margin-top:-72px}
+.msg,.res,.tag,.pulse,.core{pointer-events:none}
 .cap{margin-top:22px;width:100%;max-width:470px}
 .cap p{margin:0;font-size:15px;line-height:1.5}.cap p+p{margin-top:4px;color:#8a3a2c}
 footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#8b8582;letter-spacing:.4px}
@@ -118,16 +139,17 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
   </section>
 
   <section class="right">
-    <div class="stage" id="stage" role="img" aria-label="Animazione: un messaggio entra nel mondo simulato e si diffonde tra le personas di sei territori, che reagiscono; alla fine compare il gradimento.">
+    <div class="stage" id="stage" role="group" aria-label="Simulazione dimostrativa: un messaggio entra nel mondo simulato e si diffonde tra le personas di sei territori, che reagiscono; alla fine compare il gradimento.">
       <div class="disc" aria-hidden="true"><div class="sheen" style="top:8%;height:18%"></div><div class="sheen" style="top:30%;height:5%"></div></div>
       <div class="pulse" id="pulse" aria-hidden="true"></div>
       <div class="core" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 10v4h3l6 4V6L6 10H3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-      <div class="msg" id="msg">«Nuovi orari dei servizi da gennaio»</div>
+      <div class="msg" id="msg"></div>
       <div class="res" id="res">
         <div class="k">GRADIMENTO</div>
-        <div class="n"><b id="score"></b><span>/100</span></div>
+        <div class="n"><b id="score"></b><span>/100</span><em id="delta"></em></div>
         <div class="bar"><div id="bf" style="background:#2a6f97"></div><div id="bn" style="background:#c9c0b9"></div><div id="bc" style="background:#d9822b"></div></div>
         <small id="rl"></small>
+        <small id="obj" class="obj"></small>
       </div>
       <div class="tip" id="tip"></div>
       <div class="tag" id="tag" aria-live="polite"></div>
@@ -139,7 +161,14 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
       <button data-f="3" aria-label="Fase 4: il gradimento">4</button>
     </div>
     <div class="legend" id="legend"></div>
-    <p class="hint">Passate il mouse su una città o sulle voci della legenda</p>
+
+    <div class="lab" aria-label="Prova tu">
+      <div class="lab-h"><span>PROVA TU</span><small>Scegliete messaggio e canale, poi lanciate</small></div>
+      <div class="row"><span class="rl">Messaggio</span><div class="chips" id="c-msg" role="radiogroup" aria-label="Messaggio"></div></div>
+      <div class="row"><span class="rl">Canale</span><div class="chips" id="c-can" role="radiogroup" aria-label="Canale"></div></div>
+      <button class="go" id="go"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z" fill="#fff"/></svg> LANCIA LA SIMULAZIONE</button>
+    </div>
+    <p class="hint">Passate il mouse su una città, su una persona o sulle voci della legenda</p>
     <div class="cap">
       <p><b>Personas, gruppi sociali, canali e territori.</b></p>
       <p>Simuliamo con un nostro software proprietario come un messaggio si diffonde, prima di lanciarlo.</p>
@@ -155,85 +184,154 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
   let seed = 7;
   const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
   const pct = (v) => (v / S * 100).toFixed(2) + "%";
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const RC = { fav: "#2a6f97", neu: "#c9c0b9", con: "#d9822b" };
   const personas = [
     ["Pendolare", "#8a3a2c", .35, .35], ["Famiglia", "#d0a07f", .55, .15], ["Senior", "#3f5a73", .30, .25],
     ["Giovane", "#7a9a8c", .60, .15], ["Professionista", "#c9a24a", .50, .25], ["Imprenditore", "#5b4b6b", .40, .35]
   ];
-  const RC = { fav: "#2a6f97", neu: "#c9c0b9", con: "#d9822b" };
-  const defs = [["Vicenza", -118, 2, 20], ["Treviso", -55, 2, 18], ["Venezia", 15, 1, 24], ["Padova", 80, 1, 24], ["Verona", 142, 2, 22], ["Trento", 200, 3, 18]];
-  const clusters = defs.map(([name, a, reach, n]) => { const r = a * Math.PI / 180; return { name, reach, n, x: S / 2 + 150 * Math.cos(r), y: S / 2 + 150 * Math.sin(r) }; });
+  // Scenari dimostrativi: messaggi e canali spostano le probabilità di reazione delle personas
+  const MESSAGGI = [
+    { id: "orari", label: "Nuovi orari", testo: "«Nuovi orari dei servizi da gennaio»", f: 0, c: 0, per: {},
+      obiezione: "Non è chiaro cosa cambia per me",
+      frasi: { fav: "Bene, se le corse restano frequenti.", neu: "Aspetto di vedere gli orari nuovi.", con: "Nessuno ci ha chiesto niente." } },
+    { id: "ascolto", label: "Orari decisi con voi", testo: "«Nuovi orari: li decidiamo con voi entro dicembre»", f: .18, c: -.12, per: {},
+      obiezione: "Tempi stretti per partecipare",
+      frasi: { fav: "Finalmente ci chiedono un parere.", neu: "Vediamo se ci ascoltano davvero.", con: "Dicembre è troppo vicino per partecipare." } },
+    { id: "tagli", label: "Meno corse serali", testo: "«Dal 2027 meno corse serali»", f: -.22, c: .25, per: { Pendolare: [0, .1], Senior: [0, .1] },
+      obiezione: "La sera chi lavora resta senza mezzi",
+      frasi: { fav: "Se serve a risparmiare, va bene.", neu: "Dipende da quali corse tolgono.", con: "La sera resto senza mezzi." } }
+  ];
+  const CANALI = [
+    { id: "social", label: "Social", f: 0, c: 0, per: { Giovane: [.1, 0], Professionista: [.05, 0], Senior: [-.1, .05] },
+      reach: { Vicenza: 1, Treviso: 1, Venezia: 1, Padova: 1, Verona: 2, Trento: 2 } },
+    { id: "giornale", label: "Giornale locale", f: 0, c: 0, per: { Senior: [.1, 0], Imprenditore: [.05, 0], Giovane: [-.05, 0] },
+      reach: { Venezia: 1, Padova: 1, Treviso: 2, Vicenza: 2, Verona: 2, Trento: 3 } },
+    { id: "incontro", label: "Incontro pubblico", f: .06, c: -.04, per: { Famiglia: [.05, 0] },
+      reach: { Padova: 1, Venezia: 2, Vicenza: 2, Treviso: 3, Verona: 3, Trento: 4 } }
+  ];
+  const defs = [["Vicenza", -118, 20], ["Treviso", -55, 18], ["Venezia", 15, 24], ["Padova", 80, 24], ["Verona", 142, 22], ["Trento", 200, 18]];
+  const clusters = defs.map(([name, a, n]) => { const r = a * Math.PI / 180; return { name, n, reach: 1, x: S / 2 + 150 * Math.cos(r), y: S / 2 + 150 * Math.sin(r), dots: [] }; });
   const add = (cls, css) => { const e = document.createElement("div"); e.className = cls; e.setAttribute("aria-hidden", "true"); Object.assign(e.style, css); stage.insertBefore(e, $("pulse")); return e; };
+  const tip = $("tip");
+  const showTip = (html, x, y, lift) => { tip.innerHTML = html; tip.style.left = pct(x); tip.style.top = pct(y); tip.style.setProperty("--lift", lift + "px"); tip.classList.add("on"); };
 
-  // collegamenti
-  const links = [], centre = { x: S / 2, y: S / 2, reach: 0 };
-  const link = (a, b) => {
-    const dx = b.x - a.x, dy = b.y - a.y;
-    links.push({ reach: Math.max(a.reach, b.reach), el: add("lk", { left: pct(a.x), top: pct(a.y), width: pct(Math.hypot(dx, dy)), transform: `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)` }) });
-  };
-  clusters.forEach((c, i) => { link(c, clusters[(i + 1) % clusters.length]); if (c.reach === 1) link(centre, c); });
+  // collegamenti (ricostruiti a ogni canale)
+  let links = [];
+  const centre = { x: S / 2, y: S / 2, reach: 0 };
+  function buildLinks() {
+    links.forEach((l) => l.el.remove()); links = [];
+    const link = (a, b) => {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      links.push({ reach: Math.max(a.reach, b.reach), el: add("lk", { left: pct(a.x), top: pct(a.y), width: pct(Math.hypot(dx, dy)), transform: `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)` }) });
+    };
+    clusters.forEach((c, i) => { link(c, clusters[(i + 1) % clusters.length]); if (c.reach === 1) link(centre, c); });
+    clusters.forEach((c) => stage.insertBefore(c.el, $("pulse")));
+    dots.forEach((d) => stage.insertBefore(d.el, $("pulse")));
+    labels.forEach((l) => stage.insertBefore(l, $("pulse")));
+  }
 
   // territori e personas
-  const dots = []; let fav = 0, neu = 0, con = 0;
+  const dots = [], labels = [];
   clusters.forEach((c) => {
-    c.el = add("cl", { left: pct(c.x), top: pct(c.y) }); c.dots = [];
+    c.el = add("cl", { left: pct(c.x), top: pct(c.y) });
     c.el.addEventListener("mouseenter", () => focusCity(c)); c.el.addEventListener("mouseleave", clearFocus);
-    const sotto = c.y > S * 0.75 && Math.abs(c.x - S / 2) < 60; const lab = add("cn", { left: pct(c.x), top: pct(sotto ? c.y - 66 : c.y + 52) }); lab.textContent = c.name;
+    const sotto = c.y > S * .75 && Math.abs(c.x - S / 2) < 60;
+    const lab = add("cn", { left: pct(c.x), top: pct(sotto ? c.y - 66 : c.y + 52) }); lab.textContent = c.name; labels.push(lab);
     for (let i = 0; i < c.n; i++) {
       const rr = 5.6 * Math.sqrt(i + .6), th = i * 2.39996;
-      const p = personas[Math.floor(rnd() * personas.length)], u = rnd();
-      const react = u < p[2] ? "fav" : (u > 1 - p[3] ? "con" : "neu");
-      if (react === "fav") fav++; else if (react === "con") con++; else neu++;
-      const d = { persona: p[1], pname: p[0], react, reach: c.reach + (i % 3 === 0 ? 1 : 0), el: add("dt", { left: pct(c.x + rr * Math.cos(th)), top: pct(c.y + rr * Math.sin(th)) }) };
+      const p = personas[Math.floor(rnd() * personas.length)];
+      const d = { p, u: rnd(), extra: i % 3 === 0 ? 1 : 0, city: c, x: c.x + rr * Math.cos(th), y: c.y + rr * Math.sin(th) };
+      d.el = add("dt", { left: pct(d.x), top: pct(d.y) });
+      d.el.addEventListener("mouseenter", () => focusDot(d)); d.el.addEventListener("mouseleave", clearFocus);
       dots.push(d); c.dots.push(d);
     }
   });
-  const tot = fav + neu + con;
-  $("score").textContent = Math.round((fav + .5 * neu) / tot * 100);
-  $("bf").style.width = (fav / tot * 100) + "%"; $("bn").style.width = (neu / tot * 100) + "%"; $("bc").style.width = (con / tot * 100) + "%";
-  $("rl").textContent = `${Math.round(fav / tot * 100)}% favorevoli · ${Math.round(con / tot * 100)}% contrari · esempio`;
 
+  // scenario corrente
+  let msg = MESSAGGI[0], can = CANALI[0], last = null, score = 0;
+  function calcola() {
+    clusters.forEach((c) => { c.reach = can.reach[c.name]; });
+    let fav = 0, neu = 0, con = 0;
+    dots.forEach((d) => {
+      const [nm, , bf, bc] = d.p, pm = msg.per[nm] || [0, 0], pc = can.per[nm] || [0, 0];
+      const f = clamp(bf + msg.f + can.f + pm[0] + pc[0], .05, .9);
+      const c = clamp(bc + msg.c + can.c + pm[1] + pc[1], .03, .95 - f);
+      d.react = d.u < f ? "fav" : (d.u > 1 - c ? "con" : "neu");
+      d.reach = d.city.reach + d.extra;
+      if (d.react === "fav") fav++; else if (d.react === "con") con++; else neu++;
+    });
+    const tot = fav + neu + con;
+    score = Math.round((fav + .5 * neu) / tot * 100);
+    $("score").textContent = score;
+    const dl = $("delta");
+    if (last === null) { dl.textContent = ""; dl.className = ""; }
+    else { const k = score - last; dl.textContent = (k > 0 ? "▲ +" : k < 0 ? "▼ " : "= ") + (k || "") ; dl.className = k > 0 ? "su" : k < 0 ? "giu" : ""; dl.title = "rispetto alla prova precedente"; }
+    $("bf").style.width = (fav / tot * 100) + "%"; $("bn").style.width = (neu / tot * 100) + "%"; $("bc").style.width = (con / tot * 100) + "%";
+    $("rl").textContent = `${Math.round(fav / tot * 100)}% favorevoli · ${Math.round(con / tot * 100)}% contrari · esempio`;
+    $("obj").textContent = "Obiezione principale: " + msg.obiezione.toLowerCase();
+    $("msg").textContent = msg.testo;
+    buildLinks();
+  }
+
+  // scelte
+  function chips(box, list, get, set) {
+    box.innerHTML = list.map((o) => `<button role="radio" data-id="${o.id}">${o.label}</button>`).join("");
+    const sync = () => box.querySelectorAll("button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.id === get().id)));
+    box.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { set(list.find((o) => o.id === b.dataset.id)); sync(); }));
+    sync();
+  }
+  chips($("c-msg"), MESSAGGI, () => msg, (v) => { msg = v; });
+  chips($("c-can"), CANALI, () => can, (v) => { can = v; });
+
+  // focus
   const legenda = (items) => {
     $("legend").innerHTML = items.map(([l, c]) => `<span tabindex="0" data-l="${l}"><i style="background:${c}"></i>${l}</span>`).join("");
     $("legend").querySelectorAll("span").forEach((sp) => {
-      const on = () => focusLegend(sp.dataset.l), off = clearFocus;
-      sp.addEventListener("mouseenter", on); sp.addEventListener("focus", on); sp.addEventListener("mouseleave", off); sp.addEventListener("blur", off);
+      const on = () => focusLegend(sp.dataset.l);
+      sp.addEventListener("mouseenter", on); sp.addEventListener("focus", on); sp.addEventListener("mouseleave", clearFocus); sp.addEventListener("blur", clearFocus);
     });
   };
   const RN = { Favorevole: "fav", Neutrale: "neu", Contrario: "con" };
+  const NOMI = { fav: "favorevole", neu: "neutrale", con: "contrario" };
   let phaseNow = 0, roundNow = 0;
-  function clearFocus() { stage.classList.remove("dim"); dots.forEach((d) => d.el.classList.remove("off")); clusters.forEach((c) => c.el.classList.remove("off")); $("tip").classList.remove("on"); }
+  const raggiunto = (d) => phaseNow >= 2 && roundNow >= d.reach;
+  function clearFocus() { stage.classList.remove("dim"); dots.forEach((d) => d.el.classList.remove("off", "me")); clusters.forEach((c) => c.el.classList.remove("off")); tip.classList.remove("on"); }
   function focusLegend(l) {
     stage.classList.add("dim");
-    dots.forEach((d) => {
-      const reacted = phaseNow >= 2 && roundNow >= d.reach;
-      const match = RN[l] ? (reacted && d.react === RN[l]) : d.pname === l;
-      d.el.classList.toggle("off", !match);
-    });
+    dots.forEach((d) => d.el.classList.toggle("off", !(RN[l] ? (raggiunto(d) && d.react === RN[l]) : d.p[0] === l)));
   }
   function focusCity(c) {
     stage.classList.add("dim");
     clusters.forEach((o) => o.el.classList.toggle("off", o !== c));
-    dots.forEach((d) => d.el.classList.toggle("off", !c.dots.includes(d)));
-    const reached = c.dots.filter((d) => phaseNow >= 2 && roundNow >= d.reach);
-    let txt = `<b>${c.name}</b> · ${c.dots.length} personas`;
-    if (reached.length) {
-      const n = (k) => Math.round(reached.filter((d) => d.react === k).length / reached.length * 100);
-      txt += `<br>${n("fav")}% favorevoli · ${n("con")}% contrari`;
-    } else txt += `<br>${phaseNow >= 2 ? "non ancora raggiunta" : "in attesa del messaggio"}`;
-    const tip = $("tip"); tip.innerHTML = txt; tip.style.left = pct(c.x); tip.style.top = pct(c.y); tip.classList.add("on");
+    dots.forEach((d) => d.el.classList.toggle("off", d.city !== c));
+    const r = c.dots.filter(raggiunto);
+    let t = `<b>${c.name}</b> · ${c.dots.length} personas`;
+    if (r.length) { const n = (k) => Math.round(r.filter((d) => d.react === k).length / r.length * 100); t += `<br>${n("fav")}% favorevoli · ${n("con")}% contrari`; }
+    else t += `<br>${phaseNow >= 2 ? "non ancora raggiunta" : "sarà raggiunta al round " + c.reach}`;
+    showTip(t, c.x, c.y, 54);
   }
+  function focusDot(d) {
+    stage.classList.add("dim");
+    dots.forEach((o) => o.el.classList.toggle("off", o.city !== d.city));
+    d.el.classList.add("me");
+    const t = raggiunto(d)
+      ? `<b>${d.p[0]}</b> · ${d.city.name} · ${NOMI[d.react]}<br><i>«${msg.frasi[d.react]}»</i>`
+      : `<b>${d.p[0]}</b> · ${d.city.name}<br>${phaseNow >= 2 ? "non ancora raggiunto" : "in attesa del messaggio"}`;
+    showTip(t, d.x, d.y, 12);
+  }
+
   const legP = personas.map((p) => [p[0], p[1]]), legR = [["Favorevole", RC.fav], ["Neutrale", RC.neu], ["Contrario", RC.con]];
   let step = 0, lastLeg = null, timer = null;
-
   function draw() {
-    const phase = step < 2 ? 0 : step < 4 ? 1 : step < 9 ? 2 : 3;
+    const phase = step < 2 ? 0 : step < 4 ? 1 : step < 10 ? 2 : 3;
     const round = phase === 2 ? step - 3 : phase === 3 ? 9 : 0;
     phaseNow = phase; roundNow = round;
     document.querySelectorAll("#steps button").forEach((b) => { if (+b.dataset.f === phase) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
     dots.forEach((d) => {
-      const hit = phase >= 2 && round >= d.reach;
-      d.el.style.background = hit ? RC[d.react] : (phase === 0 ? d.persona : d.persona + "99");
-      d.el.style.transform = phase === 2 && round === d.reach ? "scale(1.45)" : "scale(1)";
+      const hit = raggiunto(d);
+      d.el.style.background = hit ? RC[d.react] : (phase === 0 ? d.p[1] : d.p[1] + "99");
+      d.el.style.transform = phase === 2 && round === d.reach ? "scale(1.45)" : "";
     });
     links.forEach((l) => l.el.classList.toggle("on", phase >= 2 && round >= l.reach));
     const pulsing = phase === 1 || phase === 2;
@@ -241,19 +339,19 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
     $("pulse").style.transform = `scale(${step % 2 ? 1.9 : 1})`;
     $("msg").classList.toggle("on", pulsing);
     $("res").classList.toggle("on", phase === 3);
-    $("tag").textContent = ["1 · LE PERSONAS DAL SONDAGGIO", "2 · ENTRA IL MESSAGGIO", "3 · PASSAPAROLA, ROUND " + Math.max(1, Math.min(round, 4)), "4 · GRADIMENTO E OBIEZIONI"][phase];
+    $("tag").textContent = ["1 · LE PERSONAS DAL SONDAGGIO", "2 · ENTRA IL MESSAGGIO · " + can.label.toUpperCase(), "3 · PASSAPAROLA, ROUND " + clamp(round, 1, 6), "4 · GRADIMENTO E OBIEZIONI"][phase];
     const leg = phase < 2 ? legP : legR;
     if (leg !== lastLeg) { legenda(leg); lastLeg = leg; }
   }
-  const start = () => { timer = setInterval(() => { step = (step + 1) % 13; draw(); }, 1100); };
+  const start = () => { timer = setInterval(() => { step = (step + 1) % 14; draw(); }, 1100); };
   const stop = () => { clearInterval(timer); timer = null; };
-  document.querySelectorAll("#steps button").forEach((b) => b.addEventListener("click", () => {
-    step = [0, 2, 6, 10][+b.dataset.f]; draw();
-    if (timer) { stop(); start(); }
-  }));
+  const restart = () => { if (timer) { stop(); start(); } };
   $("pausa").onclick = () => { const p = !!timer; p ? stop() : start(); $("pausa").setAttribute("aria-pressed", String(p)); $("pausa").setAttribute("aria-label", p ? "Riprendi l'animazione" : "Metti in pausa l'animazione"); };
-  draw();
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { step = 10; draw(); $("pausa").setAttribute("aria-pressed", "true"); } else start();
+  document.querySelectorAll("#steps button").forEach((b) => b.addEventListener("click", () => { step = [0, 2, 6, 11][+b.dataset.f]; draw(); restart(); }));
+  $("go").addEventListener("click", () => { last = score; calcola(); step = 2; draw(); if (!timer) { start(); $("pausa").setAttribute("aria-pressed", "false"); } else restart(); });
+
+  calcola(); draw();
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { step = 11; draw(); $("pausa").setAttribute("aria-pressed", "true"); } else start();
 })();
 </script>
 </body>
