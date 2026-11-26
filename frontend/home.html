@@ -92,7 +92,33 @@ h2{margin:30px 0 0;font-size:23px;line-height:1.36;font-weight:600}
 .go{margin-top:14px;width:100%;min-height:44px;border:0;background:#1f1d1c;color:#fff;font:600 11.5px 'Montserrat',sans-serif;letter-spacing:1.4px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .go:hover{background:#8a3a2c}
 .res{width:200px;margin-left:-100px;margin-top:-72px}
-.msg,.res,.tag,.pulse,.core{pointer-events:none}
+.msg,.res,.tag,.pulse{pointer-events:none}
+.stage{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.shine{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 38%);opacity:0;transition:opacity .4s}
+.stage.hot .shine{opacity:1}
+.dt{pointer-events:none!important;cursor:default;transition:background-color .7s ease,transform .35s ease,opacity .35s ease,left .3s ease-out,top .3s ease-out}
+.dt.off{opacity:.16}
+.cl{transition:transform .35s cubic-bezier(.2,.8,.2,1.2),box-shadow .35s,opacity .35s}
+.cl.hov{transform:translate(-50%,-50%) scale(1.14);box-shadow:0 0 0 2px rgba(138,58,44,.55),0 10px 26px rgba(110,60,45,.22)}
+.cl.dimc{opacity:.55}
+.cn{pointer-events:none;transition:color .25s,transform .35s}.cn.hov{color:#8a3a2c;transform:translateX(-50%) scale(1.12)}
+.lk.lit{border-top-color:#8a3a2c;border-top-style:solid;opacity:1}
+.core{padding:0;border:0;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1.3),box-shadow .3s}
+.core:hover{transform:scale(1.12);box-shadow:0 0 0 8px rgba(138,58,44,.14),0 6px 16px rgba(138,58,44,.35)}
+.core:focus-visible{outline:2px solid #8a3a2c;outline-offset:4px}
+.stage.focus .msg,.stage.focus .res{opacity:0!important}
+.tip{width:210px;white-space:normal;background:#fff;color:#1f1d1c;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.16);transform:translate(-50%,-100%)}
+.tip.below{transform:translate(-50%,0)}
+.tip-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.tip-h strong{font-size:15px;font-weight:600}.tip-h span{font-size:10.5px;color:#6b6663}
+.tip-k{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a3a2c}
+.tip .bar{margin-top:6px}.bar i{display:block;height:100%;transition:width .5s}
+.tip small{display:block;margin-top:7px;font-size:10.5px;color:#57524f}
+.tip q{display:block;margin-top:6px;font-size:11px;font-style:italic;color:#3b3533}
+.legend button{font:inherit;background:none;border:1px solid transparent;border-radius:99px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#57524f;transition:border-color .25s,background .25s,color .25s}
+.legend button:hover,.legend button.on{border-color:#e2d6d0;background:rgba(255,255,255,.6);color:#1f1d1c}
+.legend button i{width:8px;height:8px;border-radius:50%}
+@media (prefers-reduced-motion:reduce){.stage{transform:none}}
 .cap{margin-top:22px;width:100%;max-width:470px}
 .cap p{margin:0;font-size:15px;line-height:1.5}.cap p+p{margin-top:4px;color:#8a3a2c}
 footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#8b8582;letter-spacing:.4px}
@@ -140,9 +166,9 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
 
   <section class="right">
     <div class="stage" id="stage" role="group" aria-label="Simulazione dimostrativa: un messaggio entra nel mondo simulato e si diffonde tra le personas di sei territori, che reagiscono; alla fine compare il gradimento.">
-      <div class="disc" aria-hidden="true"><div class="sheen" style="top:8%;height:18%"></div><div class="sheen" style="top:30%;height:5%"></div></div>
+      <div class="disc" aria-hidden="true"><div class="sheen" style="top:8%;height:18%"></div><div class="sheen" style="top:30%;height:5%"></div><b class="shine"></b></div>
       <div class="pulse" id="pulse" aria-hidden="true"></div>
-      <div class="core" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 10v4h3l6 4V6L6 10H3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+      <button type="button" class="core" id="core" aria-label="Invia il messaggio"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 10v4h3l6 4V6L6 10H3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></button>
       <div class="msg" id="msg"></div>
       <div class="res" id="res">
         <div class="k">GRADIMENTO</div>
@@ -168,10 +194,10 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
       <div class="row"><span class="rl">Canale</span><div class="chips" id="c-can" role="radiogroup" aria-label="Canale"></div></div>
       <button class="go" id="go"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z" fill="#fff"/></svg> LANCIA LA SIMULAZIONE</button>
     </div>
-    <p class="hint">Passate il mouse su una città, su una persona o sulle voci della legenda</p>
+    <p class="hint">Muovete il mouse sullo specchio, sulle città e sulla legenda · cliccate il centro per inviare il messaggio</p>
     <div class="cap">
       <p><b>Personas, gruppi sociali, canali e territori.</b></p>
-      <p>Simuliamo con un nostro software proprietario come un messaggio si diffonde, prima di lanciarlo.</p>
+      <p>Simuliamo con un nostro software proprietario come messaggi e informazioni possono essere recepiti e come si diffondono nelle aree di interesse.</p>
     </div>
   </section>
 </main>
@@ -190,73 +216,75 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
     ["Pendolare", "#8a3a2c", .35, .35], ["Famiglia", "#d0a07f", .55, .15], ["Senior", "#3f5a73", .30, .25],
     ["Giovane", "#7a9a8c", .60, .15], ["Professionista", "#c9a24a", .50, .25], ["Imprenditore", "#5b4b6b", .40, .35]
   ];
-  // Scenari dimostrativi: messaggi e canali spostano le probabilità di reazione delle personas
+  // Scenari dimostrativi: messaggio e canale spostano le probabilità di reazione delle personas
   const MESSAGGI = [
     { id: "orari", label: "Nuovi orari", testo: "«Nuovi orari dei servizi da gennaio»", f: 0, c: 0, per: {},
-      obiezione: "Non è chiaro cosa cambia per me",
+      obiezione: "non è chiaro cosa cambia per me",
       frasi: { fav: "Bene, se le corse restano frequenti.", neu: "Aspetto di vedere gli orari nuovi.", con: "Nessuno ci ha chiesto niente." } },
     { id: "ascolto", label: "Orari decisi con voi", testo: "«Nuovi orari: li decidiamo con voi entro dicembre»", f: .18, c: -.12, per: {},
-      obiezione: "Tempi stretti per partecipare",
+      obiezione: "tempi stretti per partecipare",
       frasi: { fav: "Finalmente ci chiedono un parere.", neu: "Vediamo se ci ascoltano davvero.", con: "Dicembre è troppo vicino per partecipare." } },
     { id: "tagli", label: "Meno corse serali", testo: "«Dal 2027 meno corse serali»", f: -.22, c: .25, per: { Pendolare: [0, .1], Senior: [0, .1] },
-      obiezione: "La sera chi lavora resta senza mezzi",
+      obiezione: "la sera chi lavora resta senza mezzi",
       frasi: { fav: "Se serve a risparmiare, va bene.", neu: "Dipende da quali corse tolgono.", con: "La sera resto senza mezzi." } }
   ];
   const CANALI = [
     { id: "social", label: "Social", f: 0, c: 0, per: { Giovane: [.1, 0], Professionista: [.05, 0], Senior: [-.1, .05] },
-      reach: { Vicenza: 1, Treviso: 1, Venezia: 1, Padova: 1, Verona: 2, Trento: 2 } },
+      reach: { Bolzano: 1, Treviso: 1, Venezia: 1, Padova: 1, Verona: 2, Trento: 2 } },
     { id: "giornale", label: "Giornale locale", f: 0, c: 0, per: { Senior: [.1, 0], Imprenditore: [.05, 0], Giovane: [-.05, 0] },
-      reach: { Venezia: 1, Padova: 1, Treviso: 2, Vicenza: 2, Verona: 2, Trento: 3 } },
+      reach: { Venezia: 1, Padova: 1, Treviso: 2, Bolzano: 2, Verona: 2, Trento: 3 } },
     { id: "incontro", label: "Incontro pubblico", f: .06, c: -.04, per: { Famiglia: [.05, 0] },
-      reach: { Padova: 1, Venezia: 2, Vicenza: 2, Treviso: 3, Verona: 3, Trento: 4 } }
+      reach: { Padova: 1, Venezia: 2, Bolzano: 3, Treviso: 3, Verona: 2, Trento: 3 } }
   ];
-  const defs = [["Vicenza", -118, 20], ["Treviso", -55, 18], ["Venezia", 15, 24], ["Padova", 80, 24], ["Verona", 142, 22], ["Trento", 200, 18]];
-  const clusters = defs.map(([name, a, n]) => { const r = a * Math.PI / 180; return { name, n, reach: 1, x: S / 2 + 150 * Math.cos(r), y: S / 2 + 150 * Math.sin(r), dots: [] }; });
+  const defs = [["Bolzano", -118, 22], ["Treviso", -55, 16], ["Venezia", 15, 21], ["Padova", 80, 26], ["Verona", 142, 18], ["Trento", 200, 19]];
+  const clusters = defs.map(([name, a, n], ci) => { const r = a * Math.PI / 180; return { ci, name, n, reach: 1, x: S / 2 + 150 * Math.cos(r), y: S / 2 + 150 * Math.sin(r), dots: [] }; });
   const add = (cls, css) => { const e = document.createElement("div"); e.className = cls; e.setAttribute("aria-hidden", "true"); Object.assign(e.style, css); stage.insertBefore(e, $("pulse")); return e; };
   const tip = $("tip");
-  const showTip = (html, x, y, lift) => { tip.innerHTML = html; tip.style.left = pct(x); tip.style.top = pct(y); tip.style.setProperty("--lift", lift + "px"); tip.classList.add("on"); };
+
+  // stato
+  let msg = MESSAGGI[0], can = CANALI[0], last = null, score = 0;
+  let step = 0, phaseNow = 0, roundNow = 0, timer = null, held = false;
+  let city = null, pinned = null, filter = null, mouse = null;
 
   // collegamenti (ricostruiti a ogni canale)
   let links = [];
-  const centre = { x: S / 2, y: S / 2, reach: 0 };
+  const centre = { x: S / 2, y: S / 2, reach: 0, ci: -1 };
+  const dots = [], labels = [];
   function buildLinks() {
     links.forEach((l) => l.el.remove()); links = [];
     const link = (a, b) => {
       const dx = b.x - a.x, dy = b.y - a.y;
-      links.push({ reach: Math.max(a.reach, b.reach), el: add("lk", { left: pct(a.x), top: pct(a.y), width: pct(Math.hypot(dx, dy)), transform: `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)` }) });
+      links.push({ a: a.ci, b: b.ci, reach: Math.max(a.reach, b.reach), el: add("lk", { left: pct(a.x), top: pct(a.y), width: pct(Math.hypot(dx, dy)), transform: `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)` }) });
     };
     clusters.forEach((c, i) => { link(c, clusters[(i + 1) % clusters.length]); if (c.reach === 1) link(centre, c); });
-    clusters.forEach((c) => stage.insertBefore(c.el, $("pulse")));
-    dots.forEach((d) => stage.insertBefore(d.el, $("pulse")));
-    labels.forEach((l) => stage.insertBefore(l, $("pulse")));
+    [...clusters.map((c) => c.el), ...dots.map((d) => d.el), ...labels].forEach((e) => stage.insertBefore(e, $("pulse")));
   }
 
   // territori e personas
-  const dots = [], labels = [];
   clusters.forEach((c) => {
     c.el = add("cl", { left: pct(c.x), top: pct(c.y) });
-    c.el.addEventListener("mouseenter", () => focusCity(c)); c.el.addEventListener("mouseleave", clearFocus);
+    c.el.addEventListener("pointerenter", () => { if (pinned === null) setCity(c); });
+    c.el.addEventListener("pointerleave", () => { if (pinned === null) setCity(null); });
+    c.el.addEventListener("click", () => { pinned = pinned === c ? null : c; setCity(pinned || c); });
     const sotto = c.y > S * .75 && Math.abs(c.x - S / 2) < 60;
-    const lab = add("cn", { left: pct(c.x), top: pct(sotto ? c.y - 66 : c.y + 52) }); lab.textContent = c.name; labels.push(lab);
+    c.lab = add("cn", { left: pct(c.x), top: pct(sotto ? c.y - 66 : c.y + 52) }); c.lab.textContent = c.name; labels.push(c.lab);
+    c.sotto = sotto;
     for (let i = 0; i < c.n; i++) {
       const rr = 5.6 * Math.sqrt(i + .6), th = i * 2.39996;
-      const p = personas[Math.floor(rnd() * personas.length)];
-      const d = { p, u: rnd(), extra: i % 3 === 0 ? 1 : 0, city: c, x: c.x + rr * Math.cos(th), y: c.y + rr * Math.sin(th) };
+      const pi = Math.floor(rnd() * personas.length);
+      const d = { pi, p: personas[pi], u: rnd(), extra: i % 3 === 0 ? 1 : 0, city: c, x: c.x + rr * Math.cos(th), y: c.y + rr * Math.sin(th), base: 1 };
       d.el = add("dt", { left: pct(d.x), top: pct(d.y) });
-      d.el.addEventListener("mouseenter", () => focusDot(d)); d.el.addEventListener("mouseleave", clearFocus);
       dots.push(d); c.dots.push(d);
     }
   });
 
-  // scenario corrente
-  let msg = MESSAGGI[0], can = CANALI[0], last = null, score = 0;
   function calcola() {
     clusters.forEach((c) => { c.reach = can.reach[c.name]; });
     let fav = 0, neu = 0, con = 0;
     dots.forEach((d) => {
-      const [nm, , bf, bc] = d.p, pm = msg.per[nm] || [0, 0], pc = can.per[nm] || [0, 0];
-      const f = clamp(bf + msg.f + can.f + pm[0] + pc[0], .05, .9);
-      const c = clamp(bc + msg.c + can.c + pm[1] + pc[1], .03, .95 - f);
+      const nm = d.p[0], pm = msg.per[nm] || [0, 0], pc = can.per[nm] || [0, 0];
+      const f = clamp(d.p[2] + msg.f + can.f + pm[0] + pc[0], .05, .9);
+      const c = clamp(d.p[3] + msg.c + can.c + pm[1] + pc[1], .03, .95 - f);
       d.react = d.u < f ? "fav" : (d.u > 1 - c ? "con" : "neu");
       d.reach = d.city.reach + d.extra;
       if (d.react === "fav") fav++; else if (d.react === "con") con++; else neu++;
@@ -266,10 +294,10 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
     $("score").textContent = score;
     const dl = $("delta");
     if (last === null) { dl.textContent = ""; dl.className = ""; }
-    else { const k = score - last; dl.textContent = (k > 0 ? "▲ +" : k < 0 ? "▼ " : "= ") + (k || "") ; dl.className = k > 0 ? "su" : k < 0 ? "giu" : ""; dl.title = "rispetto alla prova precedente"; }
+    else { const k = score - last; dl.textContent = k > 0 ? "▲ +" + k : k < 0 ? "▼ " + k : "= 0"; dl.className = k > 0 ? "su" : k < 0 ? "giu" : ""; dl.title = "rispetto alla prova precedente"; }
     $("bf").style.width = (fav / tot * 100) + "%"; $("bn").style.width = (neu / tot * 100) + "%"; $("bc").style.width = (con / tot * 100) + "%";
     $("rl").textContent = `${Math.round(fav / tot * 100)}% favorevoli · ${Math.round(con / tot * 100)}% contrari · esempio`;
-    $("obj").textContent = "Obiezione principale: " + msg.obiezione.toLowerCase();
+    $("obj").textContent = "Obiezione principale: " + msg.obiezione;
     $("msg").textContent = msg.testo;
     buildLinks();
   }
@@ -284,74 +312,121 @@ footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#
   chips($("c-msg"), MESSAGGI, () => msg, (v) => { msg = v; });
   chips($("c-can"), CANALI, () => can, (v) => { can = v; });
 
-  // focus
-  const legenda = (items) => {
-    $("legend").innerHTML = items.map(([l, c]) => `<span tabindex="0" data-l="${l}"><i style="background:${c}"></i>${l}</span>`).join("");
-    $("legend").querySelectorAll("span").forEach((sp) => {
-      const on = () => focusLegend(sp.dataset.l);
-      sp.addEventListener("mouseenter", on); sp.addEventListener("focus", on); sp.addEventListener("mouseleave", clearFocus); sp.addEventListener("blur", clearFocus);
-    });
-  };
-  const RN = { Favorevole: "fav", Neutrale: "neu", Contrario: "con" };
-  const NOMI = { fav: "favorevole", neu: "neutrale", con: "contrario" };
-  let phaseNow = 0, roundNow = 0;
   const raggiunto = (d) => phaseNow >= 2 && roundNow >= d.reach;
-  function clearFocus() { stage.classList.remove("dim"); dots.forEach((d) => d.el.classList.remove("off", "me")); clusters.forEach((c) => c.el.classList.remove("off")); tip.classList.remove("on"); }
-  function focusLegend(l) {
-    stage.classList.add("dim");
-    dots.forEach((d) => d.el.classList.toggle("off", !(RN[l] ? (raggiunto(d) && d.react === RN[l]) : d.p[0] === l)));
+  const inFocus = (d) => filter ? (filter.kind === "persona" ? d.pi === filter.i : raggiunto(d) && d.react === filter.r) : city ? d.city === city : true;
+
+  // disegno di un punto: stato della simulazione + effetto magnete del puntatore
+  function paint(d) {
+    let dx = 0, dy = 0, sc = d.base;
+    if (mouse) {
+      const mx = d.x - mouse.x, my = d.y - mouse.y, dist = Math.hypot(mx, my);
+      if (dist < 46 && dist > .01) { const k = (46 - dist) / 46; dx = mx / dist * k * 9; dy = my / dist * k * 9; sc = Math.max(sc, 1 + k * .9); }
+    }
+    const focus = filter || city, on = inFocus(d);
+    if (focus && on) sc = Math.max(sc, 1.3);
+    d.el.style.left = pct(d.x + dx); d.el.style.top = pct(d.y + dy);
+    d.el.style.transform = `scale(${sc.toFixed(2)})`;
+    d.el.classList.toggle("off", !!focus && !on);
   }
-  function focusCity(c) {
-    stage.classList.add("dim");
-    clusters.forEach((o) => o.el.classList.toggle("off", o !== c));
-    dots.forEach((d) => d.el.classList.toggle("off", d.city !== c));
-    const r = c.dots.filter(raggiunto);
-    let t = `<b>${c.name}</b> · ${c.dots.length} personas`;
-    if (r.length) { const n = (k) => Math.round(r.filter((d) => d.react === k).length / r.length * 100); t += `<br>${n("fav")}% favorevoli · ${n("con")}% contrari`; }
-    else t += `<br>${phaseNow >= 2 ? "non ancora raggiunta" : "sarà raggiunta al round " + c.reach}`;
-    showTip(t, c.x, c.y, 54);
-  }
-  function focusDot(d) {
-    stage.classList.add("dim");
-    dots.forEach((o) => o.el.classList.toggle("off", o.city !== d.city));
-    d.el.classList.add("me");
-    const t = raggiunto(d)
-      ? `<b>${d.p[0]}</b> · ${d.city.name} · ${NOMI[d.react]}<br><i>«${msg.frasi[d.react]}»</i>`
-      : `<b>${d.p[0]}</b> · ${d.city.name}<br>${phaseNow >= 2 ? "non ancora raggiunto" : "in attesa del messaggio"}`;
-    showTip(t, d.x, d.y, 12);
+  const paintAll = () => dots.forEach(paint);
+
+  function setCity(c) {
+    city = c; held = !!(c || filter);
+    clusters.forEach((o) => { o.el.classList.toggle("hov", o === c); o.el.classList.toggle("dimc", !!c && o !== c); o.lab.classList.toggle("hov", o === c); });
+    links.forEach((l) => l.el.classList.toggle("lit", !!c && (l.a === c.ci || l.b === c.ci)));
+    stage.classList.toggle("focus", !!c);
+    if (c) {
+      const r = c.dots.filter(raggiunto), react = r.length > 0;
+      const parts = react ? ["fav", "neu", "con"].map((k) => [RC[k], r.filter((d) => d.react === k).length])
+        : personas.map((p, i) => [p[1], c.dots.filter((d) => d.pi === i).length]);
+      const tot = parts.reduce((s, x) => s + x[1], 0) || 1;
+      let corpo;
+      if (react) {
+        const n = (k) => Math.round(r.filter((d) => d.react === k).length / r.length * 100);
+        const top = ["fav", "neu", "con"].sort((a, b) => r.filter((d) => d.react === b).length - r.filter((d) => d.react === a).length)[0];
+        corpo = `<small>${n("fav")}% favorevoli · ${n("con")}% contrari</small><q>${msg.frasi[top]}</q>`;
+      } else {
+        const big = personas.map((p, i) => [p[0], c.dots.filter((d) => d.pi === i).length]).sort((a, b) => b[1] - a[1]).slice(0, 2).map((x) => x[0].toLowerCase()).join(" e ");
+        corpo = `<small>${phaseNow >= 2 ? "Il messaggio non è ancora arrivato qui" : "Soprattutto " + big}</small>`;
+      }
+      tip.innerHTML = `<div class="tip-h"><strong>${c.name}</strong><span>${c.dots.length} personas</span></div>
+        <div class="tip-k">${react ? "Reazioni al messaggio" : "Composizione"}</div>
+        <div class="bar">${parts.map(([col, v]) => `<i style="width:${v / tot * 100}%;background:${col}"></i>`).join("")}</div>${corpo}`;
+      tip.style.left = pct(c.x); tip.style.top = pct(c.sotto ? c.y - 52 : (c.y < S / 2 ? c.y + 50 : c.y - 50));
+      tip.classList.toggle("below", c.y < S / 2);
+      tip.classList.add("on");
+    } else tip.classList.remove("on");
+    paintAll();
   }
 
-  const legP = personas.map((p) => [p[0], p[1]]), legR = [["Favorevole", RC.fav], ["Neutrale", RC.neu], ["Contrario", RC.con]];
-  let step = 0, lastLeg = null, timer = null;
+  // legenda a pulsanti
+  const legP = personas.map((p, i) => [p[0], p[1], { kind: "persona", i }]);
+  const legR = [["Favorevole", RC.fav, { kind: "react", r: "fav" }], ["Neutrale", RC.neu, { kind: "react", r: "neu" }], ["Contrario", RC.con, { kind: "react", r: "con" }]];
+  let lastLeg = null;
+  function legenda(items) {
+    $("legend").innerHTML = items.map(([l, c], i) => `<button type="button" data-i="${i}"><i style="background:${c}"></i>${l}</button>`).join("");
+    $("legend").querySelectorAll("button").forEach((b) => {
+      const f = items[+b.dataset.i][2];
+      const on = () => { filter = f; held = true; b.classList.add("on"); stage.classList.add("focus"); paintAll(); };
+      const off = () => { filter = null; held = !!city; b.classList.remove("on"); stage.classList.toggle("focus", !!city); paintAll(); };
+      b.addEventListener("pointerenter", on); b.addEventListener("focus", on); b.addEventListener("pointerleave", off); b.addEventListener("blur", off);
+    });
+  }
+
+  // specchio che s'inclina e riflesso che segue il puntatore
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let raf = 0;
+  stage.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    const r = stage.getBoundingClientRect(), X = (e.clientX - r.left) / r.width, Y = (e.clientY - r.top) / r.height;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      if (!reduce) { stage.style.setProperty("--rx", ((.5 - Y) * 9).toFixed(2) + "deg"); stage.style.setProperty("--ry", ((X - .5) * 9).toFixed(2) + "deg"); }
+      stage.style.setProperty("--gx", (X * 100).toFixed(1) + "%"); stage.style.setProperty("--gy", (Y * 100).toFixed(1) + "%");
+      stage.classList.add("hot"); mouse = { x: X * S, y: Y * S }; paintAll();
+    });
+  });
+  stage.addEventListener("pointerleave", () => {
+    cancelAnimationFrame(raf); stage.style.setProperty("--rx", "0deg"); stage.style.setProperty("--ry", "0deg");
+    stage.classList.remove("hot"); mouse = null; pinned = null; setCity(null);
+  });
+
   function draw() {
-    const phase = step < 2 ? 0 : step < 4 ? 1 : step < 10 ? 2 : 3;
+    const phase = step < 2 ? 0 : step < 4 ? 1 : step < 9 ? 2 : 3;
     const round = phase === 2 ? step - 3 : phase === 3 ? 9 : 0;
     phaseNow = phase; roundNow = round;
     document.querySelectorAll("#steps button").forEach((b) => { if (+b.dataset.f === phase) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
     dots.forEach((d) => {
-      const hit = raggiunto(d);
-      d.el.style.background = hit ? RC[d.react] : (phase === 0 ? d.p[1] : d.p[1] + "99");
-      d.el.style.transform = phase === 2 && round === d.reach ? "scale(1.45)" : "";
+      d.el.style.background = raggiunto(d) ? RC[d.react] : (phase === 0 ? d.p[1] : d.p[1] + "99");
+      d.base = phase === 2 && round === d.reach ? 1.45 : 1;
     });
+    paintAll();
     links.forEach((l) => l.el.classList.toggle("on", phase >= 2 && round >= l.reach));
     const pulsing = phase === 1 || phase === 2;
     $("pulse").style.opacity = pulsing && step % 2 === 0 ? .6 : 0;
     $("pulse").style.transform = `scale(${step % 2 ? 1.9 : 1})`;
     $("msg").classList.toggle("on", pulsing);
     $("res").classList.toggle("on", phase === 3);
-    $("tag").textContent = ["1 · LE PERSONAS DAL SONDAGGIO", "2 · ENTRA IL MESSAGGIO · " + can.label.toUpperCase(), "3 · PASSAPAROLA, ROUND " + clamp(round, 1, 6), "4 · GRADIMENTO E OBIEZIONI"][phase];
+    $("tag").textContent = ["1 · LE PERSONAS DAL SONDAGGIO", "2 · ENTRA IL MESSAGGIO · " + can.label.toUpperCase(), "3 · PASSAPAROLA, ROUND " + clamp(round, 1, 5), "4 · GRADIMENTO E OBIEZIONI"][phase];
     const leg = phase < 2 ? legP : legR;
     if (leg !== lastLeg) { legenda(leg); lastLeg = leg; }
+    if (city) setCity(city);
   }
-  const start = () => { timer = setInterval(() => { step = (step + 1) % 14; draw(); }, 1100); };
-  const stop = () => { clearInterval(timer); timer = null; };
-  const restart = () => { if (timer) { stop(); start(); } };
-  $("pausa").onclick = () => { const p = !!timer; p ? stop() : start(); $("pausa").setAttribute("aria-pressed", String(p)); $("pausa").setAttribute("aria-label", p ? "Riprendi l'animazione" : "Metti in pausa l'animazione"); };
-  document.querySelectorAll("#steps button").forEach((b) => b.addEventListener("click", () => { step = [0, 2, 6, 11][+b.dataset.f]; draw(); restart(); }));
-  $("go").addEventListener("click", () => { last = score; calcola(); step = 2; draw(); if (!timer) { start(); $("pausa").setAttribute("aria-pressed", "false"); } else restart(); });
+
+  // tempo: si ferma fuori dallo schermo, in pausa o mentre si esplora una città o la legenda
+  let visibile = true, paused = false;
+  const tick = () => { if (!visibile || paused || held) return; step = (step + 1) % 13; draw(); };
+  const restart = () => { clearInterval(timer); timer = setInterval(tick, 1100); };
+  new IntersectionObserver(([e]) => { visibile = e.isIntersecting; }, { threshold: .2 }).observe(stage);
+  $("pausa").onclick = () => { paused = !paused; $("pausa").setAttribute("aria-pressed", String(paused)); $("pausa").setAttribute("aria-label", paused ? "Riprendi l'animazione" : "Metti in pausa l'animazione"); };
+  document.querySelectorAll("#steps button").forEach((b) => b.addEventListener("click", () => { step = [0, 2, 5, 10][+b.dataset.f]; draw(); restart(); }));
+  const lancia = () => { last = score; calcola(); step = 2; paused = false; $("pausa").setAttribute("aria-pressed", "false"); draw(); restart(); };
+  $("go").addEventListener("click", lancia);
+  $("core").addEventListener("click", () => { step = 2; draw(); restart(); });
 
   calcola(); draw();
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { step = 11; draw(); $("pausa").setAttribute("aria-pressed", "true"); } else start();
+  if (reduce) { step = 10; paused = true; draw(); $("pausa").setAttribute("aria-pressed", "true"); }
+  restart();
 })();
 </script>
 </body>
