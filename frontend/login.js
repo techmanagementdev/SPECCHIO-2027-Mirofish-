@@ -1,8 +1,8 @@
 "use strict";
 const q = new URLSearchParams(location.search);
 const area = q.get("area") === "admin" ? "admin" : "utente";
-let torna = q.get("torna") || (area === "admin" ? "/admin" : "/");
-if (!torna.startsWith("/") || torna.startsWith("//")) torna = "/";
+let torna = q.get("torna") || (area === "admin" ? "/admin" : "/app");
+if (!torna.startsWith("/") || torna.startsWith("//") || torna === "/") torna = area === "admin" ? "/admin" : "/app";
 if (area === "admin") {
   document.getElementById("titolo").textContent = "Area riservata";
   document.getElementById("sotto").textContent = "Impostazioni di SPECCHIO";

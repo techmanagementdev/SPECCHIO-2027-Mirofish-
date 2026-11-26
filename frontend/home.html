@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPECCHIO · simulatore di opinioni e scenari futuri</title>
+<meta name="description" content="SPECCHIO by European Management Institute: personas statistiche da sondaggi reali per simulare reazioni, passaparola e gradimento prima di comunicare.">
+<link rel="icon" type="image/svg+xml" href="/static/logo.svg?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#faf8f6;font-family:'Montserrat',system-ui,sans-serif;color:#1f1d1c}
+a{color:#8a3a2c}a:hover{color:#6b2a1f}
+header{position:relative;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06);z-index:5}
+.topline{position:absolute;left:0;top:0;right:0;height:2px;background:linear-gradient(90deg,#8a3a2c 0%,#c98b7c 45%,rgba(138,58,44,0) 70%)}
+.hwrap{max-width:1180px;margin:0 auto;padding:12px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#1f2a3a}
+.brand span{font-size:10.5px;line-height:1.25;letter-spacing:.6px;font-weight:500}
+nav{display:flex;align-items:center;gap:22px}
+.round{width:36px;height:36px;border-radius:50%;border:1.5px solid #1f2a3a;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.round[aria-pressed="true"]{background:#1f2a3a}.round[aria-pressed="true"] path{stroke:#fff}
+.lang{font-size:12px;letter-spacing:1px;color:#6b6663}.lang b{color:#1f1d1c;font-weight:600}
+.menu{position:relative}
+.menu summary{list-style:none;width:44px;height:44px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
+.menu summary::-webkit-details-marker{display:none}
+.menu summary i{display:block;width:22px;height:1.6px;background:#1f2a3a}
+.menu ul{position:absolute;right:0;top:50px;margin:0;padding:10px 0;list-style:none;background:#fff;min-width:220px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.menu li a{display:block;padding:11px 20px;font-size:13px;font-weight:500;color:#1f1d1c;text-decoration:none}
+.menu li a:hover{background:#f6efeb;color:#8a3a2c}
+main{max-width:1180px;margin:0 auto;padding:28px 40px 64px;display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start}
+.left{flex:1 1 380px;max-width:470px;position:relative}
+.vline{position:absolute;left:-14px;top:6px;height:300px;width:1.5px;background:#8a3a2c}
+.vdot{position:absolute;left:-14px;top:318px;bottom:0;border-left:1.5px dotted #c9b3aa}
+h1{margin:0;font-size:54px;line-height:1;font-weight:600;letter-spacing:1px}
+.kicker{margin:10px 0 0;font-size:10px;font-weight:700;letter-spacing:3.2px;color:#8a3a2c}
+h2{margin:30px 0 0;font-size:21px;line-height:1.38;font-weight:600}
+.left p.t{margin:16px 0 0;font-size:14.5px;line-height:1.78;color:#57524f}
+.cta{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;background:#8a3a2c;color:#fff;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:1.4px}
+.btn:hover{background:#6b2a1f;color:#fff}
+.link{font-size:12.5px;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;padding:6px 0}
+.right{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;align-items:center}
+.stage{position:relative;width:100%;max-width:470px;aspect-ratio:1/1}
+.disc{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 42% 38%,#fbf1ec 0%,#f4e0d7 58%,#ead0c4 100%);border:10px solid #f1e5df;box-shadow:0 18px 40px rgba(110,60,45,.16),inset 0 0 0 1px rgba(138,58,44,.12);overflow:hidden}
+.sheen{position:absolute;left:-20%;width:140%;background:rgba(255,255,255,.26);transform:rotate(-32deg)}
+.lk{position:absolute;height:0;border-top:2px dashed #d8c3ba;transform-origin:0 0;transition:border-color .6s,opacity .6s;opacity:.7}
+.lk.on{border-top-color:#8a3a2c;opacity:.85}
+.cl{position:absolute;width:20%;height:20%;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,250,247,.92);box-shadow:0 2px 10px rgba(110,60,45,.12)}
+.cn{position:absolute;transform:translateX(-50%);font-size:11px;font-weight:600;color:#3b3533;white-space:nowrap}
+.dt{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;transition:background-color .7s ease,transform .5s ease}
+.pulse{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;border:2px solid #8a3a2c;opacity:0;transition:opacity .6s,transform .9s}
+.core{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#8a3a2c;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(138,58,44,.35)}
+.msg{position:absolute;left:50%;top:59%;transform:translate(-50%,8px);opacity:0;background:#fff;padding:8px 12px;font-size:11.5px;font-weight:500;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.10);transition:opacity .6s,transform .6s}
+.msg.on{opacity:1;transform:translate(-50%,0)}
+.res{position:absolute;left:50%;top:50%;width:184px;margin:-62px 0 0 -92px;background:#fff;padding:16px 18px;box-shadow:0 10px 30px rgba(0,0,0,.14);opacity:0;transform:scale(.92);transition:opacity .6s,transform .6s}
+.res.on{opacity:1;transform:scale(1)}
+.res .k{font-size:9.5px;font-weight:700;letter-spacing:2.4px;color:#8a3a2c}
+.res .n{margin-top:6px;display:flex;align-items:baseline;gap:4px}.res .n b{font-size:38px;font-weight:600;line-height:1}.res .n span{font-size:13px;color:#6b6663}
+.bar{margin-top:10px;display:flex;height:6px;background:#eee}
+.res small{display:block;margin-top:8px;font-size:10.5px;color:#57524f}
+.tag{margin-top:18px;background:#1f1d1c;color:#fff;padding:6px 12px;font-size:10.5px;font-weight:600;letter-spacing:1.2px;white-space:nowrap}
+.legend{margin-top:12px;width:100%;max-width:470px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;min-height:18px}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#57524f}
+.legend i{width:8px;height:8px;border-radius:50%}
+.cap{margin-top:22px;width:100%;max-width:470px}
+.cap p{margin:0;font-size:15px;line-height:1.5}.cap p+p{margin-top:4px;color:#8a3a2c}
+footer{max-width:1180px;margin:0 auto;padding:0 40px 40px;font-size:11px;color:#8b8582;letter-spacing:.4px}
+@media (max-width:640px){.hwrap,main,footer{padding-left:24px;padding-right:24px}h1{font-size:42px}.vline,.vdot{left:-10px}}
+@media (prefers-reduced-motion:reduce){.dt,.lk,.msg,.res,.pulse{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topline"></div>
+  <div class="hwrap">
+    <a class="brand" href="/">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="18" r="16" stroke="#1f2a3a" stroke-width="2.4"/><path d="M24 9 L12 18 L24 27" stroke="#1f2a3a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 18 H30" stroke="#1f2a3a" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>European<br>Management<br>Institute</span>
+    </a>
+    <nav>
+      <button class="round" id="pausa" aria-pressed="false" aria-label="Metti in pausa l'animazione" title="Pausa animazione">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M2 5v2M5 3v6M8 1v10M11 3v6M14 5v2" stroke="#1f2a3a" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <span class="lang"><b>IT</b> &nbsp;/&nbsp; EN</span>
+      <details class="menu">
+        <summary aria-label="Menu"><i></i><i></i><i></i></summary>
+        <ul>
+          <li><a href="/login">Accedi a SPECCHIO</a></li>
+          <li><a href="/login?area=admin">Area riservata</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="left">
+    <div class="vline" aria-hidden="true"></div><div class="vdot" aria-hidden="true"></div>
+    <h1>SPECCHIO</h1>
+    <p class="kicker">SIMULATORE</p>
+    <h2>Simula prima. Comunica con fiducia.</h2>
+    <p class="t" style="margin-top:22px">Simuliamo ecosistemi di opinione a partire da sondaggi reali. Trasformiamo le risposte in personas statistiche che reagiscono ai messaggi come i veri cittadini.</p>
+    <p class="t">Aiutiamo governi, enti e aziende a testare annunci, riforme e proposte prima di renderli pubblici, misurando gradimento, obiezioni e passaparola nei territori.</p>
+    <p class="t">Aiutiamo a scegliere il messaggio giusto per ogni pubblico, confrontando versioni alternative prima che lo faccia la realtà.</p>
+    <div class="cta">
+      <a class="btn" href="/login">ENTRA IN SPECCHIO</a>
+      <a class="link" href="/login?area=admin">Area riservata →</a>
+    </div>
+  </section>
+
+  <section class="right">
+    <div class="stage" id="stage" role="img" aria-label="Animazione: un messaggio entra nel mondo simulato e si diffonde tra le personas di sei territori, che reagiscono; alla fine compare il gradimento.">
+      <div class="disc" aria-hidden="true"><div class="sheen" style="top:8%;height:18%"></div><div class="sheen" style="top:30%;height:5%"></div></div>
+      <div class="pulse" id="pulse" aria-hidden="true"></div>
+      <div class="core" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 10v4h3l6 4V6L6 10H3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+      <div class="msg" id="msg">«Nuovi orari dei servizi da gennaio»</div>
+      <div class="res" id="res">
+        <div class="k">GRADIMENTO</div>
+        <div class="n"><b id="score"></b><span>/100</span></div>
+        <div class="bar"><div id="bf" style="background:#2a6f97"></div><div id="bn" style="background:#c9c0b9"></div><div id="bc" style="background:#d9822b"></div></div>
+        <small id="rl"></small>
+      </div>
+    </div>
+    <div class="tag" id="tag" aria-live="polite"></div>
+    <div class="legend" id="legend"></div>
+    <div class="cap">
+      <p><b>Personas, gruppi sociali, canali e territori.</b></p>
+      <p>Simuliamo come un messaggio si diffonde, prima di lanciarlo.</p>
+    </div>
+  </section>
+</main>
+<footer>SPECCHIO · simulatore di opinioni e scenari futuri · by European Management Institute · animazione dimostrativa con dati di esempio</footer>
+
+<script>
+"use strict";
+(() => {
+  const S = 460, $ = (id) => document.getElementById(id), stage = $("stage");
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const pct = (v) => (v / S * 100).toFixed(2) + "%";
+  const personas = [
+    ["Pendolare", "#8a3a2c", .35, .35], ["Famiglia", "#d0a07f", .55, .15], ["Senior", "#3f5a73", .30, .25],
+    ["Giovane", "#7a9a8c", .60, .15], ["Professionista", "#c9a24a", .50, .25], ["Imprenditore", "#5b4b6b", .40, .35]
+  ];
+  const RC = { fav: "#2a6f97", neu: "#c9c0b9", con: "#d9822b" };
+  const defs = [["Udine", -120, 1, 22], ["Gorizia", -55, 2, 16], ["Trieste", 10, 1, 21], ["Venezia", 75, 2, 26], ["Trento", 140, 3, 18], ["Pordenone", 195, 2, 19]];
+  const clusters = defs.map(([name, a, reach, n]) => { const r = a * Math.PI / 180; return { name, reach, n, x: S / 2 + 150 * Math.cos(r), y: S / 2 + 150 * Math.sin(r) }; });
+  const add = (cls, css) => { const e = document.createElement("div"); e.className = cls; e.setAttribute("aria-hidden", "true"); Object.assign(e.style, css); stage.insertBefore(e, $("pulse")); return e; };
+
+  // collegamenti
+  const links = [], centre = { x: S / 2, y: S / 2, reach: 0 };
+  const link = (a, b) => {
+    const dx = b.x - a.x, dy = b.y - a.y;
+    links.push({ reach: Math.max(a.reach, b.reach), el: add("lk", { left: pct(a.x), top: pct(a.y), width: pct(Math.hypot(dx, dy)), transform: `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)` }) });
+  };
+  clusters.forEach((c, i) => { link(c, clusters[(i + 1) % clusters.length]); if (c.reach === 1) link(centre, c); });
+
+  // territori e personas
+  const dots = []; let fav = 0, neu = 0, con = 0;
+  clusters.forEach((c) => {
+    add("cl", { left: pct(c.x), top: pct(c.y) });
+    const lab = add("cn", { left: pct(c.x), top: pct(c.y + 52) }); lab.textContent = c.name;
+    for (let i = 0; i < c.n; i++) {
+      const rr = 5.6 * Math.sqrt(i + .6), th = i * 2.39996;
+      const p = personas[Math.floor(rnd() * personas.length)], u = rnd();
+      const react = u < p[2] ? "fav" : (u > 1 - p[3] ? "con" : "neu");
+      if (react === "fav") fav++; else if (react === "con") con++; else neu++;
+      dots.push({ persona: p[1], react, reach: c.reach + (i % 3 === 0 ? 1 : 0), el: add("dt", { left: pct(c.x + rr * Math.cos(th)), top: pct(c.y + rr * Math.sin(th)) }) });
+    }
+  });
+  const tot = fav + neu + con;
+  $("score").textContent = Math.round((fav + .5 * neu) / tot * 100);
+  $("bf").style.width = (fav / tot * 100) + "%"; $("bn").style.width = (neu / tot * 100) + "%"; $("bc").style.width = (con / tot * 100) + "%";
+  $("rl").textContent = `${Math.round(fav / tot * 100)}% favorevoli · ${Math.round(con / tot * 100)}% contrari · esempio`;
+
+  const legenda = (items) => { $("legend").innerHTML = items.map(([l, c]) => `<span><i style="background:${c}"></i>${l}</span>`).join(""); };
+  const legP = personas.map((p) => [p[0], p[1]]), legR = [["Favorevole", RC.fav], ["Neutrale", RC.neu], ["Contrario", RC.con]];
+  let step = 0, lastLeg = null, timer = null;
+
+  function draw() {
+    const phase = step < 2 ? 0 : step < 4 ? 1 : step < 9 ? 2 : 3;
+    const round = phase === 2 ? step - 3 : phase === 3 ? 9 : 0;
+    dots.forEach((d) => {
+      const hit = phase >= 2 && round >= d.reach;
+      d.el.style.background = hit ? RC[d.react] : (phase === 0 ? d.persona : d.persona + "99");
+      d.el.style.transform = phase === 2 && round === d.reach ? "scale(1.45)" : "scale(1)";
+    });
+    links.forEach((l) => l.el.classList.toggle("on", phase >= 2 && round >= l.reach));
+    const pulsing = phase === 1 || phase === 2;
+    $("pulse").style.opacity = pulsing && step % 2 === 0 ? .6 : 0;
+    $("pulse").style.transform = `scale(${step % 2 ? 1.9 : 1})`;
+    $("msg").classList.toggle("on", pulsing);
+    $("res").classList.toggle("on", phase === 3);
+    $("tag").textContent = ["1 · LE PERSONAS DAL SONDAGGIO", "2 · ENTRA IL MESSAGGIO", "3 · PASSAPAROLA, ROUND " + Math.max(1, Math.min(round, 4)), "4 · GRADIMENTO E OBIEZIONI"][phase];
+    const leg = phase < 2 ? legP : legR;
+    if (leg !== lastLeg) { legenda(leg); lastLeg = leg; }
+  }
+  const start = () => { timer = setInterval(() => { step = (step + 1) % 13; draw(); }, 1100); };
+  const stop = () => { clearInterval(timer); timer = null; };
+  $("pausa").onclick = () => { const p = !!timer; p ? stop() : start(); $("pausa").setAttribute("aria-pressed", String(p)); $("pausa").setAttribute("aria-label", p ? "Riprendi l'animazione" : "Metti in pausa l'animazione"); };
+  draw();
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { step = 10; draw(); $("pausa").setAttribute("aria-pressed", "true"); } else start();
+})();
+</script>
+</body>
+</html>

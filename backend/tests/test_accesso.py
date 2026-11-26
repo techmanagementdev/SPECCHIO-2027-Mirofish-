@@ -10,13 +10,16 @@ def test_accesso_e_area_riservata(monkeypatch):
     monkeypatch.setenv("ADMIN_PASSWORD", "admin-prova-1")
     c = TestClient(app)
     assert c.get("/api/stato").status_code == 401
-    r = c.get("/", follow_redirects=False)
+    home = c.get("/")
+    assert home.status_code == 200 and "SPECCHIO" in home.text and 'href="/login"' in home.text
+    r = c.get("/app", follow_redirects=False)
     assert r.status_code == 303 and r.headers["location"].startswith("/login")
     assert c.get("/login").status_code == 200
     assert c.post("/api/login", json={"password": "sbagliata", "area": "utente"}).status_code == 401
 
     assert c.post("/api/login", json={"password": "utente-prova-1", "area": "utente"}).status_code == 200
     assert c.get("/api/stato").json()["ruolo"] == "utente"
+    assert c.get("/app").status_code == 200
     assert c.get("/api/admin/impostazioni").status_code == 401
     assert c.get("/admin", follow_redirects=False).status_code == 303
 

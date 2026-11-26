@@ -26,7 +26,7 @@ COOKIE_CLIENTE = "specchio_cliente"
 app = FastAPI(title="SPECCHIO · simulatore di personas di opinione", version="0.2.0")
 
 # ---------------------------------------------------------------- accesso
-LIBERI = {"/login", "/api/login", "/api/logout", "/salute", "/static/style.css", "/static/login.js"}
+LIBERI = {"/", "/login", "/api/login", "/api/logout", "/salute", "/static/style.css", "/static/login.js"}
 _tentativi: dict[str, list[float]] = {}
 
 
@@ -593,6 +593,11 @@ if FRONTEND.exists():
     app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
 
     @app.get("/")
+    def home():
+        """Presentazione pubblica di SPECCHIO."""
+        return FileResponse(FRONTEND / "home.html")
+
+    @app.get("/app")
     def index():
         return FileResponse(FRONTEND / "index.html")
 

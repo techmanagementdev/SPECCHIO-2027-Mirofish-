@@ -30,6 +30,16 @@ cd SPECCHIO-2027-Mirofish-
 
 Poi apri **http://localhost:8000**.
 
+Pagine:
+
+- `/` presentazione pubblica di SPECCHIO
+- `/login` accesso (con `?area=admin` per l'area riservata)
+- `/app` il simulatore, dopo l'accesso
+- `/admin` area riservata
+- `/r/<codice>` area cliente
+
+In produzione il servizio risponde su **https://specchio.humint.digital**.
+
 Senza configurare nulla il sistema funziona in **modalità dimostrativa**: le reazioni sono calcolate con regole trasparenti (vedi [docs/METODO.md](docs/METODO.md)).
 
 ### Con un modello linguistico (consigliato)
